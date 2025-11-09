@@ -303,10 +303,10 @@
                 <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="../../categories/CTF比赛/" target="_blank" >CTF比赛</a>
+                         <a href="../../categories/CTF练习/" target="_blank" >CTF练习</a>
                     
                 </div>
-                <p>2025-11-05 09:36:58</p>
+                <p>2025-11-20 09:36:58</p>
             </div>
         </div>
     </div>
@@ -316,7 +316,39 @@
   <div id="article" class="post-content-info">
     
 
-    <h1 id="moectf-2025-pwn-wp"><a href="#moectf-2025-pwn-wp" class="headerlink" title="moectf 2025 pwn wp"></a>moectf 2025 pwn wp</h1>
+    <h1 id="moectf-2025-pwn-wp"><a href="#moectf-2025-pwn-wp" class="headerlink" title="moectf 2025 pwn wp"></a>moectf 2025 pwn wp</h1><p>文章中主要提供解题思路，详细代码见<a target="_blank" rel="noopener" href="https://github.com/RamBree/moectf-2025">github仓库</a></p>
+<h2 id="syslock"><a href="#syslock" class="headerlink" title="syslock"></a>syslock</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">Arch<span class="token punctuation">:</span>       amd64<span class="token operator">-</span><span class="token number">64</span><span class="token operator">-</span>little
+RELRO<span class="token punctuation">:</span>      Partial RELRO
+Stack<span class="token punctuation">:</span>      No canary found
+NX<span class="token punctuation">:</span>         NX enabled
+PIE<span class="token punctuation">:</span>        No PIE <span class="token punctuation">(</span><span class="token number">0x400000</span><span class="token punctuation">)</span>
+SHSTK<span class="token punctuation">:</span>      Enabled
+IBT<span class="token punctuation">:</span>        Enabled
+Stripped<span class="token punctuation">:</span>   No<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>关键源码</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">i <span class="token operator">=</span> <span class="token function">input</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span> i <span class="token operator">></span> <span class="token number">4</span> <span class="token punctuation">)</span>
+  <span class="token function">lose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">write</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"Input your password\n"</span><span class="token punctuation">,</span> <span class="token number">0x14u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>s <span class="token operator">+</span> i<span class="token punctuation">,</span> <span class="token number">0xCu</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span> i <span class="token operator">!=</span> <span class="token number">59</span> <span class="token punctuation">)</span>
+  <span class="token function">lose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">cheat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>i在收到一个输入之后，会判断这个值是否大于4，然后又在<code>s+i</code>位置写入，只要<code>i==59</code>就能进入<code>cheat()</code>函数。我们观察bss段，发现s和i只隔了<code>0x20</code>，刚好是在s的反方向可以通过第一个绕过。所以我们输入<code>-32</code>，并将i的值修改为<code>59</code>，就能够进入<code>cheat()</code>。</p>
+<p><img src="/2025/11/20/moectf-2025-pwn/image-20251109134921048.png" alt="image-20251109134921048"></p>
+<p>cheat()是一个栈溢出。然后思考怎么利用，这题没有bin&#x2F;sh的字符串，思考为ret2libc，但是题目又没有给libc，说明有其他的解法。仔细观察上面的s字符串，写入的时候限制长度为<code>0xC</code>,我们完全可以将<code>/bin/sh</code>写入，构造<code>ret2systcall</code></p>
+<ol>
+<li>把系统调用（64位为3B，59其实也提醒了我们）的编号存入<strong>RAX</strong></li>
+<li>把函数参数存入其它通用寄存器（第一 、 二 、 三参数分别在 rdi 、rsi 、rdx中储存）bin&#x2F;sh的地址就存在<code>0x404084</code></li>
+<li>触发中断（<strong>int 0x80</strong>，<strong>syscall</strong>）</li>
+</ol>
+<p>使用ROPgadget寻找，发现正好有送参数的找到之后，将参数送进去即可</p>
+<p><img src="/2025/11/20/moectf-2025-pwn/image-20251109141559862.png" alt="image-20251109141559862"></p>
+<p><img src="/2025/11/20/moectf-2025-pwn/image-20251109141926270.png" alt="image-20251109141926270"></p>
+<p><img src="/2025/11/20/moectf-2025-pwn/image-20251109143358244.png" alt="image-20251109143358244"></p>
+
   </div>
   <div id=""></div>
 </div>
@@ -376,19 +408,12 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 
     <div class="post-paging">
     
-    <a href="/2025/11/06/seedlab3/">
-        <div class="post-paging-last">
-            <span>上一篇</span>
-            <p>Format String Attack Lab</p>
-        </div>
-    </a>
-    
 
     
-    <a href="/2025/11/04/seedlab2/">
+    <a href="/2025/11/06/seedlab3/">
         <div class="post-paging-next">
             <span>下一篇</span>
-            <p>Return-to-libc Attack Lab</p>
+            <p>Format String Attack Lab</p>
         </div>
     </a>
     
