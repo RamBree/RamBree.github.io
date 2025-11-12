@@ -348,6 +348,82 @@ Stripped<span class="token punctuation">:</span>   No<span aria-hidden="true" cl
 <p><img src="/2025/11/20/moectf-2025-pwn/image-20251109141559862.png" alt="image-20251109141559862"></p>
 <p><img src="/2025/11/20/moectf-2025-pwn/image-20251109141926270.png" alt="image-20251109141926270"></p>
 <p><img src="/2025/11/20/moectf-2025-pwn/image-20251109143358244.png" alt="image-20251109143358244"></p>
+<h2 id="xdulacker"><a href="#xdulacker" class="headerlink" title="xdulacker"></a>xdulacker</h2><p><img src="/2025/11/20/moectf-2025-pwn/image-20251111163652702.png" alt="image-20251111163652702"></p>
+<p>这道题目开了PIE，但是没有栈溢出保护。</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">main</span></span>
+<span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> envp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">menu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token number">1</span> <span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token number">1</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">putchar</span><span class="token punctuation">(</span><span class="token number">62</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">__isoc99_scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>opt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> opt <span class="token operator">!=</span> <span class="token number">1</span> <span class="token punctuation">)</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token function">pull</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> opt <span class="token operator">==</span> <span class="token number">2</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">photo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">else</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> opt <span class="token operator">!=</span> <span class="token number">3</span> <span class="token punctuation">)</span>
+      <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">laker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>菜单会给你三个选项，然后第三个函数<code>lacker</code>是一个栈溢出，然后还有后门函数，所以考虑利用栈溢出来返回到后门。</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">ssize_t</span> <span class="token function">laker</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  _BYTE s1<span class="token punctuation">[</span><span class="token number">48</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [rsp+0h] [rbp-30h] BYREF</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">memcmp</span><span class="token punctuation">(</span>s1<span class="token punctuation">,</span> <span class="token string">"xdulaker"</span><span class="token punctuation">,</span> <span class="token number">8u</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"You are not him."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"welcome,xdulaker"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> s1<span class="token punctuation">,</span> <span class="token number">0x100u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这个函数用了未初始化的栈空间。而<code>photo函数</code>也是对栈空间进行写，所以可以利用未清理的栈空间来对这个s1赋值。计算一下偏移是32，所以就调用<code>photo</code>将特定值赋值，然后这时候不会被清理，再次调用laker就可以绕过验证了。</p>
+<p>同时因为开了PIE，所以要计算后门函数的地址，正好<code>pull函数</code>给我泄露了地址，计算一下偏移就可以得到后门函数的地址。为了避免栈对齐，可以跳过<code>push rbp</code>跳转到后门</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">photo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  _BYTE buf<span class="token punctuation">[</span><span class="token number">80</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [rsp+0h] [rbp-50h] BYREF</span>
+
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Hey,what's your name?!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> buf<span class="token punctuation">,</span> <span class="token number">0x40u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"I will teach you a lesson."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">pull</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Thanks,I'll give you a gift:%p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>opt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="ezlibc"><a href="#ezlibc" class="headerlink" title="ezlibc"></a>ezlibc</h2><p>libc模版题</p>
+<p><img src="/2025/11/20/moectf-2025-pwn/image-20251111184123955.png" alt="image-20251111184123955"></p>
+<p>代码很简单，main函数里面泄露了read函数的地址，vuln是一个简单的栈溢出，我们利用泄露的地址构造下payload即可。</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> __fastcall <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token function">setbuf</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"What is this?\nHow can I use %p without a backdoor? Damn!\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>read<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Something happening"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token class-name">ssize_t</span> <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  _BYTE buf<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [rsp+0h] [rbp-20h] BYREF</span>
+
+  <span class="token keyword">return</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> buf<span class="token punctuation">,</span> <span class="token number">0x60u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
   </div>
   <div id=""></div>
