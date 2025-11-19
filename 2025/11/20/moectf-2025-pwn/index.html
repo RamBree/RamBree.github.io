@@ -431,8 +431,14 @@ Stripped<span class="token punctuation">:</span>   No<span aria-hidden="true" cl
 
 <p>看了一下好像不太对。官方题解下面是这么说的。简单来说在动态连接这个过程中，最开始泄露的地址并非是read的真实地址，而且是plt中的指令地址。可以参考一篇博客<a target="_blank" rel="noopener" href="https://starrysky1004.github.io/2024/09/26/linux-yan-chi-bang-ding-ji-zhi-guo-cheng/linux-yan-chi-bang-ding-ji-zhi-guo-cheng/">Linux延迟绑定机制过程</a>。</p>
 <blockquote>
-<p>这个题，在最开始的时候，我给你打印了read在got中的地址，这个题的初衷是希望大家对于动态链接和延迟绑定能有一个更好的理解，最开始got中read的表项填写的是read函数plt中的一条指令的地址，当第一次调用read之后，完成了地址解析，此时got中的地址就变成了read函数在libc中的真实地址，此时就可以完成libc地址的泄露，很多同学在做的时候，出现的一个坑是，他们知道要重新执行一次这个printf，但是他们返回错地方了，在printf调用之前，有好几条指令都是在完成参数的装载，而他们返回到了装载指令之后，导致参数出现问题，出现了地址泄露不稳定等一系列的问题，希望大家注意这一点。</p>
+<p>这个题，在最开始的时候，我给你打印了read在got中的地址，这个题的初衷是希望大家对于动态链接和延迟绑定能有一个更好的理解，最开始got中read的表项填写的是read函数plt中的一条指令的地址，当第一次调用read之后，完成了地址解析，此时got中的地址就变成了read函数在libc中的真实地址，此时就可以完成libc地址的泄露，很多同学在做的时候，<strong>出现的一个坑是</strong>，他们知道要重新执行一次这个printf，但是他们返回错地方了，在printf调用之前，有好几条指令都是在完成参数的装载，而他们返回到了装载指令之后，导致参数出现问题，出现了地址泄露不稳定等一系列的问题，希望大家注意这一点。</p>
 </blockquote>
+<p>理解这个延迟绑定的过程之后，可以知道最开始打印的read函数的地址是，0x1060这个地址。根据这个就可以算出偏移，再返回到main函数再次泄露read地址。从而泄露libc的地址。</p>
+<p>注意第一次执行返回地址时候有一个坑。</p>
+<p><img src="/2025/11/20/moectf-2025-pwn/image-20251118165739848.png" alt="image-20251118165739848"></p>
+<p>没有找到rdi，还可以在libc里面找。</p>
+<p><img src="/2025/11/20/moectf-2025-pwn/image-20251118172240066.png" alt="image-20251118172240066"></p>
+<p><img src="/2025/11/20/moectf-2025-pwn/image-20251118172347943.png" alt="image-20251118172347943"></p>
 
   </div>
   <div id=""></div>
