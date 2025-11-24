@@ -329,54 +329,54 @@
 <p>2.设置一个环境变量rwb&#x3D;111，查看输出。取消这个环境变量。</p>
 <p><img src="/2025/11/02/seedlab1/image.png" alt="image.png"></p>
 <h2 id="Task-2-Passing-Environment-Variables-from-Parent-Process-to-Child-Process"><a href="#Task-2-Passing-Environment-Variables-from-Parent-Process-to-Child-Process" class="headerlink" title="Task 2: Passing Environment Variables from Parent Process to Child Process"></a><strong>Task 2: Passing Environment Variables from Parent Process to Child Process</strong></h2><p>task2的代码如下。首先输出子进程的环境。</p>
-<p><img src="/image%201.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image1.png" alt="image.png"></p>
 <p><img src="/2025/11/02/seedlab1/7928e676-2c01-46e5-a200-d73ff9642bd2.png" alt="image.png"></p>
 <p>修改代码。输出父进程的环境。</p>
-<p><img src="/image%202.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image2.png" alt="image.png"></p>
 <p><img src="/2025/11/02/seedlab1/98bbf7e7-0cd3-43e0-9ec6-29964bcb2a41.png" alt="image.png"></p>
 <p>diff两个输出文件，发现没有区别。fork()是创建进程函数。程序一旦开始运行，就会产生一个进程，当执行到 fork()时，就会创建一个子进程。此时父进程和子进程是共存的，它们会一起向下执行程序的代码。通过修改 printenv 的执行位置，构造出 child1（子进程的环境变量）和 child2（父进程的环境变量） 。可以明确的是，子进程会继承父进程的环境变量。</p>
-<p><img src="/image%203.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image3.png" alt="image.png"></p>
 <h2 id="Task-3-Environment-Variables-and-execve"><a href="#Task-3-Environment-Variables-and-execve" class="headerlink" title="Task 3: Environment Variables and execve()"></a><strong>Task 3: Environment Variables and</strong> execve()</h2><p>程序如图所示，发现没有打印环境。</p>
-<p><img src="/image%204.png" alt="image.png"></p>
-<p><img src="/image%205.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image4.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image5.png" alt="image.png"></p>
 <p>更改代码之后结果如下。</p>
-<p><img src="/image%206.png" alt="image.png"></p>
-<p><img src="/image%207.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image6.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image7.png" alt="image.png"></p>
 <p>execve()函数接收三个参数：1.执行程序的路径；2.调用程序执行的参数序列；3.传入新程序的环境变量。若成功不返回，失败返回-1。前者第三个参数传递的是NULL，所以打印为空。后者传递了外部环境变量数据给新程序，因此打印出了当前环境变量。</p>
 <h2 id="Task-4-Environment-Variables-and-system"><a href="#Task-4-Environment-Variables-and-system" class="headerlink" title="Task 4: Environment Variables and system()"></a><strong>Task 4: Environment Variables and</strong> system()</h2><p>task4的代码如下。</p>
-<p><img src="/image%208.png" alt="image.png"></p>
-<p><img src="/image%209.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image8.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image9.png" alt="image.png"></p>
 <p>system() 函数的实现，可以发现它使用 execl() 来执行 &#x2F;bin&#x2F;sh，execl() 会调用 execve() ，同时将环境变量传递给这个系统调用。因此，使用 system() 时，调用进程的环境变量会传递给新程序 &#x2F;bin&#x2F;sh。</p>
 <h2 id="Task-5-Environment-Variable-and-Set-UID-Programs"><a href="#Task-5-Environment-Variable-and-Set-UID-Programs" class="headerlink" title="Task 5: Environment Variable and Set-UID Programs"></a><strong>Task 5: Environment Variable and</strong> Set-UID <strong>Programs</strong></h2><p>task5的代码如下。</p>
-<p><img src="/image%2010.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image10.png" alt="image.png"></p>
 <p>将程序编程setuid程序。并修改环境变量。</p>
-<p><img src="/image%2011.png" alt="image.png"></p>
-<p><img src="/image%2012.png" alt="image.png"></p>
-<p><img src="/image%2013.png" alt="image.png"></p>
-<p><img src="/image%2014.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image11.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image12.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image13.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image14.png" alt="image.png"></p>
 <p>运行程序后可以看到 PATH 和rwb下有export 进去的.&#x2F;program ，但是LD_LIBRARY_PATH并没有显示出来。</p>
 <h2 id="Task-6-The-PATH-Environment-Variable-and-Set-UID-Programs"><a href="#Task-6-The-PATH-Environment-Variable-and-Set-UID-Programs" class="headerlink" title="Task 6: The PATH Environment Variable and Set-UID Programs"></a><strong>Task 6: The PATH Environment Variable and</strong> Set-UID <strong>Programs</strong></h2><p>task6的代码如下。</p>
 <p>首先不改变环境变量，显示正常，调用了&#x2F;bin&#x2F;ls。</p>
-<p><img src="/image%2015.png" alt="image.png"></p>
-<p><img src="/image%2016.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image15.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image16.png" alt="image.png"></p>
 <p>写一个ls程序，同时修改环境变量。发现执行的程序是我们自己的ls程序。ls.c的程序如下。</p>
-<p><img src="/image%2017.png" alt="image.png"></p>
-<p><img src="/image%2018.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image17.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image18.png" alt="image.png"></p>
 <h2 id="Task-7-The-LD-PRELOAD-Environment-Variable-and-Set-UID-Programs"><a href="#Task-7-The-LD-PRELOAD-Environment-Variable-and-Set-UID-Programs" class="headerlink" title="Task 7: The LD PRELOAD Environment Variable and Set-UID Programs"></a>Task 7: The LD PRELOAD <strong>Environment Variable and</strong> Set-UID <strong>Programs</strong></h2><p><em>这个实验在macos上没有做出来，又换了ubuntu虚拟机做了。</em></p>
 <p>mylic.c和myprog.c代码如下。</p>
-<p><img src="/image%2019.png" alt="image.png"></p>
-<p><img src="/image%2020.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image19.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image20.png" alt="image.png"></p>
 <p>编译程序，并设置LD_PRELOAD环境变量。</p>
-<p><img src="/image%2021.png" alt="image.png"></p>
-<h3 id="1-myproc为普通程序，并以普通用户运行"><a href="#1-myproc为普通程序，并以普通用户运行" class="headerlink" title="1.myproc为普通程序，并以普通用户运行"></a>1.myproc为普通程序，并以普通用户运行</h3><p><img src="/image%2022.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image21.png" alt="image.png"></p>
+<h3 id="1-myproc为普通程序，并以普通用户运行"><a href="#1-myproc为普通程序，并以普通用户运行" class="headerlink" title="1.myproc为普通程序，并以普通用户运行"></a>1.myproc为普通程序，并以普通用户运行</h3><p><img src="/2025/11/02/seedlab1/image22.png" alt="image.png"></p>
 <p>会执行我们库中的sleep。</p>
-<h3 id="2-myprog-设置为-Set-UID-root-程序，并以普通用户运行"><a href="#2-myprog-设置为-Set-UID-root-程序，并以普通用户运行" class="headerlink" title="2.myprog 设置为 Set-UID root 程序，并以普通用户运行"></a>2.myprog 设置为 Set-UID root 程序，并以普通用户运行</h3><p><img src="/image%2023.png" alt="image.png"></p>
+<h3 id="2-myprog-设置为-Set-UID-root-程序，并以普通用户运行"><a href="#2-myprog-设置为-Set-UID-root-程序，并以普通用户运行" class="headerlink" title="2.myprog 设置为 Set-UID root 程序，并以普通用户运行"></a>2.myprog 设置为 Set-UID root 程序，并以普通用户运行</h3><p><img src="/2025/11/02/seedlab1/image23.png" alt="image.png"></p>
 <p>sleep 1秒。</p>
-<h3 id="3-myprog-设置为-Set-UID-root-程序，在-root-账户中设置-LD-PRELOAD-环境变量后运行该程序。"><a href="#3-myprog-设置为-Set-UID-root-程序，在-root-账户中设置-LD-PRELOAD-环境变量后运行该程序。" class="headerlink" title="3.myprog 设置为 Set-UID root 程序，在 root 账户中设置 LD_PRELOAD 环境变量后运行该程序。"></a>3.myprog 设置为 Set-UID root 程序，在 root 账户中设置 LD_PRELOAD 环境变量后运行该程序。</h3><p><img src="/image%2024.png" alt="image.png"></p>
+<h3 id="3-myprog-设置为-Set-UID-root-程序，在-root-账户中设置-LD-PRELOAD-环境变量后运行该程序。"><a href="#3-myprog-设置为-Set-UID-root-程序，在-root-账户中设置-LD-PRELOAD-环境变量后运行该程序。" class="headerlink" title="3.myprog 设置为 Set-UID root 程序，在 root 账户中设置 LD_PRELOAD 环境变量后运行该程序。"></a>3.myprog 设置为 Set-UID root 程序，在 root 账户中设置 LD_PRELOAD 环境变量后运行该程序。</h3><p><img src="/2025/11/02/seedlab1/image24.png" alt="image.png"></p>
 <p>会执行我们库中的sleep。</p>
 <h3 id="4-myprog-设置为-Set-UID-user1-程序，在-user2中设置-LD-PRELOAD-环境变量后运行该程序。"><a href="#4-myprog-设置为-Set-UID-user1-程序，在-user2中设置-LD-PRELOAD-环境变量后运行该程序。" class="headerlink" title="4.myprog 设置为 Set-UID user1 程序，在 user2中设置 LD_PRELOAD 环境变量后运行该程序。"></a>4.myprog 设置为 Set-UID user1 程序，在 user2中设置 LD_PRELOAD 环境变量后运行该程序。</h3><p>添加一个user1，然后用rwb用户去实执行这个程序。</p>
-<p><img src="/image%2025.png" alt="image.png"></p>
-<p><img src="/image%2026.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image25.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image26.png" alt="image.png"></p>
 <p>sleep 1秒。</p>
 <p>主要原因：<strong>动态链接器的保护机制。</strong></p>
 <p>当运行进程的真实用户ID与程序的拥有者的用户ID不一致时，进程会忽略掉LD_PRELOAD环境变量。只有用户自己创建的程序自己去运行，才会使用LD_PRELOAD环境变量，重载sleep函数，否则的话会忽略LD_PRELOAD环境变量，不会重载sleep函数。</p>
@@ -387,29 +387,29 @@
 <li>myprog为Set-UID user1程序，在seed用户下执行也会遇到ID不一致，所以忽略环境变量，正常执行sleep函数。</li>
 </ol>
 <h2 id="Task-8-Invoking-External-Programs-Using-system-versus-execve"><a href="#Task-8-Invoking-External-Programs-Using-system-versus-execve" class="headerlink" title="Task 8: Invoking External Programs Using system() versus execve()"></a><strong>Task 8: Invoking External Programs Using</strong> system() <strong>versus</strong> execve()</h2><p>catall.c如图所示。</p>
-<p><img src="/image%2027.png" alt="image.png"></p>
-<p><img src="/image%2028.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image27.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image28.png" alt="image.png"></p>
 <p>&#x2F;bin&#x2F;bash 有某种内在的保护机制可以阻止 Set-UID 机制的滥用，为了能够体验这种内在的保护级制出现之前的情形，我们打算使用另外一种 shell 程序——&#x2F;bin&#x2F;zsh。在一些linux 的发行版中（Ubuntu）， &#x2F;bin&#x2F;sh 实际上是&#x2F;bin&#x2F;bash 的符号链接。为了使用zsh，我们需要把&#x2F;bin&#x2F;sh链接到&#x2F;bin&#x2F;zsh。</p>
-<p><img src="/image%2029.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image29.png" alt="image.png"></p>
 <p>在root下面创建了一个a.txt，然后在rwb下删除这个文件，发现并没有权限给删除掉。</p>
-<p><img src="/image%2030.png" alt="image.png"></p>
-<p><img src="/image%2031.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image30.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image31.png" alt="image.png"></p>
 <p>利用system删除掉a.txt。</p>
 <p><img src="/2025/11/02/seedlab1/a7acc847-f303-4513-9259-48f1fafef4ce.png" alt="image.png"></p>
 <p>注释掉system，取消注释execve。然后编译将其设置为setuid程序。</p>
-<p><img src="/image%2032.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image32.png" alt="image.png"></p>
 <p>使用system()可以成功删除不可写文件，是因为system会创建一个子进程，然后子进程会调用一个新的shell程序，而且因为task8是一个Set-UID根程序，所以在执行时会以root权限执行删除文件的命令，可以成功删除。</p>
 <p>使用execve()不可以成功删除不可写文件，因为execve会执行一个新程序，而不会调用新的shell程序，所以将我们输入的参数仅仅当成一个字符串，不会执行命令，所以不能删除不可写文件</p>
-<p><img src="/image%2033.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image33.png" alt="image.png"></p>
 <h2 id="Task-9-Capability-Leaking"><a href="#Task-9-Capability-Leaking" class="headerlink" title="Task 9: Capability Leaking"></a><strong>Task 9: Capability Leaking</strong></h2><p>cap_leak.c如图所示。</p>
-<p><img src="/image%2034.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image34.png" alt="image.png"></p>
 <p>创建root用户所有权限为0644的zzz文件。</p>
-<p><img src="/image%2035.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image35.png" alt="image.png"></p>
 <p>修改文件位置</p>
-<p><img src="/image%2036.png" alt="image.png"></p>
-<p><img src="/image%2037.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image36.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image37.png" alt="image.png"></p>
 <p>发现已经写入。</p>
-<p><img src="/image%2038.png" alt="image.png"></p>
+<p><img src="/2025/11/02/seedlab1/image38.png" alt="image.png"></p>
 <p>运行Set-UID程序时，进程暂时获得root权限，打开zzz文件时，获得了root权限下的读写文件、向文件中添加内容的权限，当使用setuid()释放root权限时，没有释放进程已经获得的特权功能—读写文件、向文件中添加内容；导致仅仅是将程序的拥有者降为非root用户，然后进程还拥有root权限下的读写文件、向文件中添加内容的功能，所以造成了权限泄露的问题，当执行fork创建子进程后在子进程中返回0，父进程中返回子进程的PID，父进程打开文件etc&#x2F;zzz后，子进程不是直接修改文件&#x2F;etc&#x2F;zzz，而是修改了缓冲区中的文字，即在setuid之前，zzz文件就已经被打开了，只要将语句setuid(getuid())移至调用open函数之前，就可以避免。</p>
 <h1 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h1><p>本次的实验集中在setuid程序和环境变量两个部分。通过实验，我更加深入理解了setuid程序是怎么样去执行了，同时理解了环境变量在程序执行的时候扮演着怎么样的角色。整体实验不算难，也相当于是抛砖引玉，未来可以深入学习类似的一些程序。</p>
 

@@ -307,7 +307,7 @@
                          <a href="/categories/CTF练习" target="_blank" >CTF练习</a>
                     
                 </div>
-                <p>2025-11-20 09:36:58</p>
+                <p>2025-12-01 09:36:58</p>
             </div>
         </div>
     </div>
@@ -343,7 +343,7 @@ Stripped<span class="token punctuation">:</span>   No<span aria-hidden="true" cl
 <span class="token function">cheat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>i在收到一个输入之后，会判断这个值是否大于4，然后又在<code>s+i</code>位置写入，只要<code>i==59</code>就能进入<code>cheat()</code>函数。我们观察bss段，发现s和i只隔了<code>0x20</code>，刚好是在s的反方向可以通过第一个绕过。所以我们输入<code>-32</code>，并将i的值修改为<code>59</code>，就能够进入<code>cheat()</code>。</p>
-<p><img src="/2025/11/20/moectf-2025-pwn/image-20251109134921048.png" alt="image-20251109134921048"></p>
+<p><img src="/2025/12/01/moectf-2025-pwn/image-20251109134921048.png" alt="image-20251109134921048"></p>
 <p>cheat()是一个栈溢出。然后思考怎么利用，这题没有bin&#x2F;sh的字符串，思考为ret2libc，但是题目又没有给libc，说明有其他的解法。仔细观察上面的s字符串，写入的时候限制长度为<code>0xC</code>,我们完全可以将<code>/bin/sh</code>写入，构造<code>ret2systcall</code></p>
 <ol>
 <li>把系统调用（64位为3B，59其实也提醒了我们）的编号存入<strong>RAX</strong></li>
@@ -351,10 +351,10 @@ Stripped<span class="token punctuation">:</span>   No<span aria-hidden="true" cl
 <li>触发中断（<strong>int 0x80</strong>，<strong>syscall</strong>）</li>
 </ol>
 <p>使用ROPgadget寻找，发现正好有送参数的找到之后，将参数送进去即可</p>
-<p><img src="/2025/11/20/moectf-2025-pwn/image-20251109141559862.png" alt="image-20251109141559862"></p>
-<p><img src="/2025/11/20/moectf-2025-pwn/image-20251109141926270.png" alt="image-20251109141926270"></p>
-<p><img src="/2025/11/20/moectf-2025-pwn/image-20251109143358244.png" alt="image-20251109143358244"></p>
-<h2 id="xdulacker"><a href="#xdulacker" class="headerlink" title="xdulacker"></a>xdulacker</h2><p><img src="/2025/11/20/moectf-2025-pwn/image-20251111163652702.png" alt="image-20251111163652702"></p>
+<p><img src="/2025/12/01/moectf-2025-pwn/image-20251109141559862.png" alt="image-20251109141559862"></p>
+<p><img src="/2025/12/01/moectf-2025-pwn/image-20251109141926270.png" alt="image-20251109141926270"></p>
+<p><img src="/2025/12/01/moectf-2025-pwn/image-20251109143358244.png" alt="image-20251109143358244"></p>
+<h2 id="xdulacker"><a href="#xdulacker" class="headerlink" title="xdulacker"></a>xdulacker</h2><p><img src="/2025/12/01/moectf-2025-pwn/image-20251111163652702.png" alt="image-20251111163652702"></p>
 <p>这道题目开了PIE，但是没有栈溢出保护。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">main</span></span>
 <span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> envp<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -411,7 +411,7 @@ Stripped<span class="token punctuation">:</span>   No<span aria-hidden="true" cl
   <span class="token keyword">return</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Thanks,I'll give you a gift:%p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>opt<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="ezlibc"><a href="#ezlibc" class="headerlink" title="ezlibc"></a>ezlibc</h2><p><img src="/2025/11/20/moectf-2025-pwn/image-20251111184123955.png" alt="image-20251111184123955"></p>
+<h2 id="ezlibc"><a href="#ezlibc" class="headerlink" title="ezlibc"></a>ezlibc</h2><p><img src="/2025/12/01/moectf-2025-pwn/image-20251111184123955.png" alt="image-20251111184123955"></p>
 <p>代码很简单，main函数里面泄露了read函数的地址，vuln是一个简单的栈溢出，我们利用泄露的地址构造下payload即可。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> __fastcall <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
@@ -435,10 +435,10 @@ Stripped<span class="token punctuation">:</span>   No<span aria-hidden="true" cl
 </blockquote>
 <p>理解这个延迟绑定的过程之后，可以知道最开始打印的read函数的地址是，0x1060这个地址。根据这个就可以算出偏移，再返回到main函数再次泄露read地址。从而泄露libc的地址。</p>
 <p>注意第一次执行返回地址时候有一个坑。</p>
-<p><img src="/2025/11/20/moectf-2025-pwn/image-20251118165739848.png" alt="image-20251118165739848"></p>
+<p><img src="/2025/12/01/moectf-2025-pwn/image-20251118165739848.png" alt="image-20251118165739848"></p>
 <p>没有找到rdi，还可以在libc里面找。</p>
-<p><img src="/2025/11/20/moectf-2025-pwn/image-20251118172240066.png" alt="image-20251118172240066"></p>
-<p><img src="/2025/11/20/moectf-2025-pwn/image-20251118172347943.png" alt="image-20251118172347943"></p>
+<p><img src="/2025/12/01/moectf-2025-pwn/image-20251118172240066.png" alt="image-20251118172240066"></p>
+<p><img src="/2025/12/01/moectf-2025-pwn/image-20251118172347943.png" alt="image-20251118172347943"></p>
 
   </div>
   <div id=""></div>
@@ -501,7 +501,7 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
     
 
     
-    <a href="/2025/11/19/seedlab8/">
+    <a href="/2025/11/24/seedlab8/">
         <div class="post-paging-next">
             <span>下一篇</span>
             <p>The Kaminsky Attack Lab</p>
