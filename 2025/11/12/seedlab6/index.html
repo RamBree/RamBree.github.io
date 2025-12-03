@@ -410,7 +410,7 @@ pkt<span class="token operator">=</span>sniff<span class="token punctuation">(</
 
 <p>运行程序之前，受害者主机测试，前两个ip主机ping不通，最后一个ip能够ping通。</p>
 <p><img src="/2025/11/12/seedlab6/image-20251113165657803.png" alt="image-20251113165657803"></p>
-<p>启动程序之后发现<code>1.2.3.4</code> 能够ping通，程序成功拦截并返回。位于LAN上的IP <code>10.9.0.99</code>，程序无法拦截，这是因为我们监听的网卡端口的问题，并没有监听到其内部发送的ICMP报文。<code>8.8.8.8</code>能够ping通，由于真实的服务器也会返回一个报文，所以容器中会接收到两份返回报文出现冗余。</p>
+<p>启动程序之后发现<code>1.2.3.4</code> 能够ping通，程序成功拦截并返回。位于LAN上的IP <code>10.9.0.99</code>，程序无法拦截，是因为它会发送ARP报文，但是程序没办法捕捉。<code>8.8.8.8</code>能够ping通，由于真实的服务器也会返回一个报文，所以容器中会接收到两份返回报文出现冗余。</p>
 <p><img src="/2025/11/12/seedlab6/image-20251113170017862.png" alt="image-20251113170017862"></p>
 <p>由于我们拦截了协议报文，受害者主机的IP router被我们修改了。</p>
 <p><img src="/2025/11/12/seedlab6/image-20251113170321479.png" alt="image-20251113170321479"></p>
