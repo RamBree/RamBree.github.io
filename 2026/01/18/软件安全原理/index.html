@@ -318,9 +318,8 @@
     
 
     <h1 id="软件安全原理期末复习"><a href="#软件安全原理期末复习" class="headerlink" title="软件安全原理期末复习"></a>软件安全原理期末复习</h1><blockquote>
-<p><strong>考试信息</strong>：选择（25个2分，来自于课件，不会直白来源课件）、简答题（4个5分，按点给分）、代码分析（5个题目6分，漏洞模式，说出这是什么漏洞，改对重构，全是c语言，明确有CWE类型）</p>
+<p><strong>考试信息</strong>：选择（25个2分，来自于课件，不会直白来源课件）、简答题（4个5分，按点给分）、代码分析（5个6分，漏洞模式，说出这是什么漏洞，改对并重构，c语言，有明确的CWE类型）</p>
 </blockquote>
-<p>课程大纲</p>
 <p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118162837226.png" alt="image-20260118162837226"></p>
 <h2 id="第一章-软件与网络空间"><a href="#第一章-软件与网络空间" class="headerlink" title="第一章 软件与网络空间"></a>第一章 软件与网络空间</h2><p>按版权分类：自由软件、开源软件、免费软件</p>
 <p><strong>软件</strong>：是用户与硬件之间的接口，用户通过软件与计算机交流。软件包括程序、数据和文档。</p>
@@ -769,7 +768,7 @@
 <p>软件供应链安全生态体系：国家主管部分，软件用户单位，软件开发集成商、软件安全专业团队</p>
 <p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118170021733.png" alt="image-20260118170021733"></p>
 <h1 id="常见漏洞模式"><a href="#常见漏洞模式" class="headerlink" title="常见漏洞模式"></a>常见漏洞模式</h1><p>课件中提及的漏洞类型</p>
-<h2 id="CWE-476-空指针解引用（NULL-Pointer-Dereference）"><a href="#CWE-476-空指针解引用（NULL-Pointer-Dereference）" class="headerlink" title="CWE-476 空指针解引用（NULL Pointer Dereference）"></a>CWE-476 空指针解引用（NULL Pointer Dereference）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-476-Diagram.png" alt="img"></p>
+<h2 id="CWE-476-NULL-Pointer-Dereference（空指针解引用）"><a href="#CWE-476-NULL-Pointer-Dereference（空指针解引用）" class="headerlink" title="CWE-476 NULL Pointer Dereference（空指针解引用）"></a>CWE-476 NULL Pointer Dereference（空指针解引用）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-476-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式"><a href="#①-典型代码模式" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">struct</span> <span class="token class-name">obj</span> <span class="token operator">*</span>o <span class="token operator">=</span> <span class="token function">get_obj</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 o<span class="token operator">-></span>field <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>   <span class="token comment">// o 可能为 NULL</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -779,7 +778,6 @@ o<span class="token operator">-></span>field <span class="token operator">=</spa
     <span class="token function">log_error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 未 return</span>
 p<span class="token operator">-></span>x <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="②-根因"><a href="#②-根因" class="headerlink" title="② 根因"></a>② 根因</h3><ul>
 <li>指针<strong>来源不可信</strong></li>
 <li>错误路径与正常路径未隔离</li>
@@ -801,7 +799,6 @@ p<span class="token operator">-></span>x <span class="token operator">=</span> <
 <li>错误路径是否<strong>立即返回</strong></li>
 <li>是否存在 “log 但继续执行”</li>
 </ul>
-<hr>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">host_lookup</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>user_supplied_addr<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
 <span class="token keyword">struct</span> <span class="token class-name">hostent</span> <span class="token operator">*</span>hp<span class="token punctuation">;</span>
 <span class="token class-name">in_addr_t</span> <span class="token operator">*</span>addr<span class="token punctuation">;</span>
@@ -817,7 +814,7 @@ hp <span class="token operator">=</span> <span class="token function">gethostbya
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>没有检查gethostbyaddr函数的返回值。可能会返回一个空指针。</p>
-<h2 id="CWE-416-释放后重用（Use-After-Free）"><a href="#CWE-416-释放后重用（Use-After-Free）" class="headerlink" title="CWE-416 释放后重用（Use After Free）"></a>CWE-416 释放后重用（Use After Free）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-416-Diagram.png" alt="img"></p>
+<h2 id="CWE-416-Use-After-Free（释放后重用）"><a href="#CWE-416-Use-After-Free（释放后重用）" class="headerlink" title="CWE-416 Use After Free（释放后重用）"></a>CWE-416 Use After Free（释放后重用）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-416-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-1"><a href="#①-典型代码模式-1" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">buf <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">free</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">process</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// UAF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -852,7 +849,6 @@ p <span class="token operator">=</span> <span class="token constant">NULL</span>
 <li>指针是否被复制（alias）</li>
 <li>refcount 是否匹配</li>
 </ul>
-<hr>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span><span class="token operator">*</span> ptr <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span> <span class="token punctuation">(</span>SIZE<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
 abrt <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
@@ -863,7 +859,7 @@ abrt <span class="token operator">=</span> <span class="token number">1</span><s
 <span class="token function">logError</span><span class="token punctuation">(</span><span class="token string">"operation aborted before commit"</span><span class="token punctuation">,</span> ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="CWE-415-双重释放（Double-Free）"><a href="#CWE-415-双重释放（Double-Free）" class="headerlink" title="CWE-415 双重释放（Double Free）"></a>CWE-415 双重释放（Double Free）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-415-Diagram.png" alt="img"></p>
+<h2 id="CWE-415-Double-Free（双重释放）"><a href="#CWE-415-Double-Free（双重释放）" class="headerlink" title="CWE-415 Double Free（双重释放）"></a>CWE-415 Double Free（双重释放）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-415-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-2"><a href="#①-典型代码模式-2" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span>
     <span class="token function">free</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
@@ -878,7 +874,6 @@ abrt <span class="token operator">=</span> <span class="token number">1</span><s
 err<span class="token operator">:</span>
 <span class="token function">free</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="②-根因-2"><a href="#②-根因-2" class="headerlink" title="② 根因"></a>② 根因</h3><ul>
 <li>错误路径未区分已释放状态</li>
 <li>缺乏资源状态机</li>
@@ -901,8 +896,7 @@ cleanup<span class="token operator">:</span>
 <li><code>goto err</code> 是否安全</li>
 <li>free 是否集中</li>
 </ul>
-<hr>
-<h2 id="CWE-843-Type-Confusion类型混淆"><a href="#CWE-843-Type-Confusion类型混淆" class="headerlink" title="CWE-843 Type Confusion类型混淆"></a>CWE-843 Type Confusion类型混淆</h2><h3 id="①-典型代码模式-3"><a href="#①-典型代码模式-3" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token operator">*</span>obj <span class="token operator">=</span> <span class="token function">get_object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h2 id="CWE-843-Type-Confusion（类型混淆）"><a href="#CWE-843-Type-Confusion（类型混淆）" class="headerlink" title="CWE-843 Type Confusion（类型混淆）"></a>CWE-843 Type Confusion（类型混淆）</h2><h3 id="①-典型代码模式-3"><a href="#①-典型代码模式-3" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token operator">*</span>obj <span class="token operator">=</span> <span class="token function">get_object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">struct</span> <span class="token class-name">B</span> <span class="token operator">*</span>b <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">B</span> <span class="token operator">*</span><span class="token punctuation">)</span>obj<span class="token punctuation">;</span>
 b<span class="token operator">-></span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 实际是 struct A</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
@@ -931,13 +925,11 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
 <h4 id="✅-C-方案"><a href="#✅-C-方案" class="headerlink" title="✅ C++ 方案"></a>✅ C++ 方案</h4><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">B <span class="token operator">*</span>b <span class="token operator">=</span> <span class="token generic-function"><span class="token function">dynamic_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>B<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>b<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="④-审计检查点-3"><a href="#④-审计检查点-3" class="headerlink" title="④ 审计检查点"></a>④ 审计检查点</h3><ul>
 <li><code>void *</code> → 强转是否安全</li>
 <li>是否存在 type field &#x2F; magic</li>
 <li>是否基于外部输入决定类型</li>
 </ul>
-<hr>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NAME_TYPE</span> <span class="token expression"><span class="token number">1</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ID_TYPE</span> <span class="token expression"><span class="token number">2</span></span></span>
 
@@ -969,29 +961,25 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="CWE-704-Incorrect-Type-Conversion-or-Cast不正确的类型转换"><a href="#CWE-704-Incorrect-Type-Conversion-or-Cast不正确的类型转换" class="headerlink" title="CWE-704 Incorrect Type Conversion or Cast不正确的类型转换"></a>CWE-704 <strong>Incorrect Type Conversion or Cast</strong>不正确的类型转换</h2><h3 id="①-典型代码模式-4"><a href="#①-典型代码模式-4" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token function">recv_len</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h2 id="CWE-704-Incorrect-Type-Conversion-or-Cast（不正确的类型转换）"><a href="#CWE-704-Incorrect-Type-Conversion-or-Cast（不正确的类型转换）" class="headerlink" title="CWE-704 Incorrect Type Conversion or Cast（不正确的类型转换）"></a>CWE-704 <strong>Incorrect Type Conversion or Cast</strong>（不正确的类型转换）</h2><h3 id="①-典型代码模式-4"><a href="#①-典型代码模式-4" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token function">recv_len</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token class-name">size_t</span> size <span class="token operator">=</span> len<span class="token punctuation">;</span>  <span class="token comment">// len &lt; 0</span>
 <span class="token function">malloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="②-根因-4"><a href="#②-根因-4" class="headerlink" title="② 根因"></a>② 根因</h3><ul>
 <li>隐式符号扩展</li>
 <li>忽略类型边界</li>
 </ul>
-<hr>
 <h3 id="③-修改方案-3"><a href="#③-修改方案-3" class="headerlink" title="③ 修改方案"></a>③ 修改方案</h3><h4 id="❌-Before-4"><a href="#❌-Before-4" class="headerlink" title="❌ Before"></a>❌ Before</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">size_t</span> size <span class="token operator">=</span> len<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h4 id="✅-After"><a href="#✅-After" class="headerlink" title="✅ After"></a>✅ After</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
     <span class="token keyword">return</span> <span class="token operator">-</span>EINVAL<span class="token punctuation">;</span>
 <span class="token class-name">size_t</span> size <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">size_t</span><span class="token punctuation">)</span>len<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="④-审计检查点-4"><a href="#④-审计检查点-4" class="headerlink" title="④ 审计检查点"></a>④ 审计检查点</h3><ul>
 <li>signed → unsigned</li>
 <li>size_t ← int</li>
 <li>隐式转换</li>
 </ul>
-<hr>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">unsigned</span> <span class="token keyword">int</span> <span class="token function">readdata</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">int</span> amount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
@@ -1001,34 +989,29 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>If the return value of accessmainframe() is -1, then the return value of readdata() will be 4,294,967,295 on a system that uses 32-bit integers.</p>
-<h2 id="CWE-911-Improper-Update-of-Reference-Count引用计数更新不当"><a href="#CWE-911-Improper-Update-of-Reference-Count引用计数更新不当" class="headerlink" title="CWE-911  Improper Update of Reference Count引用计数更新不当"></a>CWE-911  <strong>Improper Update of Reference Count</strong>引用计数更新不当</h2><h3 id="①-典型代码模式-5"><a href="#①-典型代码模式-5" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">obj<span class="token operator">-></span>refcnt<span class="token operator">--</span><span class="token punctuation">;</span>
+<h2 id="CWE-911-Improper-Update-of-Reference-Count（引用计数更新不当）"><a href="#CWE-911-Improper-Update-of-Reference-Count（引用计数更新不当）" class="headerlink" title="CWE-911  Improper Update of Reference Count（引用计数更新不当）"></a>CWE-911  <strong>Improper Update of Reference Count</strong>（引用计数更新不当）</h2><h3 id="①-典型代码模式-5"><a href="#①-典型代码模式-5" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">obj<span class="token operator">-></span>refcnt<span class="token operator">--</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span>obj<span class="token operator">-></span>refcnt <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
     <span class="token function">free</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="②-根因-5"><a href="#②-根因-5" class="headerlink" title="② 根因"></a>② 根因</h3><ul>
 <li>非原子操作</li>
 <li>refcnt 不对称</li>
 </ul>
-<hr>
 <h3 id="③-修改方案-4"><a href="#③-修改方案-4" class="headerlink" title="③ 修改方案"></a>③ 修改方案</h3><h4 id="❌-Before-5"><a href="#❌-Before-5" class="headerlink" title="❌ Before"></a>❌ Before</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c">obj<span class="token operator">-></span>refcnt<span class="token operator">++</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h4 id="✅-After（原子）"><a href="#✅-After（原子）" class="headerlink" title="✅ After（原子）"></a>✅ After（原子）</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">atomic_fetch_add</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>obj<span class="token operator">-></span>refcnt<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h4 id="✅-Linux-风格"><a href="#✅-Linux-风格" class="headerlink" title="✅ Linux 风格"></a>✅ Linux 风格</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">refcount_inc</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>obj<span class="token operator">-></span>refcnt<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<hr>
 <h3 id="④-审计检查点-5"><a href="#④-审计检查点-5" class="headerlink" title="④ 审计检查点"></a>④ 审计检查点</h3><ul>
 <li>inc &#x2F; dec 是否配对</li>
 <li>是否存在并发</li>
 <li>是否可能溢出</li>
 </ul>
-<hr>
-<h2 id="CWE-366-Race-Condition-within-a-Thread线程内竞态"><a href="#CWE-366-Race-Condition-within-a-Thread线程内竞态" class="headerlink" title="CWE-366 Race Condition within a Thread线程内竞态"></a>CWE-366 <strong>Race Condition within a Thread</strong>线程内竞态</h2><h3 id="①-典型代码模式-6"><a href="#①-典型代码模式-6" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span>obj<span class="token operator">-></span>valid<span class="token punctuation">)</span>
+<h2 id="CWE-366-Race-Condition-within-a-Thread（线程内竞态）"><a href="#CWE-366-Race-Condition-within-a-Thread（线程内竞态）" class="headerlink" title="CWE-366 Race Condition within a Thread（线程内竞态）"></a>CWE-366 <strong>Race Condition within a Thread</strong>（线程内竞态）</h2><h3 id="①-典型代码模式-6"><a href="#①-典型代码模式-6" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span>obj<span class="token operator">-></span>valid<span class="token punctuation">)</span>
     <span class="token function">use</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>中间可能被信号处理修改。</p>
-<hr>
 <h3 id="③-修改方案-5"><a href="#③-修改方案-5" class="headerlink" title="③ 修改方案"></a>③ 修改方案</h3><h4 id="❌-Before-6"><a href="#❌-Before-6" class="headerlink" title="❌ Before"></a>❌ Before</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span>flag<span class="token punctuation">)</span>
     <span class="token function">do_x</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -1036,12 +1019,10 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span>f<span class="token punctuation">)</span>
     <span class="token function">do_x</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="④-审计检查点-6"><a href="#④-审计检查点-6" class="headerlink" title="④ 审计检查点"></a>④ 审计检查点</h3><ul>
 <li>检查与使用是否分离</li>
 <li>回调 &#x2F; signal 是否可重入</li>
 </ul>
-<hr>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> foo <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> <span class="token function">storenum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">static</span> <span class="token keyword">int</span> counter <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -1051,11 +1032,10 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>全局变量foo的问题</p>
-<h2 id="CWE-367-TOCTOU条件竞争"><a href="#CWE-367-TOCTOU条件竞争" class="headerlink" title="CWE-367 TOCTOU条件竞争"></a>CWE-367 TOCTOU条件竞争</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-367-Diagram.png" alt="img"></p>
+<h2 id="CWE-367-TOCTOU（条件竞争）"><a href="#CWE-367-TOCTOU（条件竞争）" class="headerlink" title="CWE-367 TOCTOU（条件竞争）"></a>CWE-367 TOCTOU（条件竞争）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-367-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-7"><a href="#①-典型代码模式-7" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">access</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> W_OK<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
     fd <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> O_WRONLY<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="③-修改方案-6"><a href="#③-修改方案-6" class="headerlink" title="③ 修改方案"></a>③ 修改方案</h3><h4 id="❌-Before-7"><a href="#❌-Before-7" class="headerlink" title="❌ Before"></a>❌ Before</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">access</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">open</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -1065,13 +1045,11 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">fd <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> O_WRONLY<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">fstat</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>st<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="④-审计检查点-7"><a href="#④-审计检查点-7" class="headerlink" title="④ 审计检查点"></a>④ 审计检查点</h3><ul>
 <li>access + open</li>
 <li>stat + open</li>
 <li>路径型检查</li>
 </ul>
-<hr>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">struct</span> <span class="token class-name">stat</span> <span class="token operator">*</span>sb<span class="token punctuation">;</span>
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token function">lstat</span><span class="token punctuation">(</span><span class="token string">"..."</span><span class="token punctuation">,</span>sb<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// it has not been updated since the last time it was read</span>
@@ -1081,11 +1059,10 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
 <span class="token function">updateThings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>文件可能会在printf的时候更新。</p>
-<h2 id="CWE-125-Out-of-bounds-Read越界读"><a href="#CWE-125-Out-of-bounds-Read越界读" class="headerlink" title="CWE-125 Out-of-bounds Read越界读"></a>CWE-125 <strong>Out-of-bounds Read</strong>越界读</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-125-Diagram.png" alt="img"></p>
+<h2 id="CWE-125-Out-of-bounds-Read（越界读）"><a href="#CWE-125-Out-of-bounds-Read（越界读）" class="headerlink" title="CWE-125 Out-of-bounds Read（越界读）"></a>CWE-125 <strong>Out-of-bounds Read</strong>（越界读）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-125-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-8"><a href="#①-典型代码模式-8" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token function">read</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> buf<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// len > 8</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="③-修改方案-7"><a href="#③-修改方案-7" class="headerlink" title="③ 修改方案"></a>③ 修改方案</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">></span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">)</span>
     <span class="token keyword">return</span> <span class="token operator">-</span>EINVAL<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -1112,16 +1089,14 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
 <span class="token keyword">return</span> value<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="CWE-787-Out-of-bounds-Write越界写"><a href="#CWE-787-Out-of-bounds-Write越界写" class="headerlink" title="CWE-787 Out-of-bounds Write越界写"></a>CWE-787 <strong>Out-of-bounds Write</strong>越界写</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-787-Diagram.png" alt="img"></p>
+<h2 id="CWE-787-Out-of-bounds-Write（越界写）"><a href="#CWE-787-Out-of-bounds-Write（越界写）" class="headerlink" title="CWE-787 Out-of-bounds Write（越界写）"></a>CWE-787 <strong>Out-of-bounds Write</strong>（越界写）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-787-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-9"><a href="#①-典型代码模式-9" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">memcpy</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> src<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<hr>
 <h3 id="③-修改方案-8"><a href="#③-修改方案-8" class="headerlink" title="③ 修改方案"></a>③ 修改方案</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">memcpy</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> src<span class="token punctuation">,</span> <span class="token function">min</span><span class="token punctuation">(</span>len<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>或：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">snprintf</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"%s"</span><span class="token punctuation">,</span> src<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<hr>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> id_sequence<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
 <span class="token comment">/* Populate the id array. */</span>
@@ -1147,11 +1122,10 @@ id_sequence<span class="token punctuation">[</span><span class="token number">3<
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>memcpy的最后一个参数是unsigned</p>
-<h2 id="CWE-190-Integer-Overflow-or-Wraparound-整数溢出"><a href="#CWE-190-Integer-Overflow-or-Wraparound-整数溢出" class="headerlink" title="CWE-190 Integer Overflow or Wraparound 整数溢出"></a>CWE-190 <strong>Integer Overflow or Wraparound</strong> 整数溢出</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-190-Diagram.png" alt="img"></p>
+<h2 id="CWE-190-Integer-Overflow-or-Wraparound（整数溢出）"><a href="#CWE-190-Integer-Overflow-or-Wraparound（整数溢出）" class="headerlink" title="CWE-190 Integer Overflow or Wraparound（整数溢出）"></a>CWE-190 <strong>Integer Overflow or Wraparound</strong>（整数溢出）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-190-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-10"><a href="#①-典型代码模式-10" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> total <span class="token operator">=</span> count <span class="token operator">*</span> size<span class="token punctuation">;</span>
 <span class="token function">malloc</span><span class="token punctuation">(</span>total<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<hr>
 <h3 id="③-修改方案（官方推荐）"><a href="#③-修改方案（官方推荐）" class="headerlink" title="③ 修改方案（官方推荐）"></a>③ 修改方案（官方推荐）</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span>count <span class="token operator">></span> INT_MAX <span class="token operator">/</span> size<span class="token punctuation">)</span>
     <span class="token keyword">return</span> <span class="token operator">-</span>EINVAL<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
