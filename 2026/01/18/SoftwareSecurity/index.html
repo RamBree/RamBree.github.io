@@ -11,8 +11,9 @@
 <link rel="stylesheet" href="/css/index.css">
 
 
-<meta name="keywords" content="SEU、UCAS、IIE">
-<meta name="description" content="梅花一枝犹如仰卧之死者">
+
+<meta name="keywords" content="软件安全,">
+<meta name="description" content="中国科学院大学《软件安全原理》期末复习">
 
 
 <script src="/js/jquery.min.js"></script>
@@ -282,6 +283,10 @@
     <div class="post-header-background-content">
         <ul class="post-header-tag">
             
+            
+            <li><a href="/tags/软件安全">软件安全</a></li>
+            
+            
         </ul>
         
         <h1>软件安全原理</h1>
@@ -298,6 +303,8 @@
                 <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
                 <div class="post-header-info-author-categories">
                     
+                         <a href="/categories/UCAS课程学习" target="_blank" >UCAS课程学习</a>
+                    
                 </div>
                 <p>2026-01-18 13:55:46</p>
             </div>
@@ -313,7 +320,7 @@
 <p><strong>授课教师</strong>：龚晓锐</p>
 <p><strong>考试信息</strong>：选择（25个2分，来自于课件，不会直白来源课件）、简答题（4个5分，按点给分）、代码分析（5个6分，漏洞模式，说出这是什么漏洞，改对并重构，c语言，有明确的CWE类型）</p>
 </blockquote>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118162837226.png" alt="image-20260118162837226"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118162837226.png" alt="image-20260118162837226"></p>
 <h2 id="第一章-软件与网络空间"><a href="#第一章-软件与网络空间" class="headerlink" title="第一章 软件与网络空间"></a>第一章 软件与网络空间</h2><p>按版权分类：自由软件、开源软件、免费软件</p>
 <p><strong>软件</strong>：是用户与硬件之间的接口，用户通过软件与计算机交流。软件包括程序、数据和文档。</p>
 <p><strong>程序</strong>：是一组通过计算机执行，以完成特定任务的指令。程序包括以下类型：源程序、汇编程序、目标程序</p>
@@ -357,7 +364,7 @@
 <h4 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a><strong>威胁模型</strong></h4><p>用于明确列出危害一个系统的安全的所有威胁。</p>
 <p>威胁建模(Threat modeling)：对一个系统的所有潜在威胁进行枚举并按优先级排序的过程。</p>
 <p>威胁建模就是利用抽象的概念来思考风险。</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260115211227433.png" alt="image-20260115211227433"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260115211227433.png" alt="image-20260115211227433"></p>
 <p>定义：安全风险是攻击者利用系统漏洞或人员漏洞影响系统正常功效的概率</p>
 <p><strong>安全风险 &#x3D; 概率 × 影响</strong></p>
 <p>威胁建模方法总流程：分析目标系统(1.威胁模型信息2.过程3.外部依赖项4.外部实体5.入口点和出口点6.资产7.信任等级8.绘制数据流图)-&gt;识别威胁-&gt;形成应对方案</p>
@@ -369,7 +376,7 @@
 <p>基于编程语言的安全 (Language-based Security，LS) 是指由编程语言提供的特性或机制，这些特性或机制有助于构建安全的软件。</p>
 <p>主要包括内存安全和类型安全</p>
 <p>内存安全 (Memory safety) 确保程序中的指针总是指向有效的内存区域或内存对象</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260115213636240.png" alt="image-20260115213636240"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260115213636240.png" alt="image-20260115213636240"></p>
 <h4 id="内存安全"><a href="#内存安全" class="headerlink" title="内存安全"></a><strong>内存安全</strong></h4><p>分为空间内存安全和时间内存安全</p>
 <p>• 空间内存安全 (Spatial Memory Safety) 确保在程序中对指针的所有解引用 (dereference) 都在所指向内存对象的有效边界之内（简言之，确保不越界读写）</p>
 <p>• 时间内存安全(Temporal memory safety) 确保在程序中，所有对指针的解引用行为在进行时，指针所指向的内存对象都是有效的（UAF）</p>
@@ -472,7 +479,7 @@
 <h4 id="混淆代理人CWE-441-Unintended-Proxy-or-Intermediary-‘Confused-Deputy’"><a href="#混淆代理人CWE-441-Unintended-Proxy-or-Intermediary-‘Confused-Deputy’" class="headerlink" title="混淆代理人CWE-441: Unintended Proxy or Intermediary (‘Confused Deputy’)"></a>混淆代理人CWE-441: Unintended Proxy or Intermediary (‘Confused Deputy’)</h4><h4 id="软件漏洞利用技术"><a href="#软件漏洞利用技术" class="headerlink" title="软件漏洞利用技术"></a><strong>软件漏洞利用技术</strong></h4><p>shellcode 是软件漏洞利用载荷 (payload) 中的一小段代码。之所以称其为 “shellcode”，是因为它通常会在受攻击主机上启动一个shell 程序，攻击者可通过它在被攻击的主机上执行任意命令，任何执行类似任务的攻击代码都可称为 shellcode。</p>
 <p>Exploit 是 一段代码、数据或命令序列，用于利用特定的软件、服务或系统的漏洞，以达到非预期的行为。这可能是绕过安全机制、执行任意代码或获得更高的权限。</p>
 <p>shellcode的编写困难</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260117175543143.png" alt="image-20260117175543143"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260117175543143.png" alt="image-20260117175543143"></p>
 <p><strong>常见的导致栈溢出漏洞的错误</strong></p>
 <ol>
 <li>输入缓冲区数据的长度缺少校验</li>
@@ -544,7 +551,7 @@
 <p>– seccomp：限制进程与内核的交互</p>
 <h4 id="RUST"><a href="#RUST" class="headerlink" title="RUST"></a>RUST</h4><p><strong>安全的编程语言RUST</strong>：强类型检查和Region-based Memory Management</p>
 <h2 id="第八章：软件安全分析基础"><a href="#第八章：软件安全分析基础" class="headerlink" title="第八章：软件安全分析基础"></a>第八章：软件安全分析基础</h2><p>软件安全分析 （漏洞分析）针对目标软件（分析对象）通过（组合）运用逆向工程、抽象与运算、定制特殊输入数据与受控运行等操作，了解目标软件架构、理解其运行机理，发现并确证其脆弱点（漏洞），为进一步利用或缓解其漏洞提供支持。</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260117195128780.png" alt="image-20260117195128780"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260117195128780.png" alt="image-20260117195128780"></p>
 <h4 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h4><h5 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h5><p><strong>静态分析</strong>：对程序代码进行自动化的扫描、分析，而不必运行程序</p>
 <ul>
 <li><p>判定问题（Decision Problem）：回答是&#x2F;否的问题</p>
@@ -571,7 +578,7 @@
 <p>漏报：实际为正，被判为负</p>
 <p>召回率：实际为正，判为正</p>
 <p>准确率：所有样本分类正确的。</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118142049788.png" alt="image-20260118142049788"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118142049788.png" alt="image-20260118142049788"></p>
 <p>must 分析和 may 分析</p>
 <p>– may 分析会引入误报（false positives）</p>
 <p>– must 分析会引入漏报（false negatives）</p>
@@ -582,7 +589,7 @@
 <p>– 分析算法 T 是完整（complete）的</p>
 <p>• 如果程序 P 的确有属性 X，那么算法 T 就会说 P 有属性 X</p>
 <p>• 当算法 T 说程序 P 具有属性 X 时，它是不可信的；当算法 T 说程序 P 不具备属性 X 时，它是可信的</p>
-<h5 id="控制流分析"><a href="#控制流分析" class="headerlink" title="控制流分析"></a>控制流分析</h5><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118142549913.png" alt="image-20260118142549913"></p>
+<h5 id="控制流分析"><a href="#控制流分析" class="headerlink" title="控制流分析"></a>控制流分析</h5><p><img src="/2026/01/18/SoftwareSecurity/image-20260118142549913.png" alt="image-20260118142549913"></p>
 <p>AST 的特点</p>
 <p>– 更贴近源代码的语法结构， 缺乏控制流信息源代码</p>
 <p>– 适合用于快速类型检查</p>
@@ -613,10 +620,10 @@
 <p>– 设计转移函数</p>
 <p>– 处理控制流路径分叉与合并</p>
 <p>– 设计算法使数据流抵达“不动点”（例如 WorkList 算法）</p>
-<h5 id="抽象解释"><a href="#抽象解释" class="headerlink" title="抽象解释"></a>抽象解释</h5><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118144745762.png" alt="image-20260118144745762"></p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118144756503.png" alt="image-20260118144756503"></p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118144805891.png" alt="image-20260118144805891"></p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118144819691.png" alt="image-20260118144819691"></p>
+<h5 id="抽象解释"><a href="#抽象解释" class="headerlink" title="抽象解释"></a>抽象解释</h5><p><img src="/2026/01/18/SoftwareSecurity/image-20260118144745762.png" alt="image-20260118144745762"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118144756503.png" alt="image-20260118144756503"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118144805891.png" alt="image-20260118144805891"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118144819691.png" alt="image-20260118144819691"></p>
 <p>数据流分析的结果是sound</p>
 <h5 id="数据流分析应用"><a href="#数据流分析应用" class="headerlink" title="数据流分析应用"></a>数据流分析应用</h5><p>静态污点分析</p>
 <p>污点分析的重要组成部分：</p>
@@ -656,16 +663,16 @@
 <li>通常不是进行功能性测试，而是检查系统处理错误的能力，比如“入 侵，破环，崩溃”；</li>
 <li>不能确保发现系统中所有漏洞。</li>
 </ol>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118160301609.png" alt="image-20260118160301609"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118160301609.png" alt="image-20260118160301609"></p>
 <p>Mutation-based fuzzing vs. Generation-based Fuzzing</p>
 <p>代码覆盖率：用fuzzer监视程序运行、让程序自己更新覆盖率并反馈给fuzzer</p>
 <p>热点：种子生成、执行环境构建、种子选择、变异策略、效率优化、覆盖算法、安全检查算法</p>
-<h4 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a>符号执行</h4><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118160728049.png" alt="image-20260118160728049"></p>
+<h4 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a>符号执行</h4><p><img src="/2026/01/18/SoftwareSecurity/image-20260118160728049.png" alt="image-20260118160728049"></p>
 <h2 id="第九章-移动APP的安全"><a href="#第九章-移动APP的安全" class="headerlink" title="第九章 移动APP的安全"></a>第九章 移动APP的安全</h2><h4 id="Android平台App安全"><a href="#Android平台App安全" class="headerlink" title="Android平台App安全"></a>Android平台App安全</h4><p>Android是一种基于Linux的自由及开放源代码的操作系统</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118161409301.png" alt="image-20260118161409301"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118161409301.png" alt="image-20260118161409301"></p>
 <p>安卓构建流程</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118161537291.png" alt="image-20260118161537291"></p>
-<p>启动流程<br><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118161652873.png" alt="image-20260118161652873"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118161537291.png" alt="image-20260118161537291"></p>
+<p>启动流程<br><img src="/2026/01/18/SoftwareSecurity/image-20260118161652873.png" alt="image-20260118161652873"></p>
 <p>安卓逆向</p>
 <ul>
 <li>一定包含加密后的Manifest文件</li>
@@ -675,7 +682,7 @@
 <li>使用了加壳措施的apk由于加壳方案不同，资源文件和dex文件的处理会有差异</li>
 </ul>
 <p>apktool</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118161850972.png" alt="image-20260118161850972"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118161850972.png" alt="image-20260118161850972"></p>
 <p>app安全问题产生的原因：</p>
 <ol>
 <li>开发门槛低导致的安全问题</li>
@@ -684,7 +691,7 @@
 <li>第三方市场监管不力导致的安全问题</li>
 </ol>
 <h4 id="iOS平台App安全"><a href="#iOS平台App安全" class="headerlink" title="iOS平台App安全"></a>iOS平台App安全</h4><p>iOS是苹果公司为移动设备所开发的专有移动操作系统，属于类Unix系统，支持的设备包括iPhone、iPod touch和iPad。与Android不同的是iOS不支持任何非苹果公司的硬件设备。</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118162048644.png" alt="image-20260118162048644"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118162048644.png" alt="image-20260118162048644"></p>
 <p>iOS系统分为可分为四级结构，由上至下分别为可触摸层（Cocoa Touch Layer）、媒体层（Media Layer）、核心服务层（Core Services Layer）、核心系统层（Core OS Layer），每个层级提供不同的服务。低层级结构提供基础服务如文件系统、内存管理、I&#x2F;O操作等。高层级结构建立在低层级结构之上提供具体服务如UI控件、文件访问等。</p>
 <p>开发语言：Objective-C、Swift</p>
 <p>开发工具：Xcode</p>
@@ -696,7 +703,7 @@
 <p>– Payload：里面有个.app的文件，右键显示包内容。</p>
 <p>iOS App攻击面：用户本地攻击面、用户远程攻击面、内核攻击面</p>
 <h2 id="第十章-智能软件系统脆弱性"><a href="#第十章-智能软件系统脆弱性" class="headerlink" title="第十章 智能软件系统脆弱性"></a>第十章 智能软件系统脆弱性</h2><h4 id="智能软件系统"><a href="#智能软件系统" class="headerlink" title="智能软件系统"></a>智能软件系统</h4><p>计算机视觉、语音识别、自然语言理解、多媒体技术、信息检索与推荐</p>
-<h4 id="脆弱性与对抗样本攻击"><a href="#脆弱性与对抗样本攻击" class="headerlink" title="脆弱性与对抗样本攻击"></a>脆弱性与对抗样本攻击</h4><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118163426788.png" alt="image-20260118163426788"></p>
+<h4 id="脆弱性与对抗样本攻击"><a href="#脆弱性与对抗样本攻击" class="headerlink" title="脆弱性与对抗样本攻击"></a>脆弱性与对抗样本攻击</h4><p><img src="/2026/01/18/SoftwareSecurity/image-20260118163426788.png" alt="image-20260118163426788"></p>
 <p>非目标攻击：对抗样本能够使模型输出错误预测结果。</p>
 <p>目标攻击：对抗样本能够使模型输出指定错误结果。</p>
 <p>数字攻击：对抗样本直接输入模型实现攻击。</p>
@@ -754,14 +761,14 @@
 <h4 id="风险管理"><a href="#风险管理" class="headerlink" title="风险管理"></a>风险管理</h4><p>安全风险是攻击者利用系统漏洞或人员漏洞影响系统正常功效的概率及其后果</p>
 <p>安全风险 &#x3D; 概率 × 影响</p>
 <p>安全是一种风险管理</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118165144275.png" alt="image-20260118165144275"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118165144275.png" alt="image-20260118165144275"></p>
 <h2 id="第十三章-软件安全开发方法"><a href="#第十三章-软件安全开发方法" class="headerlink" title="第十三章 软件安全开发方法"></a>第十三章 软件安全开发方法</h2><h4 id="传统行业-vs-互联网行业"><a href="#传统行业-vs-互联网行业" class="headerlink" title="传统行业 vs. 互联网行业"></a>传统行业 vs. 互联网行业</h4><h4 id="微软SDL"><a href="#微软SDL" class="headerlink" title="微软SDL"></a>微软SDL</h4><h4 id="软件产业SDL的挑战"><a href="#软件产业SDL的挑战" class="headerlink" title="软件产业SDL的挑战"></a>软件产业SDL的挑战</h4><h4 id="华为SDL软件安全工程"><a href="#华为SDL软件安全工程" class="headerlink" title="华为SDL软件安全工程"></a>华为SDL软件安全工程</h4><h4 id="DevSecOps"><a href="#DevSecOps" class="headerlink" title="DevSecOps"></a>DevSecOps</h4><p>DevSecOps 是“开发、安全和运维”的缩写。它是一种文化取向、自动化方法和平台设计方法的汇集，将安全性作为整个 IT 生命周期的共同责任。</p>
 <p>敏捷开发和 DevOps 广泛应用的同时，安全需求不断增长，DevSecOps在此基础上应运而生。</p>
-<h2 id="第十四章-软件供应链安全"><a href="#第十四章-软件供应链安全" class="headerlink" title="第十四章 软件供应链安全"></a>第十四章 软件供应链安全</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118165935484.png" alt="image-20260118165935484"></p>
+<h2 id="第十四章-软件供应链安全"><a href="#第十四章-软件供应链安全" class="headerlink" title="第十四章 软件供应链安全"></a>第十四章 软件供应链安全</h2><p><img src="/2026/01/18/SoftwareSecurity/image-20260118165935484.png" alt="image-20260118165935484"></p>
 <p>软件供应链安全生态体系：国家主管部分，软件用户单位，软件开发集成商、软件安全专业团队</p>
-<p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/image-20260118170021733.png" alt="image-20260118170021733"></p>
+<p><img src="/2026/01/18/SoftwareSecurity/image-20260118170021733.png" alt="image-20260118170021733"></p>
 <h1 id="常见漏洞模式"><a href="#常见漏洞模式" class="headerlink" title="常见漏洞模式"></a>常见漏洞模式</h1><p>课件中提及的漏洞类型</p>
-<h2 id="CWE-476-NULL-Pointer-Dereference（空指针解引用）"><a href="#CWE-476-NULL-Pointer-Dereference（空指针解引用）" class="headerlink" title="CWE-476 NULL Pointer Dereference（空指针解引用）"></a>CWE-476 NULL Pointer Dereference（空指针解引用）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-476-Diagram.png" alt="img"></p>
+<h2 id="CWE-476-NULL-Pointer-Dereference（空指针解引用）"><a href="#CWE-476-NULL-Pointer-Dereference（空指针解引用）" class="headerlink" title="CWE-476 NULL Pointer Dereference（空指针解引用）"></a>CWE-476 NULL Pointer Dereference（空指针解引用）</h2><p><img src="/2026/01/18/SoftwareSecurity/CWE-476-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式"><a href="#①-典型代码模式" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">struct</span> <span class="token class-name">obj</span> <span class="token operator">*</span>o <span class="token operator">=</span> <span class="token function">get_obj</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 o<span class="token operator">-></span>field <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>   <span class="token comment">// o 可能为 NULL</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -807,7 +814,7 @@ hp <span class="token operator">=</span> <span class="token function">gethostbya
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>没有检查gethostbyaddr函数的返回值。可能会返回一个空指针。</p>
-<h2 id="CWE-416-Use-After-Free（释放后重用）"><a href="#CWE-416-Use-After-Free（释放后重用）" class="headerlink" title="CWE-416 Use After Free（释放后重用）"></a>CWE-416 Use After Free（释放后重用）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-416-Diagram.png" alt="img"></p>
+<h2 id="CWE-416-Use-After-Free（释放后重用）"><a href="#CWE-416-Use-After-Free（释放后重用）" class="headerlink" title="CWE-416 Use After Free（释放后重用）"></a>CWE-416 Use After Free（释放后重用）</h2><p><img src="/2026/01/18/SoftwareSecurity/CWE-416-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-1"><a href="#①-典型代码模式-1" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">buf <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">free</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">process</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// UAF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -852,7 +859,7 @@ abrt <span class="token operator">=</span> <span class="token number">1</span><s
 <span class="token function">logError</span><span class="token punctuation">(</span><span class="token string">"operation aborted before commit"</span><span class="token punctuation">,</span> ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="CWE-415-Double-Free（双重释放）"><a href="#CWE-415-Double-Free（双重释放）" class="headerlink" title="CWE-415 Double Free（双重释放）"></a>CWE-415 Double Free（双重释放）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-415-Diagram.png" alt="img"></p>
+<h2 id="CWE-415-Double-Free（双重释放）"><a href="#CWE-415-Double-Free（双重释放）" class="headerlink" title="CWE-415 Double Free（双重释放）"></a>CWE-415 Double Free（双重释放）</h2><p><img src="/2026/01/18/SoftwareSecurity/CWE-415-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-2"><a href="#①-典型代码模式-2" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span>
     <span class="token function">free</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
@@ -1025,7 +1032,7 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>全局变量foo的问题</p>
-<h2 id="CWE-367-TOCTOU（条件竞争）"><a href="#CWE-367-TOCTOU（条件竞争）" class="headerlink" title="CWE-367 TOCTOU（条件竞争）"></a>CWE-367 TOCTOU（条件竞争）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-367-Diagram.png" alt="img"></p>
+<h2 id="CWE-367-TOCTOU（条件竞争）"><a href="#CWE-367-TOCTOU（条件竞争）" class="headerlink" title="CWE-367 TOCTOU（条件竞争）"></a>CWE-367 TOCTOU（条件竞争）</h2><p><img src="/2026/01/18/SoftwareSecurity/CWE-367-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-7"><a href="#①-典型代码模式-7" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">access</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> W_OK<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
     fd <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> O_WRONLY<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -1052,7 +1059,7 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
 <span class="token function">updateThings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>文件可能会在printf的时候更新。</p>
-<h2 id="CWE-125-Out-of-bounds-Read（越界读）"><a href="#CWE-125-Out-of-bounds-Read（越界读）" class="headerlink" title="CWE-125 Out-of-bounds Read（越界读）"></a>CWE-125 <strong>Out-of-bounds Read</strong>（越界读）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-125-Diagram.png" alt="img"></p>
+<h2 id="CWE-125-Out-of-bounds-Read（越界读）"><a href="#CWE-125-Out-of-bounds-Read（越界读）" class="headerlink" title="CWE-125 Out-of-bounds Read（越界读）"></a>CWE-125 <strong>Out-of-bounds Read</strong>（越界读）</h2><p><img src="/2026/01/18/SoftwareSecurity/CWE-125-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-8"><a href="#①-典型代码模式-8" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token function">read</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> buf<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// len > 8</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -1082,7 +1089,7 @@ u<span class="token punctuation">.</span>i <span class="token operator">=</span>
 <span class="token keyword">return</span> value<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="CWE-787-Out-of-bounds-Write（越界写）"><a href="#CWE-787-Out-of-bounds-Write（越界写）" class="headerlink" title="CWE-787 Out-of-bounds Write（越界写）"></a>CWE-787 <strong>Out-of-bounds Write</strong>（越界写）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-787-Diagram.png" alt="img"></p>
+<h2 id="CWE-787-Out-of-bounds-Write（越界写）"><a href="#CWE-787-Out-of-bounds-Write（越界写）" class="headerlink" title="CWE-787 Out-of-bounds Write（越界写）"></a>CWE-787 <strong>Out-of-bounds Write</strong>（越界写）</h2><p><img src="/2026/01/18/SoftwareSecurity/CWE-787-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-9"><a href="#①-典型代码模式-9" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">memcpy</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> src<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="③-修改方案-8"><a href="#③-修改方案-8" class="headerlink" title="③ 修改方案"></a>③ 修改方案</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">memcpy</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> src<span class="token punctuation">,</span> <span class="token function">min</span><span class="token punctuation">(</span>len<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -1115,7 +1122,7 @@ id_sequence<span class="token punctuation">[</span><span class="token number">3<
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>memcpy的最后一个参数是unsigned</p>
-<h2 id="CWE-190-Integer-Overflow-or-Wraparound（整数溢出）"><a href="#CWE-190-Integer-Overflow-or-Wraparound（整数溢出）" class="headerlink" title="CWE-190 Integer Overflow or Wraparound（整数溢出）"></a>CWE-190 <strong>Integer Overflow or Wraparound</strong>（整数溢出）</h2><p><img src="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/CWE-190-Diagram.png" alt="img"></p>
+<h2 id="CWE-190-Integer-Overflow-or-Wraparound（整数溢出）"><a href="#CWE-190-Integer-Overflow-or-Wraparound（整数溢出）" class="headerlink" title="CWE-190 Integer Overflow or Wraparound（整数溢出）"></a>CWE-190 <strong>Integer Overflow or Wraparound</strong>（整数溢出）</h2><p><img src="/2026/01/18/SoftwareSecurity/CWE-190-Diagram.png" alt="img"></p>
 <h3 id="①-典型代码模式-10"><a href="#①-典型代码模式-10" class="headerlink" title="① 典型代码模式"></a>① 典型代码模式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> total <span class="token operator">=</span> count <span class="token operator">*</span> size<span class="token punctuation">;</span>
 <span class="token function">malloc</span><span class="token punctuation">(</span>total<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -1197,19 +1204,19 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 
     <div class="post-paging">
     
-    <a href="/2026/01/19/NLP/">
+    <a href="/2026/01/18/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86/">
         <div class="post-paging-last">
             <span>上一篇</span>
-            <p>自然语言处理基础</p>
+            <p>软件安全原理</p>
         </div>
     </a>
     
 
     
-    <a href="/2026/01/18/SoftwareSecurity/">
+    <a href="/2025/12/01/moectf-2025-pwn/">
         <div class="post-paging-next">
             <span>下一篇</span>
-            <p>软件安全原理</p>
+            <p>moectf-2025-pwn</p>
         </div>
     </a>
     
