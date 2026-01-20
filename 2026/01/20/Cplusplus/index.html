@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>Cplusplus-无限进步</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="编程语言,">
+<meta name="description" content="中国科学院大学《面向对象的程序设计-C++》期末复习">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 8.1.1"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/shengdanwu.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>Ram</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('/image/chainsaw-man-3840x2160-24469.jpg')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/编程语言">编程语言</a></li>
+            
+            
+        </ul>
+        
+        <h1>Cplusplus</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="/categories/UCAS课程学习" target="_blank" >UCAS课程学习</a>
+                    
+                </div>
+                <p>2026-01-20 13:03:38</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <h1 id="C-面向对象期末复习"><a href="#C-面向对象期末复习" class="headerlink" title="C++面向对象期末复习"></a>C++面向对象期末复习</h1><blockquote>
+<p><strong>课程属性</strong>：通选课</p>
+<p><strong>授课老师</strong>：刘玉祥</p>
+<p><strong>考试信息</strong>：单选（概念，类的四大特征、地址计算的优势）、填空（补全程序）、简答（概念）、设计（用类、多线程实现、怎么访问一个（不同继承方式），访问private变量）。构造函数顺序，代码区和数据区，堆区。都在ppt里。一级指针和二级指针的区别。指针和类是重点。</p>
+</blockquote>
+<h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><p>低级语言：机器语言、汇编语言</p>
+<p>高级语言：C，C++</p>
+<p>翻译：将一种语言编写的程序转换成等效的另一种语言的过程（编译、解释）</p>
+<p>解释：不生成目标程序。java是编译加解释的混合模式。</p>
+<p>c++对c的增强</p>
+<ol>
+<li>保持了C的简洁、高效和接近汇编语言等特点；</li>
+<li>类型检查更为严格。</li>
+<li>增加了面向对象的机制。</li>
+<li>增加了泛型编程的机制（C++通过Template实现）。</li>
+<li>增加了异常处理。</li>
+<li>增加了运算符重载。</li>
+<li>增加了标准模板库（STL）</li>
+</ol>
+<p>编程方法上 c++是设计 c是算法</p>
+<p>程序结构上 c是数据加算法 c++是对象加消息</p>
+<p>预处理命令：宏定义、文件包含、条件编译一般是#开头</p>
+<p>抽象、继承、多态、封装</p>
+<h1 id="2-编程基础"><a href="#2-编程基础" class="headerlink" title="2.编程基础"></a>2.编程基础</h1><p>保留字：char, int</p>
+<p>标识符：用户定义，字母 数字 下划线组成  字母或者下划线开头</p>
+<p>分隔符：空格回车</p>
+<p>底层const：const int * 指针可以指向不同的地址，但不能通过指针修改所指向对象的值</p>
+<p>decltype的推断结果会受表达式“值类别”（左值 &#x2F; 右值）影响，而auto不受此影响。</p>
+<p>auto 会忽略引用属性和顶层const decltype不会，decltype会受到括号影响</p>
+<p>看 const 与 * 的位置：<br>const 在 * 左边：修饰“指向的对象”→ 底层 const（如 const int* p 或 int const* p）；<br>const 在 * 右边：修饰“指针本身”→ 顶层 const（如 int* const p）。<br>auto&amp;会推导出一个引用类型的变量，该变量会直接绑定到初始化表达式的对象</p>
+<p>若初始化表达式是右值（如字面量、临时对象），auto&amp;无法绑定（编译错误），需用const auto&amp;：</p>
+<p>typedef</p>
+<p>typedef int NUM[100];&#x2F;&#x2F;声明NUM为整数数组类型，可以包含100个元素<br>NUM n;&#x2F;&#x2F;定义n为包含100个整数元素的数组，n就是数组名</p>
+<p>#define是编译预处理命令，只能做简单的字符替换<br>typedef是编译时处理的，声明一个类型替代原有的类型</p>
+<p>运算：优先级 自左向右</p>
+<p>% 运算 -7%2 &#x3D; -1</p>
+<p>! &#x3D;    &#x3D;&#x3D;的优先级比&lt; &gt;低，然后是运算</p>
+<p>逻辑运算最低（|| &amp;&amp; !）</p>
+<p>int&amp;&amp;右值引用</p>
+<p>赋值运算符以及复合赋值运算符的运算优先级<br>比算术运算符优先级低，运算结合性为自右向左。</p>
+<p>条件运算符的优先级别高于赋值运算符，低于关系运算符和算术运算符</p>
+<p>取反是对补码取反</p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>先计算后赋值</p>
+<p>函数声明：函数原型</p>
+<p>传递方式：按值、地址、引用</p>
+<p>按值：形参与实参占用不同的内存单元</p>
+<p>栈、堆（程序员手动分配释放）、静态存储区</p>
+<p><strong>函数调用的过程</strong></p>
+<p>递归、递推</p>
+<p>根据作用域分为全局变量和局部变量</p>
+<p>根据存储特性（生存期）分为静态存储变量和动态存储变量</p>
+<p>全局变量的作用范围从定义变量的位置开始到本程序结束</p>
+<p>在同一个源文件中，如果全局变量与函数的局部变量同名，在函数的局部变量的作用域内，同名的全局变量无效。如果要使用可以使用作用域作用符::</p>
+<p>auto 默认，动态区</p>
+<p>static 静态区 只会赋值一次</p>
+<p>register CPU内部 动态区</p>
+<p>extern 静态存储区</p>
+<p>静态全局变量只会被本文件使用。</p>
+<p>内联函数inline主要是解决程序的运行效率：在编译程序时，将函数代码直接插入到调用处，减少函数调用次数，以空间换时间</p>
+<p>重载函数的形参必须不同：个数不同或类型不同。</p>
+<p>默认形参值必须从右向左顺序声明</p>
+<p>void func(int a,int b&#x3D;2,int c&#x3D;3,int d&#x3D;4);</p>
+<p>当函数既有声明又有定义时，默认参数在函数声明中定义，函数定义中不允许使用默认参数</p>
+<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><p>任何一个指针变量本身数据值的类型都是unsigned longint，占4（8）个字节</p>
+<p>空类型（void）指针，即不指定指针指向一个固定的类型，其定义格式为：void *p;– 表示指针变量p不指向一个确定的类型数据，它的作用仅仅是用来存放一个地址</p>
+<p>p±n 表示 p 向后&#x2F; 向前移动 n 个元素位置。对于某种数据类型的指针p来说：– p+ n的实际操作是：（p）+ n**sizeof（数据类型）；– p - n的实际操作是：（p） - n ** sizeof（数据类型）</p>
+<p>px-py运算的结果值是两指针指向的地址位置之间的<strong>数据个数</strong>。– 两指针相减实质上也是地址计算。– 它执行的运算不是两指针存储的地址值相减，而是按下列公式得出结果：((px)-(py))&#x2F;数据长度</p>
+<p>数组名就是一个常量指针</p>
+<p>指针数组 和 数组指针</p>
+<p>int (*p)[5];该语句声明了一个指向具有5个元素的int型数组的指针。</p>
+<p><img src="/2026/01/20/Cplusplus/image.png" alt="image.png"></p>
+<p>返回指针类型的函数， 和函数指针</p>
+<p>函数指针：int (*p)(int,int);定义了一个函数指针p，它指向一个返回整型值、有两个整型参数的函数</p>
+<p>(*p)(a，b)，它相当于fun(a，b）</p>
+<p>– 声明b是a的引用时，b本身不是变量，它是某个对象的别名，不会为b另外开辟存储单元，而是使b和a占内存中的同一存储单元– 在声明一个引用变量时，必须同时对其进行初始化。</p>
+<h1 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h1><p>结构体类型不分配任何存储空间</p>
+<p>结构体变量中各成员在内存中的存储遵循字节对齐机制：</p>
+<p>1 结构体变量的首地址能够被其最宽基本类型成员的大小所整除。</p>
+<p>2 结构体每个成员相对于结构体首地址的偏移量都是成员大小的整数倍，如有需要编译器会在成员之间加上填充字节。</p>
+<p>3 结构体的总大小为结构体最宽基本类型成员大小的整数倍。</p>
+<p>联合体Union</p>
+<p>成员共用同一组内存单元。任何两个成员不会同时有效</p>
+<p>联合体的初始化：只允许对其第一个成员进行初始化</p>
+<h1 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h1><p>封装性、抽象性、继承性和多态性</p>
+<p>私有成员：只允许类内成员函数存取它</p>
+<p>公有成员：允许类内和类外函数存取它</p>
+<p>保护成员：允许类内和其派生类函数存取它</p>
+<p>自身类的对象不可以作为成员。但可以用指针。</p>
+<p>每个对象的存储空间：– 仅仅指的是该对象数据成员所占用的存储空间– 并不包括成员函数所占用的空间</p>
+<p><img src="/2026/01/20/Cplusplus/image1.png" alt="image.png"></p>
+<p>构造函数必须放在public部分，可以重载。可以有默认形参。</p>
+<p>构造函数：不能被继承、不能为虚函数、不能显式调用、不能取构造函数的地址。</p>
+<p>若已经定义了构造函数（不论它是否为缺省构造函数)，则编译系统不再自动生成缺省构造函数</p>
+<p>拷贝构造函数功能：– 用一个已定义并初始化的对象进行同一类的其他对象的构建及初始化。</p>
+<p><img src="/2026/01/20/Cplusplus/image2.png" alt="image.png"></p>
+<p>与普通构造函数形式不同。</p>
+<p>• 实参类型不同，拷贝构造函数的实参是对象。</p>
+<p>• 普通构造函数在建立对象时被调用，拷贝构造函数在用已有对象复制新对象时被调用。</p>
+<p>函数调用的时候，如果形参为类对象，会调用拷贝函数</p>
+<p>使用return语句中的对象初始化一个临时无名对象，传递给主调函数，此时发生拷贝构造。</p>
+<p>• 如果没有为类声明拷贝初始化构造函数，则编译器自己生成一个隐含的拷贝构造函数</p>
+<p>这个构造函数很简单，仅仅使用“老对象”的数据成员的值对“新对象”的数据成员一一进行赋值。• 一般情况下使用编译器默认的拷贝构造函数就可以了，不需要自己写拷贝构造函数。• 特殊情况下，如需在拷贝的同时修改数据成员的值、或需实现深拷贝等，则需自己编写（编译器默认的拷贝构造函数不能实现这些功能）</p>
+<p>深拷贝</p>
+<p>当类的数据成员中有指针类型时，就必须定义一个特定的拷贝构造函数，该拷贝构造函数：– 不仅可以实现原对象和新对象之间数据成员的拷贝，– 而且可以为新的对象分配单独的内存资源，– 这就是深拷贝构造函数。</p>
+<p>多个对象处于同一作用域的时候，先构造的对象后析构</p>
+<p>析构函数不允许重载。没定义的话，会生成一个析构函数</p>
+<p>静态对象不会释放直到程序结束</p>
+<p>类组合</p>
+<p>对于类组合：– 先调用内嵌对象的构造函数（按内嵌时的声明顺序，先声明者先构造）– 然后调用本类的构造函数</p>
+<p>前向引用声明</p>
+<p><img src="/2026/01/20/Cplusplus/image3.png" alt="image.png"></p>
+<p>类是一个不完全类型(incompete type)，即已知该类是一个类型，但不知道包含哪些成员。只能使用被声明的符号，不能涉及类的任何细节。</p>
+<p>系统不仅为对象数组分配内存空间，以存放数组中的每个对象，而且还会自动调用匹配的构造函数。</p>
+<p>• this指针是隐含在类的每一个非静态成员函数中的一个对象指针，它是一个指向正操作该成员函数的对象</p>
+<p>友元函数没有 this 指针，因为友元不是类的成员。只有成员函数才有 this 指针。</p>
+<p>类的定义实现类内数据共享和保护</p>
+<p> 静态成员和友元实现类外数据共享，常量的定义实现数据保护。</p>
+<p>静态成员解决同类不同对象之间数据的共享</p>
+<p>友元实现不同类和对象之间数据的共享</p>
+<p>静态数据成员是类的属性，这个属性不属于类的任何对象，但所有同类的对象都可以访问和使用它</p>
+<p>而当类中定义了静态数据成员时，在编译时，就要为类的静态数据成员分配存储空间。</p>
+<p>1.静态数据成员不能在类的构造函数中初始化，也不用参数初始化表对静态数据成员初始化。2. 静态数据成员也不可在类体内进行赋初值。3. 静态数据成员的初始化工作只能在类外，并且在对象生成之前进行；进行一次且只能作一次定义性说明。</p>
+<p>int Test::priStatic &#x3D; 30;</p>
+<p>静态成员函数</p>
+<p><img src="/2026/01/20/Cplusplus/image4.png" alt="image.png"></p>
+<p>友元函数不是当前类中的成员函数，它既可以是一个不属于任何类的一般函数，也可以是另外一个类的成员函数。友元函数可以访问该类中的所有成员</p>
+<p>当一个类作为另一个类的友元时，就意味着这个类的所有成员函数都是另一个类的友元函数 。</p>
+<p>友元关系不可以被继承。• 友元关系是单向的。– 若类A是类B的友元，不等于类B是类A的友元。• 友元关系不能传递。</p>
+<p>静态数据成员属于类而非对象，因此常对象不限制静态成员的修改</p>
+<p>常对象不能调用该对象的非const型的成员函数</p>
+<p>常成员函数：函数内部不能有修改数据成员的操作，也不能调用其它非const成员函数。</p>
+<p>&lt;返回值类型&gt; 函数名（参数表）const;</p>
+<p>常引用能够保证数据安全，使数据不能被随意篡改</p>
+<p>指向常量的指针、指针常量、指向常量的常量指针。</p>
+<p>指向常量的指针：不能修改指向对象的值，但是指针可以指向其他地址。</p>
+<p>指针常量：指针本身不可以修改，但是可以修改指向的对象值</p>
+<p>指向常量的常量指针：既不能修改指针的指向，也不能通过指针修改指向的对象值（双重只读）</p>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><p>当派生类与基类有相同的成员时，实现对基类成员的隐藏。若要在派生类中使用基类同名成员，可以显式地使用类名限定符：类名 ::成员</p>
+<p><img src="/2026/01/20/Cplusplus/image5.png" alt="image.png"></p>
+<p>公有继承：基类的public和protected成员在派生类中的访问权限保持不变，基类的private成员在派生类中不可直接访问</p>
+<p><img src="/2026/01/20/Cplusplus/image6.png" alt="image.png"></p>
+<p>私有继承：基类的public和protected成员在派生类中全部变为private权限，基类private成员仍不可<br>直接访问</p>
+<p><img src="/2026/01/20/Cplusplus/image7.png" alt="image.png"></p>
+<p>保护继承：基类的public和protected成员在派生类中全部变为protect权限，基类private成员仍不可<br>直接访问</p>
+<p><img src="/2026/01/20/Cplusplus/image8.png" alt="image.png"></p>
+<p>成员包括函数</p>
+<p>基类定义的静态成员，将被所有的派生类所共享，并且基类和派生类共享基类中的静态成员。且静态成员不受继承方式影响，都可以直接访问。</p>
+<p>构造函数和析构函数是不能被继承的</p>
+<p>派生类的构造函数调用顺序：基类→派生类</p>
+<p>基类的构造函数使用一个或多个参数时，则派生类必须定义构造函数，提供将参数传递给基类构造函数途径。</p>
+<p>如果派生类构造函数的初始化列表显式指定了基类构造方式（如 C(int i,int j):B(i), c(j)），则调用指定的基类构造；<br>• 如果未指定（如 C()），则默认调用基类的无参构造函数（若基类没有无参构造，会编译报错）。</p>
+<p>析构函数的顺序相反。</p>
+<p>有子对象的派生类的构造函数应该需要完成</p>
+<p>构造顺序遵循 <strong>“先基类 → 再子对象 → 最后派生类自身构造函数体”</strong>：</p>
+<p>Student（基类 &#x2F; 0 级）→ Student1（1 级派生类）→ Student2（2 级派生类）<br>Student2 不仅继承了 Student1 的成员，还间接继承了 Student 的成员。<br>多级派生的构造函数调用遵循 <strong>“从顶层基类到最底层派生类”</strong> 的顺序;<br>派生类的构造函数初始化列表只需指定直接基类 的构造方式，无需关心间接基类</p>
+<p>声明派生类时如不写继承方式,其默认的继承方式是private</p>
+<p>在多继承的情况下，多个基类构造函数的调用次序 是按基类在被继承时所声明的次序从左到右依次调用，与它们在派生类的构造函数实现中的初始化列表出现的次序无关。</p>
+<p>二义性</p>
+<p>同名二义性：使用作用域标识符、使用同名覆盖的原则</p>
+<p><img src="/2026/01/20/Cplusplus/image9.png" alt="image.png"></p>
+<p>虚基类：</p>
+<p>将公有派生类对象赋值给基类对象，反之是不允许</p>
+<p>指向基类对象的指针变量也可以指向派生类对象。但是此时，通过指向基类对象的指针，我们只能访问派生类对象中继承过来的基类成员，访问不到新增的成员</p>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p>（编译连接阶段完成）静态关联：函数重载、运算符重载</p>
+<p>动态关联：继承关系、虚函数</p>
+<p><img src="/2026/01/20/Cplusplus/image10.png" alt="image.png"></p>
+<p>运算符重载通过成员函数或者友元函数来实现。</p>
+<p>&lt;函数返回值类型&gt; operator &lt;重载运算符&gt;( [&lt;参数列表&gt;] )</p>
+<p>定义运算符，由左操作数调用右操作数，最后将函数返回值赋给运算结果的对象</p>
+<p>第1个运算数是对象，第2个运算数是参数</p>
+<p>在类外定义：</p>
+<p>&lt;函数返回值类型&gt; &lt;类名&gt;::operator &lt;重载运算符&gt; ( [&lt;参数列表&gt;] )</p>
+<p>友元函数实现：将运算符的重载函数定义为友元函数，<strong>参与运算的对象全部成为函数<br>参数。</strong></p>
+<p>friend &lt;返回值类型&gt; operator &lt;重载运算符&gt; ( [&lt;参数列表&gt;] )</p>
+<p>&lt;返回值类型&gt; operator &lt;重载运算符&gt; ( [&lt;参数列表&gt;] )</p>
+<p><img src="/2026/01/20/Cplusplus/image11.png" alt="image.png"></p>
+<p>自增的实现</p>
+<p>上面是前++，后面是后++</p>
+<p><img src="/2026/01/20/Cplusplus/image12.png" alt="image.png"></p>
+<p>多了一个int型的参数，增加这个参数只是为了与前置自增运算符重载函数有所区别，此外没有任何作用。</p>
+<p>友元函数的情况：</p>
+<p><img src="/2026/01/20/Cplusplus/image13.png" alt="image.png"></p>
+<p>第一个参数必须是ostream &amp;的类型，即ostream对象的引用</p>
+<p><img src="/2026/01/20/Cplusplus/image14.png" alt="image.png"></p>
+<p>虚函数</p>
+<p>指向基类的指针或引用来访问基类或派生类对象的成员函数时，将在运行时决定调用哪个函数，不会发生动态调用错误，这就体现了面向对象程序设计的动态多态性，也叫动态联编。</p>
+<p>虚函数是可以继承的。</p>
+<p>纯虚函数</p>
+<p>virtual 函数类型 函数名(参数表) &#x3D; 0;</p>
+<p>如果一个类中至少有一个纯虚函数，那么这个类被称为抽象类。</p>
+<h1 id="输入输出流"><a href="#输入输出流" class="headerlink" title="输入输出流"></a>输入输出流</h1><p>– 文本流—- 一串 ASCII 字符。<br>– 二进制流—- 按二进制格式存放的数据</p>
+<p><img src="/2026/01/20/Cplusplus/image15.png" alt="image.png"></p>
+<p>文件重定向</p>
+<p>freopen</p>
+<p>二进制文件的读写</p>
+<p><img src="/2026/01/20/Cplusplus/image16.png" alt="image.png"></p>
+<p>文件的随机访问</p>
+<p><img src="/2026/01/20/Cplusplus/image17.png" alt="image.png"></p>
+<h1 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h1><p><strong>模板语法使得“数据类型”也可以以参数的形式出现</strong></p>
+<p><img src="/2026/01/20/Cplusplus/image18.png" alt="image.png"></p>
+<p>实例化T的各模板实参之间必须保持完全一致的类型</p>
+<p>类模版</p>
+<p>如果在类外定义都要冠以模板参数说明，并且指定类名时要后跟类型参数。</p>
+<p>template &lt;模板参数表&gt;</p>
+<p>返回值类型 类名&lt;模板参数标识符列表&gt;::函数名（参数表）</p>
+<p>类模版使用<strong>Compare <int> cmp(4,7);</strong></p>
+<p>仿函数：重载了operator（）</p>
+<p>lambda</p>
+<p>【值拷贝的方式】拷贝到线程栈空间中的，就算线程函数的参数为引用类型，<br>在线程函数中修改后也不会影响到外部实参，</p>
+<ol>
+<li>如果想要通过形参改变外部实参时，必须借助std::ref()函数</li>
+<li>地址的拷贝</li>
+<li>lambda表达式，在捕捉列表中添加a的引用</li>
+</ol>
+
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2026/01/19/NLP/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>自然语言处理基础</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2026 By Ram. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/79e/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        
+        if(Boolean('false')){
+            gitalk.render('gitalk-container')
+        }
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+
