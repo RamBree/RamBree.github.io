@@ -424,7 +424,8 @@
 <p><img src="/2026/01/19/NLP/image-20260123000055695.png" alt="image-20260123000055695"></p>
 <p>其他变形：DeepRNN、Bidirectional RNNs、 Deep Bidirectional RNN</p>
 <h2 id="第四章-语言模型-词向量"><a href="#第四章-语言模型-词向量" class="headerlink" title="第四章 语言模型+词向量"></a>第四章 语言模型+词向量</h2><h3 id="统计语言模型"><a href="#统计语言模型" class="headerlink" title="统计语言模型"></a>统计语言模型</h3><p>语言模型基本思想：用句子S&#x3D;w1,w2,…,wn 的概率 p(S) 刻画句子的合理性</p>
-<p>n-gram 模型假设一个词的出现概率只与它前面的n-1个词相关<br>$$<br>P(w_{i}|w_{1}…w_{i-1}) \approx P(w_{i}|w_{i-(n-1)}…w_{i-1})<br>$$<br>1元文法模型就是独立于历史</p>
+<p>n-gram 模型假设一个词的出现概率只与它前面的n-1个词相关</p>
+<p>1元文法模型就是独立于历史</p>
 <h3 id="神经语言模型"><a href="#神经语言模型" class="headerlink" title="神经语言模型"></a>神经语言模型</h3><p>使用DNN 学习模型参数 ：NNLM 模型</p>
 <p>使用RNN 学习模型参数 ： RNNLM 模型</p>
 <h4 id="NNLM"><a href="#NNLM" class="headerlink" title="NNLM"></a>NNLM</h4><p><img src="/2026/01/19/NLP/image-20260123002907686.png" alt="image-20260123002907686"></p>
