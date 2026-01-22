@@ -320,8 +320,63 @@
 <p> <strong>授课教师</strong>：胡玥、曹亚男、方芳</p>
 <p> <strong>考试信息</strong>：题目更难、覆盖更广、大模型更多了。老师说看完这些点能考到80、90分。主观题只需要核心理念（不需要完整公式）。</p>
 </blockquote>
-<p>前面的是填空和简答题。后面三个方面是主观题。（曹老师说这些点有95分）</p>
+<p>前面的是填空和简答题。后面三个方面是主观题。（曹老师说这些点有95分）复习的时候就以下面这些为重点来学习，然后对一些关键性的概念也会在文中提及。</p>
 <p><img src="/2026/01/19/NLP/NLP%E8%80%83%E8%AF%95%E5%A4%A7%E7%BA%B2.HEIC" alt="image.png"></p>
+<h2 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h2><p>自然语言处理（Natural Language Processing，简称NLP）是利用计算机为工具，对人类特有的书面形式和口头形式的自然语言的信息进行各种类型处理和加工的技术。</p>
+<p>自然语言处理是人工智能的一个分支，用于分析、理解和生成自然语言，以方便人和计算机设备以及人与人之间的交流</p>
+<p>NLP核心任务：信息抽取、文本分类、情感分析、问答系统、机器阅读理解、智能对话、自动文摘、机器翻译</p>
+<p><strong>NLP任务的机器学习方法经历了五次范式变迁</strong></p>
+<p><img src="/2026/01/19/NLP/image-20260122173222259.png" alt="image-20260122173222259"></p>
+<h4 id="P1-非神经网络时代的完全监督学习–特征工程（Fully-Supervised-Learning-Non-Neural-Network）"><a href="#P1-非神经网络时代的完全监督学习–特征工程（Fully-Supervised-Learning-Non-Neural-Network）" class="headerlink" title="P1.非神经网络时代的完全监督学习–特征工程（Fully Supervised Learning, Non-Neural Network）"></a>P1.非神经网络时代的完全监督学习–特征工程（Fully Supervised Learning, Non-Neural Network）</h4><p><strong>模型</strong>：概率模型，如贝叶斯，隐马尔可夫，最大熵，条件随机场等</p>
+<p><strong>特点</strong>：人工进行大量的特征模版定义，一般采用流水线解决方案</p>
+<p><strong>优点</strong>：可解释性强</p>
+<p><strong>缺点</strong>：解决问题方法复杂</p>
+<blockquote>
+<p>对比深度学习方法：深度学习方法解决问题方法简单，但可解释性差</p>
+</blockquote>
+<p>以机器翻译任务为例说明<strong>概率统计方法</strong>和<strong>深度学习&#x2F;神经网络方法</strong>的区别</p>
+<p><strong>概率统计法机器翻译</strong>：树到树的翻译模型</p>
+<ol>
+<li>句法分析：将源语言句子分析为一棵句法结构树（短语结构树）</li>
+<li>树到树的转换：递归地将源语言句子的句法结构树转换为目标语言句子的句法结构树，拼接叶结点得到译文</li>
+</ol>
+<p>特点：流水线处理过程，中间过程复杂，但解释性强。</p>
+<p><strong>深度学习法机器翻译</strong>：神经网络模型</p>
+<p>特点：只需双语平行语料进行端到端训练，翻译过程不需词法分析&#x2F;句法分析等中间过程，直接端到端翻译 。方法简单，但解释性差。</p>
+<p>以情感分类说明后四种范式的区别</p>
+<h4 id="P2-基于神经网络的完全监督学习–架构工程-Fully-Supervised-Learning-Neural-Network"><a href="#P2-基于神经网络的完全监督学习–架构工程-Fully-Supervised-Learning-Neural-Network" class="headerlink" title="P2.基于神经网络的完全监督学习–架构工程(Fully Supervised Learning, Neural Network)"></a>P2.基于神经网络的完全监督学习–架构工程(Fully Supervised Learning, Neural Network)</h4><p><strong>模型</strong>：各种神经网络模型（CNN，RNN， Transformer，GNN 等）</p>
+<p><strong>特点</strong>：模型自动提取特征，一般端到端解决方案</p>
+<p><strong>优点</strong>：处理问题的方法变得简单</p>
+<p><strong>缺点</strong>：需要大量标注数据（有监督），可解释性性差</p>
+<p>情感分类</p>
+<p>文本：这个餐厅的服务真不错 → 情感分类标签</p>
+<p>方法：建模神经网将文本形成文本表示，然后进行分类</p>
+<p><img src="/2026/01/19/NLP/image-20260122174301320.png" alt="image-20260122174301320"></p>
+<h4 id="P3-预训练，精调范式-–目标工程-Pre-train-Fine-tune"><a href="#P3-预训练，精调范式-–目标工程-Pre-train-Fine-tune" class="headerlink" title="P3.预训练，精调范式 –目标工程 (Pre-train, Fine-tune)"></a>P3.预训练，精调范式 –目标工程 (Pre-train, Fine-tune)</h4><p><strong>特点</strong>：引入各种辅助任务loss，将其添加到预训练模型中，然后继续pre-training，以便让其适配下游任务，之后，通过引入额外的参数，用特定任务的目标函数对模型进行微调，使其更适配下游任务。研究重点转向了目标工程，设计在预训练和微调阶段使用的训练目标</p>
+<p><strong>基本思想</strong>：自然语言处理任务往往用有监督方法学习，但<strong>标注数据有限</strong>，预训练方法可以通过自监督学习从大规模数据中获得与<strong>具体任务无关的预训练模型</strong> ，然后用训练好的预训练模型提高<strong>下游任务的性能</strong>。</p>
+<p><strong>数据特点</strong>：需要领域数据进行任务微调</p>
+<p><img src="/2026/01/19/NLP/image-20260122175102413.png" alt="image-20260122175102413"></p>
+<h4 id="P4-预训练，提示，预测范式–prompt挖掘工程-（Pre-train-Prompt-Predict）"><a href="#P4-预训练，提示，预测范式–prompt挖掘工程-（Pre-train-Prompt-Predict）" class="headerlink" title="P4.预训练，提示，预测范式–prompt挖掘工程 （Pre-train, Prompt, Predict）"></a>P4.预训练，提示，预测范式–prompt挖掘工程 （Pre-train, Prompt, Predict）</h4><blockquote>
+<p><strong>Prompt</strong> is the technique of <strong>making better use of the Knowledge</strong> from the pre-trained model by <strong>adding additional texts to the input</strong></p>
+</blockquote>
+<p><strong>特点</strong>：<strong>不通过目标工程</strong>使预训练的语言模型（LM）适应下游任务，而是将下游任务建模的方式重新定义**（Reformulate）<strong>，通过利用合适prompt实现不对预训练语言模型改动太多，尽量在</strong>原始LM**上解决任务的问题</p>
+<p><strong>核心思想</strong>：改变任务形式利用预训练模型完成任务（用于小样本学习或半监督学习，某些场景下甚至能做到零样本学习。）</p>
+<p><strong>数据特点</strong>： 少量（无）的任务数据</p>
+<blockquote>
+<p>prompt learning激活了类似于小样本学习等场景</p>
+</blockquote>
+<p><img src="/2026/01/19/NLP/image-20260122180024520.png" alt="image-20260122180024520"></p>
+<p>方法：给输入的文本增加一个前缀或者后缀描述，并且Mask掉某些Token，转换为完形填空问题，转换要尽可能与原来的句子组成一句自然的话</p>
+<p><img src="/2026/01/19/NLP/image-20260122180155407.png" alt="image-20260122180155407"></p>
+<p><img src="/2026/01/19/NLP/image-20260122181135567.png" alt="image-20260122181135567"></p>
+<p>通过任务转换可以用MLM模型给出预测结果，而MLM模型的训练可以不需要监督数据，因此理论上这能够实现零样本学习。（如用少量任务样本微调一下模型，效果更好）</p>
+<h4 id="P5-大模型LLM-（Chat-GPT）"><a href="#P5-大模型LLM-（Chat-GPT）" class="headerlink" title="P5. 大模型LLM （Chat GPT）"></a>P5. 大模型LLM （Chat GPT）</h4><p><strong>特点</strong>：通用预训练语言模型（大模型），将下游任务统一为生成式任务，通过提示学习，上下文学习，思维链，检索增强等方式完成各类任务</p>
+<p><img src="/2026/01/19/NLP/image-20260122181004820.png" alt="image-20260122181004820"></p>
+<p>在大模型时代，依靠大模型强大的语言生成能力和理解能力，已经可以使用<strong>指令</strong>去激发模型的各种能力，进而用<strong>自然对话的方式</strong>来解决情感分析等基础任务了</p>
+<p><em>五个范式的总结</em></p>
+<p><img src="/2026/01/19/NLP/image-20260122174912226.png" alt="image-20260122174912226"></p>
+<p><em>授课体系</em></p>
+<p><img src="/2026/01/19/NLP/image-20260122181300271.png" alt="image-20260122181300271"></p>
 
   </div>
   <div id=""></div>
