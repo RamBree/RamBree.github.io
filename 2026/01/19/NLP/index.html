@@ -435,7 +435,8 @@
 <h4 id="RNN语言模型变形"><a href="#RNN语言模型变形" class="headerlink" title="RNN语言模型变形"></a>RNN语言模型变形</h4><p>正向语言模型、反向语言模型、双向语言模型、单向多层RNN语言模型、双向多层RNN语言模型</p>
 <h3 id="词向量"><a href="#词向量" class="headerlink" title="词向量"></a>词向量</h3><p>one-hot</p>
 <p>不计算词之间的共现频度，直接用“基于词的上下文词来预测当前词”或“基于当前词预测上下文词”的方法构造构造<strong>低维稠密向量</strong>作为词的分布式表示 。</p>
-<h2 id="第五章-NLP中的注意力机制——考点3"><a href="#第五章-NLP中的注意力机制——考点3" class="headerlink" title="第五章 NLP中的注意力机制——考点3"></a>第五章 NLP中的注意力机制——<em><strong>考点3</strong></em></h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>注意力机制：加权求和模块</p>
+<h2 id="第五章-NLP中的注意力机制——考点3"><a href="#第五章-NLP中的注意力机制——考点3" class="headerlink" title="第五章 NLP中的注意力机制——考点3"></a>第五章 NLP中的注意力机制——<em><strong>考点3</strong></em></h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/609523552">注意力机制</a></p>
+<p>注意力机制：加权求和模块</p>
 <p>作用：等权求和 → 加权求和（任意节点间建立关联关系）</p>
 <h3 id="传统注意力机制"><a href="#传统注意力机制" class="headerlink" title="传统注意力机制"></a>传统注意力机制</h3><p>加权求和模块(分为三个阶段)</p>
 <p><img src="/2026/01/19/NLP/image-20260123100652979.png" alt="image-20260123100652979"></p>
@@ -500,8 +501,8 @@
 <p><strong>可控序列生成</strong>：根据输入的内容Ｘ生成符合属性C的序列Ｙ</p>
 <p>Seq2Seq模型按输出生成方式</p>
 <ol>
-<li>生成式模型Decoder：根据编码端形成的输入表示和先前时刻输出tokens，生成词表token的概率分布，并根据该分布产生当前输出词。</li>
-<li>选择式模式Decoder：根据编码端形成的输入表示和先前时刻产生成的输出tokens，从输入端选择一个token作为输出 token </li>
+<li>生成式模型Decoder：根据编码端形成的输入表示和先前时刻输出tokens，生成词表token的概率分布，并根据该分布产生当前输出词。（ 编码端和解码端有各自词表，二者可相同或不同 。解码端需处理集外词OOV，一般用UNK 代替）</li>
+<li>选择式模式Decoder：根据编码端形成的输入表示和先前时刻产生成的输出tokens，从输入端选择一个token作为输出 token （ 解码端和编码端词表相同）</li>
 <li>选择-生成式模型Decoder：前两种方式结合，输出可以从输入中选择也可以由 Decoder 端生成。</li>
 </ol>
 <h4 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h4><h5 id="纯生成式模型结构——考点2"><a href="#纯生成式模型结构——考点2" class="headerlink" title="纯生成式模型结构——考点2"></a>纯生成式模型结构——<em>考点2</em></h5><p>基本RNN架构</p>
@@ -509,8 +510,20 @@
 <p>问题：对不同的输出 Yi 中间语义表示C相同。实际应该在翻译的时候，体现出英语单词对于翻译当前中文单词的不同程度的影响。</p>
 <p>RNN + Attention</p>
 <p><img src="/2026/01/19/NLP/image-20260124140418120.png" alt="image-20260124140418120"></p>
+<p><strong>推敲网络</strong>：目前的序列生成方法往往通过一轮前向计算解码出整个目标序列，缺乏推敲过程。本文引入一个推敲网络进行双轮解码以模拟人类书写文章的过程，即先解码出一个基础序列，然后对其进行斟酌推敲形成最终的目标序列。</p>
 <p><strong>Transformer模型结构</strong></p>
-<p><img src="/2026/01/19/NLP/image-20260124143011305.png" alt="image-20260124143011305"></p>
+<p>模型特点：</p>
+<ul>
+<li><p>全部采用Attention机制</p>
+</li>
+<li><p>克服了RNN无法并行计算的缺点，可以高度并行，训练速度快；</p>
+</li>
+<li><p>具有捕捉long distance dependency的能力，有较高的建模能力</p>
+</li>
+</ul>
+<p>训练：并行</p>
+<p>预测：编码端并行，解码端串行</p>
+<p><img src="/2026/01/19/NLP/image-20260126222803242.png" alt="image-20260126222803242"></p>
 <ul>
 <li><p>编码端：6层Attention堆叠，包含2个子层（Multi-head attention 和Feed Forward Network）</p>
 </li>
@@ -524,7 +537,11 @@
 <p><img src="/2026/01/19/NLP/image-20260124144213550.png" alt="image-20260124144213550"></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/368592551">transformer并行训练</a></p>
 <p><strong>Transformer mask机制</strong></p>
-<p>MASK 表示掩码，它对某些值进行掩盖，使其在参数更新时不产生效果。Transformer模型里面涉及两种mask，分别是padding mask和sequence mask。其中，padding mask在所有的scaled dot-product attention里面都需要用到，而sequence mask只有在decoder的self-attention里面用到。</p>
+<p>MASK 表示掩码，它对某些值进行掩盖，使其在参数更新时不产生效果。</p>
+<p><strong>Padding Mask</strong></p>
+<p>作用：处理非定长序列问题，使不定长序列可以按定长序列统一并行操作，在所有的 Scaled Dot-Product Attention 里面都需要用到。</p>
+<p><strong>Sequence Mask</strong></p>
+<p>作用：防止标签泄露 ，在 Decoder 的 Self-Attention 里面用到。</p>
 <p><strong>预测：</strong></p>
 <p>训练好的模型在预测时将源句子在编码端输入， encoder对其并行编码后得到编码端的输出tensor (不直接作decoder输入)，然后Decode端进行解码，</p>
 <p>步骤如下：</p>
@@ -547,12 +564,31 @@
 <p>拆分规则可以从语料中自动统计学习到，常用的是**BPE（ Byte Pair Encoding ）**编码法</p>
 </blockquote>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/707103955">BPE编码法详细解释</a></p>
+<p>BPE是一种数据压缩的算法，它通常用于自然语言处理领域中的词汇表构建(处理罕见OOV词)等任务</p>
+<p>算法的核心思想：根据语料通过不断地合并字符或子词来生成关于语料的词汇表</p>
+<ol>
+<li><p>Normalization</p>
+</li>
+<li><p>Pre-tokenization（统计语料中字符频率-用Pre-token表记录）</p>
+</li>
+<li><p>将第2步Pre-token表单词拆分为单个字符，单词后加结束符 </w>，并将该步所有字符加入词汇表</p>
+</li>
+<li><p>计算Pre-token表中二个相连字符&#x2F;片段的出现频率 ，将共现频率最高的二个字符&#x2F;片段用频率表保存</p>
+</li>
+<li><p>将4中频率表中的二字符合并， 将合并后的字符&#x2F;片段 加入词汇表，并将Pre-token表记录中该相连的片段合并，形成新粒度的Pre-token表记录</p>
+</li>
+<li><p>转步骤 4 ，直至得到希望大小的词汇表</p>
+</li>
+</ol>
 <h5 id="生成式模型训练问题"><a href="#生成式模型训练问题" class="headerlink" title="生成式模型训练问题"></a>生成式模型训练问题</h5><p><img src="/2026/01/19/NLP/image-20260124151111990.png" alt="image-20260124151111990"></p>
 <h5 id="选择式模型"><a href="#选择式模型" class="headerlink" title="选择式模型"></a>选择式模型</h5><p>纯生成式模型特点：预测输出端词表的大小是固定的，输出 toke 是输出词表中概率最大的。这样就无法解决输出词表需按输入情况动态变化的问题。</p>
 <p>例如：凸包问题。输出是输入的子集。</p>
-<p>指针网络</p>
+<p>指针网络：特点：Yi 从X 的标识词典中产生</p>
 <h5 id="选择-生成式模型"><a href="#选择-生成式模型" class="headerlink" title="选择-生成式模型"></a>选择-生成式模型</h5><p>指针网络（选择式模型）特点：输出直接从输入中选择，输出词表与输入词表相同，无法处理输出需要产生输出词表以外词的情况。</p>
 <p>PG-Net</p>
+<p>指针生成器网络（Pointer-generator network）</p>
+<p>基本思想：将编码-解码+注意力模型和指针网结合，生成既可产生也可选择的输出</p>
+<p>特点：Yi 既可以从输入端X 的标识词典中产生也可以从输出端Y 的标识词典中产生，这样既可以生成高质量的摘要，也可以处理原文中的未登录词(OOV)</p>
 <h4 id="训练策略"><a href="#训练策略" class="headerlink" title="训练策略"></a>训练策略</h4><p><strong>自编码</strong>:作为一类神经网络结构在无监督学习中用于有效编码。通常用于降维。近期，自编码的概念广泛地用于数据的生成模型。</p>
 <p><img src="/2026/01/19/NLP/image-20260124152039959.png" alt="image-20260124152039959"></p>
 <p>深层自编码器</p>
@@ -573,7 +609,7 @@
 <p><strong>基本思想</strong> ：假设模型生成一个候选（Candidate）序列𝐱，真实数据中存在一组参考（Reference）序列，生成序列与参考译文相比较，越接近，生成序列的正确率越高。</p>
 <p><strong>实现方法</strong> ：统计同时出现在生成序列和参考序列中 的 n 元词的个数，最后把匹配到的n 元词的数目除以生成序列单词数目，得到评测结果（ 𝒏 元组集合的精度）</p>
 <p><img src="/2026/01/19/NLP/image-20260124153416465.png" alt="image-20260124153416465"></p>
-<h5 id="RGOUGE"><a href="#RGOUGE" class="headerlink" title="RGOUGE"></a>RGOUGE</h5><p>ROUGE（Recall-Oriented Understudy for Gisting Evaluation）最早应用于文本摘要领域。和 BLEU类似，但 ROUGE计算的是召回率（Recall）。假设模型生成一个候选（Candidate）序列𝐱，真实数据中存在一组参考序列，我们首先从候选序列中提取𝒏元组集合𝓦</p>
+<h5 id="ROUGE"><a href="#ROUGE" class="headerlink" title="ROUGE"></a>ROUGE</h5><p>ROUGE（Recall-Oriented Understudy for Gisting Evaluation）最早应用于文本摘要领域。和 BLEU类似，但 ROUGE计算的是召回率（Recall）。假设模型生成一个候选（Candidate）序列𝐱，真实数据中存在一组参考序列，我们首先从候选序列中提取𝒏元组集合𝓦</p>
 <p><img src="/2026/01/19/NLP/image-20260124153536035.png" alt="image-20260124153536035"></p>
 <h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p><strong>曝光偏差问题</strong>（Exposure Bias）：模型生成的分布与真实的数据分布并不严格一致。一旦在预测前缀𝒚𝟏:(𝒕−𝟏)的过程中存在错误，会导致错误传播，使得后续生成的序列也会偏离真实分布。这个问题成为曝光偏差（Exposure Bias）</p>
 <p>解决方法：Scheduled Sampling：在训练过程中，混合使用真实数据和模型生成数据 。（逐步减少）</p>
@@ -591,7 +627,7 @@
 </ul>
 <h4 id="ELMo"><a href="#ELMo" class="headerlink" title="ELMo"></a>ELMo</h4><p>ElMo使用双向的LSTM语言模型，由一个前向和一个后向语言模型构成，目标函数是取这两个方向语言模型的最大似然</p>
 <p><img src="/2026/01/19/NLP/image-20260124155941042.png" alt="image-20260124155941042"></p>
-<p>ELMo给原始词向量层和每个LSTM隐层都设置了一个可训练参数，每层BiLSTM学习不同特征，不同下游任务对每层的权重也不同</p>
+<p>ELMo给<strong>原始词向量层和每个LSTM隐层都设置了一个可训练参数</strong>，每层BiLSTM学习不同特征，不同下游任务对每层的权重也不同</p>
 <p>可以将各层的输出作为最后的输出，或将各层的输出进行组合作为最后的输出，将学习到的向量表示输出给下游任务</p>
 <p>问题：</p>
 <ol>
@@ -608,6 +644,7 @@
 <p>同样的Pre-trainng模型参数可用于初始化不同下游任务模型</p>
 <p>预训练在微调时可以仅通过使用一个额外的输出层就可以达到最好的效果</p>
 <p><img src="/2026/01/19/NLP/image-20260124202737552.png" alt="image-20260124202737552"></p>
+<p>预训练策略</p>
 <ol>
 <li>看不见自己：MLM：随机屏蔽部分输入token，然后只预测那些被屏蔽的token</li>
 <li>建模句间关系：预训练句子关系模型，使用二元分类任务预训练句子关系模型</li>
@@ -629,7 +666,7 @@
 <ol>
 <li><p>预训练模型选择：PLM模型结构多样，同时预训练任务也各有特色，选择与特定任务匹配的PLM模型十分必要</p>
 </li>
-<li><p>Prompt Engineering：针对不同任务，选择对应合适的Prompt输入至关重要</p>
+<li><p>Prompt Engineering：针对不同任务，选择对应合适的Prompt输入至关重要（槽Prompt，前后缀Prompt）</p>
 </li>
 <li><p>Answer Engineering：主要涉及模型输出的粒度形式（token,span,sentence,etc.）及模型输出到实际标签的映射方式</p>
 </li>
@@ -638,7 +675,7 @@
 <li><p>Training Strategies：训练Prompt的方法多种多样，LM参数及Prompt参数可进行多种组合训练</p>
 </li>
 </ol>
-<h4 id="上下文学习"><a href="#上下文学习" class="headerlink" title="上下文学习"></a>上下文学习</h4><p>上下文学习使用由任务描述和（或）示例所组成的自然语言文本作为提示</p>
+<h4 id="上下文学习"><a href="#上下文学习" class="headerlink" title="上下文学习"></a>上下文学习</h4><p>上下文学习使用由<strong>任务描述</strong>和（或）<strong>示例</strong>所组成的自然语言文本作为提示</p>
 <p>示例选择：通过自然语言描述任务，从任务数据集中选择一些样本作为示例</p>
 <p>示例格式和顺序：根据特定的模板，将这些示例按照特定顺序组合成提示内容</p>
 <p>将测试样本添加到提示后面，整体输入到大语言模型以生成输出</p>
@@ -720,6 +757,8 @@
 </tbody></table>
 <p>s可以是正向（褒义）、负向（贬义）、中立的，或是一个1～5的打分。</p>
 <h4 id="建模"><a href="#建模" class="headerlink" title="建模"></a>建模</h4><p><img src="/2026/01/19/NLP/image-20260124163237335.png" alt="image-20260124163237335"></p>
+<p><img src="/2026/01/19/NLP/image-20260127021929643.png" alt="image-20260127021929643"></p>
+<p><img src="/2026/01/19/NLP/image-20260127021939303.png" alt="image-20260127021939303"></p>
 <h2 id="第九章-信息抽取"><a href="#第九章-信息抽取" class="headerlink" title="第九章 信息抽取"></a>第九章 信息抽取</h2><h3 id="实体识别——考点7"><a href="#实体识别——考点7" class="headerlink" title="实体识别——考点7"></a>实体识别——<em>考点7</em></h3><p>传统命名实体识别任务：实体之间是非重叠的且由句子中连续的片段构成（平面实体）</p>
 <ul>
 <li><p>限定实体类别：限定识别七类命名实体（人名、 机构名、 地名、 时间、日期、 货币和百分比）</p>
@@ -796,8 +835,8 @@
 </ul>
 <p><img src="/2026/01/19/NLP/image-20260124173607083.png" alt="image-20260124173607083"></p>
 <p><strong>事件抽取任务</strong></p>
-<p>事件监测：触发词识别、触发词类型识别</p>
-<p>元素抽取：元素识别、元素角色分类</p>
+<p><strong>事件监测：触发词识别、触发词类型识别</strong></p>
+<p><strong>元素抽取：元素识别、元素角色分类</strong></p>
 <p>Pipeline Approach：将整个任务分成若干子任务，依次进行求解</p>
 <ol>
 <li>优点：能够简化整个事件抽取任务</li>
@@ -834,7 +873,7 @@
 </ul>
 <p><img src="/2026/01/19/NLP/image-20260124175756998.png" alt="image-20260124175756998"></p>
 <p>对话状态是一种从对话文本中抽取得到的数据结构。</p>
-<p>对话状态追踪旨在自动化地从多轮对话文本中提取（槽，槽值）对集合，追踪这些槽值的动态变化，最终得到结构化的对话信息。</p>
+<p><strong>对话状态追踪</strong>旨在自动化地从多轮对话文本中提取（槽，槽值）对集合，追踪这些槽值的动态变化，最终得到结构化的对话信息。</p>
 <p>基于固定本体的方法（ontology-based methods）：假定候选槽值已知，将对话状态追踪问题建模为分类问题</p>
 <p>基于开放词表的方法（open-vocabulary based methods）：假定候选槽值未知，将对话状态追踪问题建模为生成问题</p>
 <p>三种解码生成的方式</p>
@@ -843,7 +882,7 @@
 <p>（c）自然语言提示解码（给定槽的描述信息）</p>
 <p><img src="/2026/01/19/NLP/image-20260124200158934.png" alt="image-20260124200158934"></p>
 <p><img src="/2026/01/19/NLP/image-20260124200223080.png" alt="image-20260124200223080"></p>
-<p>对话策略学习：决定对话代理应采取哪些行动来有效实现特定目标。具体地，给定对话状态，要求对话系统选择合适的对话动作</p>
+<p><strong>对话策略学习</strong>：决定对话代理应采取哪些行动来有效实现特定目标。具体地，给定对话状态，要求对话系统选择合适的对话动作</p>
 <p>建模方式：</p>
 <p>监督学习：利用已有的对话数据集，构建样本集(state, action)，直接学习从系统状态到系统输出动作的映射</p>
 <p>强化学习：在学习过程中，用户被当作环境，对话系统则作为个体（agent），系统的动作是生成回应。环境和系统进行多次交互（决策），奖励信号则可以是用户反馈的满意度或任务完成情况</p>
@@ -851,7 +890,7 @@
 <p><img src="/2026/01/19/NLP/image-20260124200500912.png" alt="image-20260124200500912"></p>
 <p><img src="/2026/01/19/NLP/image-20260124200606594.png" alt="image-20260124200606594"></p>
 <p><img src="/2026/01/19/NLP/image-20260124200627972.png" alt="image-20260124200627972"></p>
-<h4 id="自然语言生成模块"><a href="#自然语言生成模块" class="headerlink" title="自然语言生成模块"></a>自然语言生成模块</h4><p>从对话动作到自然语言语句的映射，即从结构化数据到非结构化数据的映射</p>
+<h4 id="自然语言生成模块"><a href="#自然语言生成模块" class="headerlink" title="自然语言生成模块"></a>自然语言生成模块</h4><p><strong>从对话动作到自然语言语句的映射，即从结构化数据到非结构化数据的映射</strong></p>
 <p>自然语言生成实现主要步骤</p>
 <ol>
 <li>文本规划：生成句子得语义帧序列</li>
