@@ -450,7 +450,7 @@
 <p>直接从输入句子里面找到某个特定的单词，然后把目标句子单词和这个单词对齐，而其它输入句子中的单词硬性地认为对齐概率为0</p>
 <p><img src="/2026/01/19/NLP/image-20260123101603546.png" alt="image-20260123101603546"></p>
 <p><strong>全局注意力 Global Attention</strong></p>
-<p>Decode端Attention计算时要考虑输Ecoder端序列中所有的词是sa</p>
+<p>Decode端Attention计算时要考虑输Ecoder端序列中所有的词，是soft AM</p>
 <p><strong>局部注意力 Local Attention</strong></p>
 <p>本质上是Soft AM和 Hard AM的一个混合或折衷。一般首先预估一个对齐位置Pt，然后在Pt左右大小为D的窗口范围来取类似于Soft AM的概率分布。</p>
 <h3 id="注意力编码机制"><a href="#注意力编码机制" class="headerlink" title="注意力编码机制"></a>注意力编码机制</h3><p>编码：将神经网络中分散的信息聚集为某种隐层表示，形成信息量更丰富的表示，以便后继处理</p>
