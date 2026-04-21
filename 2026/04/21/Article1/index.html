@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>FirmAgent-无限进步</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="漏洞挖掘,LLM,">
+<meta name="description" content="一篇论文阅读">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 8.1.1"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/shengdanwu.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>Ram</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('/image/chainsaw-man-3840x2160-24469.jpg')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/漏洞挖掘">漏洞挖掘</a></li>
+            
+            <li><a href="/tags/LLM">LLM</a></li>
+            
+            
+        </ul>
+        
+        <h1>FirmAgent</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="/categories/论文阅读" target="_blank" >论文阅读</a>
+                    
+                </div>
+                <p>2026-04-21 13:03:38</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <h1 id="《FirmAgent-Leveraging-Fuzzing-to-Assist-LLM-Agents-with-IoT-Firmware-Vulnerability-Discovery》"><a href="#《FirmAgent-Leveraging-Fuzzing-to-Assist-LLM-Agents-with-IoT-Firmware-Vulnerability-Discovery》" class="headerlink" title="《FirmAgent: Leveraging Fuzzing to Assist LLM Agents with IoT Firmware Vulnerability Discovery》"></a>《<strong>FirmAgent: Leveraging Fuzzing to Assist LLM Agents with IoT Firmware Vulnerability Discovery</strong>》</h1><p>这篇论文《<strong>FirmAgent: Leveraging Fuzzing to Assist LLM Agents with IoT Firmware Vulnerability Discovery</strong>》的核心目标，是解决 <strong>IoT 固件漏洞挖掘里一个长期很难同时兼顾的问题</strong>：<br><strong>静态分析覆盖广，但误报高；动态分析（尤其 fuzzing）能给出可触发样例，但漏报高。</strong> 作者提出的 FirmAgent，本质上是在这两者之间做了一个很“聪明”的分工：<strong>先让 fuzzing 负责“找到真实输入从哪里进来、程序运行时到底走了哪些调用关系”，再让 LLM 负责“沿着这些更可信的路径做语义级污点分析，并补全 PoC”</strong>。作者把它定位为第一个“用 fuzzing 来辅助 LLM agent 做 IoT 固件漏洞发现”的混合框架。</p>
+<hr>
+<h2 id="1-论文到底在解决什么问题"><a href="#1-论文到底在解决什么问题" class="headerlink" title="1. 论文到底在解决什么问题"></a>1. 论文到底在解决什么问题</h2><p>IoT 固件漏洞挖掘里，尤其是跑 Linux 的路由器、摄像头这类设备，常见方法大致分三类：</p>
+<p>第一类是<strong>静态分析</strong>。<br>比如 SaTC、EmTaint、HermeScan、OctopusTaint。这些方法不运行程序，只看二进制&#x2F;反编译代码，优点是理论上能“看遍很多路径”，缺点是很容易把<strong>不是真正外部可控的输入点</strong>也当成 source（污点源），于是误报很多；而且它们通常只能报“可能有洞”，<strong>不给 PoC</strong>，后续还要人手工验证。</p>
+<p>第二类是<strong>动态分析 &#x2F; fuzzing</strong>。<br>比如 FirmAFL、Greenhouse、FirmFuzz。这类方法的优点是，只要真打到了漏洞，通常就能给出 crash、输入样例，甚至直接给 PoC；问题是 <strong>IoT 固件路径约束很重</strong>，很多分支依赖特定 URI、参数名、配置项甚至硬件状态，fuzzer 很难靠随机变异跨过去，于是大量 sink 根本到不了，造成漏报。</p>
+<p>第三类是<strong>混合方法</strong>。<br>传统 hybrid fuzzing 的想法是边 fuzz 边做符号执行&#x2F;约束求解&#x2F;甚至让 LLM 帮忙生成能过检查的输入。但在 Linux-based IoT firmware 上，这样做的代价很大：<br>一方面运行在模拟环境里的约束收集不稳定；<br>另一方面 IoT 固件特别容易崩、模拟又不完整，把 LLM 放进 fuzzing 内环会让系统很重、很脆。</p>
+<p>这篇论文的关键点在于：<strong>它不是把 LLM 放进 fuzzing 的在线决策环里，而是把 fuzzing 当成“动态事实收集器”，把最难、最容易错的那部分事实先收上来，然后交给 LLM 去做更精准的静态推理。</strong> 这点非常重要。</p>
+<hr>
+<h2 id="2-作者的核心观察：为什么这条路线是成立的"><a href="#2-作者的核心观察：为什么这条路线是成立的" class="headerlink" title="2. 作者的核心观察：为什么这条路线是成立的"></a>2. 作者的核心观察：为什么这条路线是成立的</h2><p>论文最有价值的不是“用了 LLM”，而是它先做了一个非常关键的经验观察。</p>
+<h3 id="2-1-静态分析为什么误报高"><a href="#2-1-静态分析为什么误报高" class="headerlink" title="2.1 静态分析为什么误报高"></a>2.1 静态分析为什么误报高</h3><p><img src="/2026/04/21/Article1/image-20260421200832986.png" alt="image-20260421200832986"></p>
+<p><strong>表 II</strong> 里统计了静态 source 识别的准确性。以 HermeScan 为代表的静态方法，虽然已经算当前比较准的，但它找到的候选 source function 里，<strong>平均只有 21.6% 真的是实际接收外部输入的 source</strong>。<br>进一步看，由这些候选 source 拼出来的候选调用链，<strong>只有 30.7% 是真实漏洞调用链</strong>。这就解释了为什么静态分析会报一堆“看上去能通，实际上不可控”的假漏洞。</p>
+<h3 id="2-2-fuzzing-为什么漏报高"><a href="#2-2-fuzzing-为什么漏报高" class="headerlink" title="2.2 fuzzing 为什么漏报高"></a>2.2 fuzzing 为什么漏报高</h3><p><strong>表 III</strong> 更关键：</p>
+<p><img src="/2026/04/21/Article1/image-20260421200904750.png" alt="image-20260421200904750"></p>
+<p>作者发现 fuzzing 在这些固件上，<strong>平均能到达 89.7% 的 source 点</strong>，但只能到达 <strong>25.0% 的 sink 点</strong>。<br>这说明一个很有意思的事实：</p>
+<ul>
+<li><strong>外部输入进入程序的位置</strong>通常比较浅，fuzzing 比较容易摸到；</li>
+<li>但从 source 再走到危险 sink，中间会经过很多复杂条件，比如 URI 匹配、配置项判断、字符串格式检查、状态依赖，导致 fuzzer 很难真正触发漏洞。</li>
+</ul>
+<p>所以作者的洞察是：</p>
+<blockquote>
+<p><strong>让 fuzzing 干它擅长的事：确认“这里真有外部输入进来”；<br>让静态&#x2F;LLM 分析干它擅长的事：从这些可信 source 往后把路径推到底。</strong></p>
+</blockquote>
+<p>这就是 FirmAgent 的理论基础。</p>
+<h3 id="2-3-两个具体例子特别能说明问题"><a href="#2-3-两个具体例子特别能说明问题" class="headerlink" title="2.3 两个具体例子特别能说明问题"></a>2.3 两个具体例子特别能说明问题</h3><h4 id="例子一：静态分析会被间接调用卡住"><a href="#例子一：静态分析会被间接调用卡住" class="headerlink" title="例子一：静态分析会被间接调用卡住"></a>例子一：静态分析会被间接调用卡住</h4><p><strong>图 1</strong> 展示了 Trendnet 路由器里的一个例子。</p>
+<p><img src="/2026/04/21/Article1/image-20260421200943894.png" alt="image-20260421200943894">请求匹配到 <code>NTPSyncWithHost.cgi</code> 后，会通过函数指针跳到 <code>sub_F934</code>。在这个函数里，用户输入经过一些字符串处理，最后进入：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">sprintf</span><span class="token punctuation">(</span>v5<span class="token punctuation">,</span> <span class="token string">"date -s %s"</span><span class="token punctuation">,</span> url_remove<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">system</span><span class="token punctuation">(</span>v5<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>这显然是潜在命令注入路径。<br>问题是：<strong>静态分析很难把“间接调用点”和真正被调到的目标函数”准确连起来</strong>，于是污点在函数指针处“断掉了”，导致漏报。</p>
+<p>而 fuzzing 在运行时是能看到“这次函数指针实际跳到了哪儿”的，所以它能补上这条控制流边。</p>
+<h4 id="例子二：fuzzing-会被配置条件卡住"><a href="#例子二：fuzzing-会被配置条件卡住" class="headerlink" title="例子二：fuzzing 会被配置条件卡住"></a>例子二：fuzzing 会被配置条件卡住</h4><p><strong>图 2</strong> 里 Netgear DC112A 的代码：</p>
+<p><img src="/2026/04/21/Article1/image-20260421201531486.png" alt="image-20260421201531486"></p>
+<p>这里 <code>deviceName</code> 是外部输入，但想走到 <code>system</code>，还得满足固件内部配置条件。<br>fuzzer 可以把污点送进 <code>Name</code>，但<strong>未必能猜中 nvram 条件</strong>，所以动态上触发不到漏洞。</p>
+<p>而如果你已经知道 <code>Name</code> 是真实外部输入，那么静态&#x2F;LLM 就可以在后半段继续推理：<strong>只要某个配置成立，这里就有命令注入风险。</strong></p>
+<p>这两个例子恰好说明：<br><strong>静态分析最怕 source 不准、间接调用断链；动态分析最怕深路径条件。</strong><br>FirmAgent 就是在这两个薄弱点之间做拼接。</p>
+<hr>
+<h2 id="3-FirmAgent-的总体结构"><a href="#3-FirmAgent-的总体结构" class="headerlink" title="3. FirmAgent 的总体结构"></a>3. FirmAgent 的总体结构</h2><p><img src="/2026/04/21/Article1/image-20260421201549293.png" alt="image-20260421201549293"></p>
+<h3 id="阶段一：Fuzzing-Driven-Information-Collection"><a href="#阶段一：Fuzzing-Driven-Information-Collection" class="headerlink" title="阶段一：Fuzzing-Driven Information Collection"></a>阶段一：Fuzzing-Driven Information Collection</h3><p>即“<strong>fuzzing 驱动的信息收集</strong>”。</p>
+<p>目标不是立刻找到漏洞，而是先收三类对后续分析最关键的信息：</p>
+<ol>
+<li><strong>真实 source 点 &#x2F; Csource</strong>：程序里哪些位置在运行时真的接收了外部输入；</li>
+<li><strong>更完整的调用图</strong>：尤其是通过运行时解析补全的间接调用；</li>
+<li><strong>可达测试样例</strong>：哪些请求模板至少能走到这些 source 点。</li>
+</ol>
+<h3 id="阶段二：Taint-to-PoC-Agent"><a href="#阶段二：Taint-to-PoC-Agent" class="headerlink" title="阶段二：Taint-to-PoC Agent"></a>阶段二：Taint-to-PoC Agent</h3><p>即“<strong>从污点到 PoC 的 agent 阶段</strong>”。</p>
+<p>在拿到上面的动态事实以后，再做两件事：</p>
+<ol>
+<li><strong>污点传播 agent</strong>：沿着从 Csource 到 sink 的潜在路径，做语义级污点分析；</li>
+<li><strong>PoC 生成 agent</strong>：把 fuzzing 收集到的“可达 testcase”与 LLM 推导出的“语义约束”结合，自动补出一个真正能触发漏洞的 PoC。</li>
+</ol>
+<p>这两个阶段的组合，实质上是：</p>
+<blockquote>
+<p><strong>动态阶段负责“把问题缩小到真实、可信的范围”</strong><br><strong>LLM 阶段负责“在这个可信范围里做高层语义推理和样例补全”</strong></p>
+</blockquote>
+<p>这比“全靠静态猜 source”，或者“全靠 fuzzing 硬撞 sink”，都要稳得多。</p>
+<hr>
+<h2 id="4-第一阶段：Fuzzing-驱动的信息收集，具体是怎么做的"><a href="#4-第一阶段：Fuzzing-驱动的信息收集，具体是怎么做的" class="headerlink" title="4. 第一阶段：Fuzzing 驱动的信息收集，具体是怎么做的"></a>4. 第一阶段：Fuzzing 驱动的信息收集，具体是怎么做的</h2><p><img src="/2026/04/21/Article1/image-20260421201611874.png" alt="image-20260421201611874"></p>
+<h3 id="4-1-预分析（Pre-fuzzing-Analysis）"><a href="#4-1-预分析（Pre-fuzzing-Analysis）" class="headerlink" title="4.1 预分析（Pre-fuzzing Analysis）"></a>4.1 预分析（Pre-fuzzing Analysis）</h3><p>这是正式 fuzz 之前的静态准备工作，主要做三件事。</p>
+<h3 id="4-1-1-Service-Handler-Detection：找服务处理函数"><a href="#4-1-1-Service-Handler-Detection：找服务处理函数" class="headerlink" title="4.1.1 Service Handler Detection：找服务处理函数"></a>4.1.1 Service Handler Detection：找服务处理函数</h3><p>IoT 固件里的 web 服务通常有很多 handler，分别处理不同 URI、SOAP 操作、HANP 消息等。<br>问题是很多 handler <strong>并不在前端页面里显式暴露</strong>，或者文档不完整。如果你不知道 URI，fuzzing 连入口都进不去。</p>
+<p>作者的做法是：</p>
+<ol>
+<li>从公开接口信息里抽取初始请求模式<br>例如 web server 配置、SOAP 定义、API 文档；</li>
+<li>利用字符串引用和控制流分析，找到这些请求对应的 handler 代码块；</li>
+<li>再收集这些 handler 附近的上下文，交给 LLM 去学习“handler 长什么样”；</li>
+<li>通过代码结构相似性，挖出<strong>未文档化的 handler</strong>。</li>
+</ol>
+<p>这个设计的意义在于：<br>不是只 fuzz 前端表面暴露的接口，而是尽量把<strong>隐藏后端接口</strong>也纳入覆盖范围。</p>
+<h3 id="4-1-2-Keyword-Dictionary-Analysis：构建关键字字典"><a href="#4-1-2-Keyword-Dictionary-Analysis：构建关键字字典" class="headerlink" title="4.1.2 Keyword Dictionary Analysis：构建关键字字典"></a>4.1.2 Keyword Dictionary Analysis：构建关键字字典</h3><p>传统方法像 SaTC，很依赖前端-后端共享关键字匹配。但这样会漏掉“只有后端才知道”的参数名。<br>FirmAgent 想要更系统地提取参数关键字。</p>
+<p>它的方法是：</p>
+<ol>
+<li>先通过<strong>人工与重宿主后的固件交互</strong>，拿到一些初始网络流量 seed；</li>
+<li>用这些 seed 去分析二进制，找哪些函数和这些关键字交互频繁；</li>
+<li>过滤掉通用字符串函数，如 <code>strcpy</code>、<code>strcmp</code>；</li>
+<li>选出最可能处理参数的候选函数；</li>
+<li>对这些函数的实参做回溯，提取参数名。</li>
+</ol>
+<p>这里回溯参数来源时，论文总结了几种典型模式。</p>
+<p><img src="/2026/04/21/Article1/image-20260421202526295.png" alt="image-20260421202526295"></p>
+<p>主要包括：</p>
+<ul>
+<li><strong>直接硬编码字符串</strong>：例如 <code>get_cgi(&quot;countdown_time&quot;)</code></li>
+<li><strong>变量由字符串常量赋值而来</strong></li>
+<li><strong>变量来自 <code>.data</code> 段数组或全局结构</strong></li>
+<li><strong>变量通过 <code>sprintf</code> &#x2F; <code>strcat</code> 等动态拼接生成</strong></li>
+</ul>
+<p>这一步产出的不是“漏洞”，而是一个用于 fuzzing 的<strong>参数字典</strong>。后面生成请求时，哪些字段值得替换、替换成什么，就靠它。</p>
+<h3 id="4-1-3-Sink-Scope-and-Distance：找-sink-范围并计算距离"><a href="#4-1-3-Sink-Scope-and-Distance：找-sink-范围并计算距离" class="headerlink" title="4.1.3 Sink Scope and Distance：找 sink 范围并计算距离"></a>4.1.3 Sink Scope and Distance：找 sink 范围并计算距离</h3><p>这一步是为了让 fuzzing 更有方向感。</p>
+<p>作者先通过模式匹配，把固件里一类一类<strong>安全敏感 API</strong> 找出来，作为 sink。<br>比如命令执行、拷贝、格式化字符串之类，分别对应命令注入、缓冲区溢出等风险。</p>
+<p>然后做两件事：</p>
+<h4 id="第一件：算出哪些基本块“可能通向-sink”"><a href="#第一件：算出哪些基本块“可能通向-sink”" class="headerlink" title="第一件：算出哪些基本块“可能通向 sink”"></a>第一件：算出哪些基本块“可能通向 sink”</h4><p>对每个 sink 做<strong>向后可达性分析</strong>，得到一片和 sink 有关的地址范围。<br>后面 QEMU 只在这个范围里重点做监控，这样能大幅减轻开销。</p>
+<h4 id="第二件：给基本块打“离-sink-远近”的分数"><a href="#第二件：给基本块打“离-sink-远近”的分数" class="headerlink" title="第二件：给基本块打“离 sink 远近”的分数"></a>第二件：给基本块打“离 sink 远近”的分数</h4><p>作者在第 7 页给了一个公式：<br>$$<br>score(n)&#x3D;depth(n)+w\cdot dis(s)<br>$$<br>其中：</p>
+<ul>
+<li><code>depth(n)</code>：基本块在 CFG 里的结构深度；</li>
+<li><code>dis(s)</code>：到最近 sink 的最短距离；</li>
+<li><code>w</code>：权重。</li>
+</ul>
+<p>这个分数后面会用来指导 seed 排序和参数变异。<br>你可以把它理解成：<strong>既考虑路径深入程度，也考虑和危险点的接近程度。</strong></p>
+<h3 id="4-2-运行时阶段（Runtime-Monitoring）"><a href="#4-2-运行时阶段（Runtime-Monitoring）" class="headerlink" title="4.2 运行时阶段（Runtime Monitoring）"></a>4.2 运行时阶段（Runtime Monitoring）</h3><p>预分析做完后，真正开始在用户态重宿主环境里跑 fuzzing。这里也分两部分。</p>
+<h3 id="4-2-1-变异策略：不是乱变，而是“字典-距离引导”"><a href="#4-2-1-变异策略：不是乱变，而是“字典-距离引导”" class="headerlink" title="4.2.1 变异策略：不是乱变，而是“字典 + 距离引导”"></a>4.2.1 变异策略：不是乱变，而是“字典 + 距离引导”</h3><p>作者强调，传统 bit flip、splicing 在固件 web 二进制上效果不够好，因为 source 和 sink 大多都在服务 handler 附近。<br>所以它们采用 <strong>dictionary-based + distance-guided</strong> 的灰盒 fuzzing：</p>
+<ol>
+<li>用之前提取的 URI 和关键字字典构造请求模板；</li>
+<li>系统化地替换参数值，注入可能恶意的 payload；</li>
+<li>每个关键字还会带上<strong>定制 taint tag</strong>，这样后面更容易跟踪它是否经过消毒；</li>
+<li>运行时记录执行过的基本块；</li>
+<li>根据基本块对应的预计算分数，给 testcase 打分；</li>
+<li>高分种子优先继续变异，低分样例则尝试替换成别的关键字。</li>
+</ol>
+<p>它的目标不是“尽快撞出 crash”，而是<strong>尽可能覆盖更多 handler，找到更多真实输入点 Csource</strong>。</p>
+<h3 id="4-2-2-运行时信息收集：如何识别-Csource-和间接调用"><a href="#4-2-2-运行时信息收集：如何识别-Csource-和间接调用" class="headerlink" title="4.2.2 运行时信息收集：如何识别 Csource 和间接调用"></a>4.2.2 运行时信息收集：如何识别 Csource 和间接调用</h3><p>这是这篇论文最关键的工程点之一。</p>
+<p>作者在 QEMU 的 TCG 执行阶段做了<strong>选择性插桩</strong>，但不是全程序都插，而是只盯着前面算出来的 sink scope。<br>在这个范围里，每执行一条相关指令，就检查内存状态是否从<strong>untainted 变成 tainted</strong>。</p>
+<p>如果某个内存位置在这里第一次出现这种变化，就把对应地址记为 <strong>Csource</strong>。</p>
+<p>这个定义很重要。<br>FirmAgent 里的 Csource 不是“静态上猜测的 source function”，而是：</p>
+<blockquote>
+<p><strong>运行时真实观察到、受到外部输入影响、并且出现在安全敏感范围内的代码点。</strong></p>
+</blockquote>
+<p>所以它比传统静态 source 精确得多。</p>
+<p>同时，系统还会记录<strong>间接调用的真实目标</strong>。<br>做法是给基本块加轻量回调，识别间接跳转&#x2F;调用，记录 <code>(caller, callee)</code> 对。<br>这样就能把静态看不清的函数指针调用在运行时补全进调用图里。</p>
+<p>最后，利用：</p>
+<ul>
+<li>当前得到的 <code>Csource</code></li>
+<li>完整得多的 <code>CallGraph</code></li>
+<li>预定义的 <code>Sinks</code></li>
+</ul>
+<p>就可以构造出一批 <strong>Potential Paths（潜在漏洞路径）</strong>。</p>
+<h3 id="4-3-算法-1-如果用白话说，流程就是"><a href="#4-3-算法-1-如果用白话说，流程就是" class="headerlink" title="4.3 算法 1 如果用白话说，流程就是"></a>4.3 算法 1 如果用白话说，流程就是</h3><p>第 6 页算法 1 可以翻成下面这件事：</p>
+<ol>
+<li>从固件里提取 handler、关键字、sink、静态调用图；</li>
+<li>反向分析得到 sink 相关范围和距离图；</li>
+<li>启动模拟器；</li>
+<li>依次把请求模板中的 URI 替换成每个 handler；</li>
+<li>再把关键字逐个注入到模板里；</li>
+<li>根据距离信息引导变异；</li>
+<li>执行变异后的请求；</li>
+<li>如果在 sink scope 里观察到 taint，就记录该位置为 Csource，并保存 testcase；</li>
+<li>同时收集所有运行时出现的间接调用目标；</li>
+<li>用更新后的调用图，持续生成从 Csource 到 sink 的潜在路径。</li>
+</ol>
+<p>所以，fuzzing 在这里不只是“找 crash”，而是在<strong>持续在线地产生静态分析更需要的先验事实</strong>。</p>
+<hr>
+<h2 id="5-第二阶段：Taint-to-PoC-Agent，怎么把“潜在路径”变成“真实漏洞”"><a href="#5-第二阶段：Taint-to-PoC-Agent，怎么把“潜在路径”变成“真实漏洞”" class="headerlink" title="5. 第二阶段：Taint-to-PoC Agent，怎么把“潜在路径”变成“真实漏洞”"></a>5. 第二阶段：Taint-to-PoC Agent，怎么把“潜在路径”变成“真实漏洞”</h2><p>到了这一阶段，FirmAgent 已经有了：</p>
+<ul>
+<li>哪些点是真 source（Csource）</li>
+<li>哪些路径从这些点能走到危险 sink</li>
+<li>哪些请求样例至少能到 source</li>
+</ul>
+<p>接下来才轮到 LLM 上场。</p>
+<h3 id="5-1-先修反编译结果：LLM-Based-Refinement"><a href="#5-1-先修反编译结果：LLM-Based-Refinement" class="headerlink" title="5.1 先修反编译结果：LLM-Based Refinement"></a>5.1 先修反编译结果：LLM-Based Refinement</h3><p>作者非常清楚地意识到：<br><strong>如果直接把 IDA 的反编译结果喂给 LLM，LLM 也会被“垃圾输入”带偏。</strong></p>
+<p>因为 IDA 在固件二进制上常常会出现：</p>
+<ul>
+<li>漏参数</li>
+<li>漏返回值赋值</li>
+<li>控制流&#x2F;数据流恢复不准</li>
+</ul>
+<p>附录给了一个特别直观的例子。</p>
+<p><img src="/2026/04/21/Article1/image-20260421203445656.png" alt="image-20260421203445656"></p>
+<p>原始 IDA 结果里，<code>get_cgi(&quot;date&quot;)</code> 的返回值根本没被保留下来，这显然丢失了关键数据流。<br>而 LLM refinement 后，代码被恢复成更合理的形式：这样污点从 <code>date</code> 到 <code>system(command)</code> 的关系才真正可见。</p>
+<p>所以这一层实际上是在做<strong>先把反编译代码变得更“可推理”</strong>，再做污点分析。</p>
+<h3 id="5-2-污点传播-Agent：LLM-具体怎么分析"><a href="#5-2-污点传播-Agent：LLM-具体怎么分析" class="headerlink" title="5.2 污点传播 Agent：LLM 具体怎么分析"></a>5.2 污点传播 Agent：LLM 具体怎么分析</h3><p><img src="/2026/04/21/Article1/image-20260421203521259.png" alt="image-20260421203521259"></p>
+<p>它会把以下信息交给 LLM：</p>
+<ul>
+<li>当前函数的反编译代码</li>
+<li>相关 source</li>
+<li>相关 sink</li>
+</ul>
+<p>然后让它判断：<br><strong>source 的数据能否传播到 sink，并构成漏洞。</strong></p>
+<p>如果中间遇到未知函数，LLM 会先停下来，要求系统补上这些函数的反编译代码，再继续分析。<br>这就形成了一种“交互式函数级分析”。</p>
+<h4 id="这个分析怎么跨函数？"><a href="#这个分析怎么跨函数？" class="headerlink" title="这个分析怎么跨函数？"></a>这个分析怎么跨函数？</h4><p>论文说它是<strong>函数级</strong>做的。</p>
+<ul>
+<li>如果 source 和 sink 在同一函数里，就做函数内污点传播；</li>
+<li>如果不在同一函数里，就先在调用点找出“哪些参数已被 taint”，</li>
+<li>再把这些 tainted 参数当成被调函数里的新 source，</li>
+<li>一层一层递归下去，直到走到 sink。</li>
+</ul>
+<p>这实际上就是<strong>LLM 驱动的跨过程污点传播</strong>。</p>
+<hr>
+<h3 id="5-3-作者还专门处理了-LLM-容易犯错的三类误报"><a href="#5-3-作者还专门处理了-LLM-容易犯错的三类误报" class="headerlink" title="5.3 作者还专门处理了 LLM 容易犯错的三类误报"></a>5.3 作者还专门处理了 LLM 容易犯错的三类误报</h3><p>他们发现，LLM 做固件污点分析时，最容易在三种地方出错。附录第 16 页 <strong>图 11</strong> 给了很好的例子。</p>
+<h4 id="第一类：没看懂-sanitizer"><a href="#第一类：没看懂-sanitizer" class="headerlink" title="第一类：没看懂 sanitizer"></a>第一类：没看懂 sanitizer</h4><p>例如有个输入 <code>Value</code>，程序逐字符检查，只允许数字；一旦有非法字符就 <code>exit(1)</code>。<br>虽然最后确实有：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">sprintf</span><span class="token punctuation">(</span>v5<span class="token punctuation">,</span> <span class="token string">"'%s'.gif '%s'.txt"</span><span class="token punctuation">,</span> Value<span class="token punctuation">,</span> Value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">system</span><span class="token punctuation">(</span>v5<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>但因为输入早已被严格限制成数字，这其实<strong>不构成可利用命令注入</strong>。<br>如果 LLM 只看见 <code>system(v5)</code>，很容易误报。</p>
+<h4 id="第二类：把“只参与条件判断”的-taint-当成真正传播"><a href="#第二类：把“只参与条件判断”的-taint-当成真正传播" class="headerlink" title="第二类：把“只参与条件判断”的 taint 当成真正传播"></a>第二类：把“只参与条件判断”的 taint 当成真正传播</h4><p>例如：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">strcmp</span><span class="token punctuation">(</span>taint<span class="token punctuation">,</span> <span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    v4 <span class="token operator">=</span> <span class="token string">"factory_hm info fat 2"</span><span class="token punctuation">;</span>
+<span class="token keyword">else</span>
+    v4 <span class="token operator">=</span> <span class="token string">"factory_hm info fat 1"</span><span class="token punctuation">;</span>
+<span class="token function">system</span><span class="token punctuation">(</span>v4<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里 taint 只决定分支，不直接流入 sink 参数。<br>sink 真正执行的永远是常量字符串。<br>这不是可控命令注入。</p>
+<h4 id="第三类：把系统文件读出来的数据当成用户输入"><a href="#第三类：把系统文件读出来的数据当成用户输入" class="headerlink" title="第三类：把系统文件读出来的数据当成用户输入"></a>第三类：把系统文件读出来的数据当成用户输入</h4><p>例如从 <code>/etc/passwd</code> 读数据进 <code>buf</code>，再 <code>system(buf)</code>。<br>这虽然“数据进入了 sink”，但来源不是用户可控输入，因此不属于作者关心的 taint-style 漏洞。</p>
+<p>为了解决这些误报，论文在 taint agent 之后又加了一个 <strong>alert verification module</strong>，用 few-shot prompt 去专门甄别这几类情况。<br>另外还做了 <strong>function-level caching</strong>，避免多个调用链重复分析同一个函数。</p>
+<hr>
+<h3 id="5-4-PoC-Generation-Agent：怎么把“能到-source-的-testcase”补成“能打中-sink-的-PoC”"><a href="#5-4-PoC-Generation-Agent：怎么把“能到-source-的-testcase”补成“能打中-sink-的-PoC”" class="headerlink" title="5.4 PoC Generation Agent：怎么把“能到 source 的 testcase”补成“能打中 sink 的 PoC”"></a>5.4 PoC Generation Agent：怎么把“能到 source 的 testcase”补成“能打中 sink 的 PoC”</h3><p>这是这篇论文实用性非常强的一部分。</p>
+<p>传统静态分析最麻烦的地方就在这里：<br>它只能说“这里可能有洞”，但不会告诉你<strong>输入到底要怎么构造</strong>。<br>验证人员只好自己去读代码、猜参数、写 PoC，成本很高。</p>
+<p><img src="/2026/04/21/Article1/image-20260421203729321.png" alt="image-20260421203729321"></p>
+<p>FirmAgent 的思路是：</p>
+<ol>
+<li>在污点传播阶段，顺手提取<strong>语义约束</strong><br>比如：<ul>
+<li>必须走哪个分支</li>
+<li>某些参数必须等于什么</li>
+<li>某些特殊字符会被过滤</li>
+<li>某字段必须满足某种格式</li>
+</ul>
+</li>
+<li>fuzzing 阶段已经有了一个<strong>至少能走到 source 的 testcase</strong></li>
+<li>把二者一起交给 PoC 生成 agent<br>prompt 里就包括：<ul>
+<li>Reachable test case</li>
+<li>Input validation constraints</li>
+<li>Decompiled code</li>
+</ul>
+</li>
+</ol>
+<p>然后让 LLM 去推断：<br><strong>每个参数应该填什么值，才能既满足前置条件，又让 taint 真正传到 sink。</strong></p>
+<p>附录第 16 页 C 节说得更明确：<br>最终 PoC 是 <strong>HTTP 请求包</strong>。<br>比如 fuzzing 已经给了 URL、Header、Body 框架，LLM 负责补上关键字段值，例如：</p>
+<ul>
+<li><code>NtpDstEnable = &quot;1&quot;</code></li>
+<li><code>NtpDstOffset = &quot;A&quot;*300</code></li>
+</ul>
+<p>这样就能把“部分有效的请求模板”补成“真正能触发缓冲区溢出或命令注入的 PoC”。</p>
+<p>这一步是 FirmAgent 和很多静态工作的最大差异之一：<br><strong>它不只是报漏洞，而是尽量把验证工作也自动化了。</strong></p>
+<hr>
+<h2 id="6-实现细节：这不是概念模型，作者确实做了完整原型"><a href="#6-实现细节：这不是概念模型，作者确实做了完整原型" class="headerlink" title="6. 实现细节：这不是概念模型，作者确实做了完整原型"></a>6. 实现细节：这不是概念模型，作者确实做了完整原型</h2><p>第 9 页的实现部分给了不少工程信息：</p>
+<ul>
+<li>总体实现量：<strong>4000+ 行 Python，1000 行 C</strong></li>
+<li>用 <strong>binwalk</strong> 解包固件 rootfs，定位 web 二进制</li>
+<li>用 <strong>IDA Pro + 自定义 IDAPython</strong> 做预分析</li>
+<li>用 <strong>Greenhouse</strong> 做用户态单服务重宿主</li>
+<li>用 <strong>自定义 QEMU 插件</strong> 收集内存 taint 与间接调用</li>
+<li>LLM 选的是 <strong>DeepSeek-R1</strong>，温度设为 <strong>0.7</strong></li>
+</ul>
+<p>而且它是做成了一个<strong>全自动框架</strong>：<br>一旦 fuzzing 开始，系统就持续识别 Csource，把对应地址送去 taint propagation agent，再进入 PoC 生成。</p>
+<p>换句话说，这不是“先 fuzz 半天，再人工挑一些点交给 LLM”，而是作者想把整个流程串成自动化流水线。</p>
+<hr>
+<h2 id="7-实验部分：论文最重要的数据结论"><a href="#7-实验部分：论文最重要的数据结论" class="headerlink" title="7. 实验部分：论文最重要的数据结论"></a>7. 实验部分：论文最重要的数据结论</h2><hr>
+<h3 id="7-1-数据集与对比对象"><a href="#7-1-数据集与对比对象" class="headerlink" title="7.1 数据集与对比对象"></a>7.1 数据集与对比对象</h3><p>作者选了 <strong>14 个可成功模拟的真实 IoT 固件</strong>，来自：</p>
+<ul>
+<li>Netgear</li>
+<li>D-Link</li>
+<li>Tenda</li>
+<li>Trendnet</li>
+<li>Linksys</li>
+<li>ASUS</li>
+<li>TOTOLINK</li>
+</ul>
+<p>对比工具包括：</p>
+<ul>
+<li><strong>EmTaint</strong>（静态）</li>
+<li><strong>HermeScan</strong>（静态）</li>
+<li><strong>Greenhouse</strong>（动态）</li>
+<li><strong>Hy-FirmFuzz</strong>（混合）</li>
+</ul>
+<p>另外一些工具没纳入直接对比，原因也写得很清楚：</p>
+<ul>
+<li>SaTC：已有工作表明比不过 HermeScan&#x2F;EmTaint</li>
+<li>LARA：不开源，无法复现</li>
+<li>Mango：和 HermeScan 同属 reaching definitions 路线，效果接近</li>
+<li>OctopusTaint：开源代码不完整，缺 source 识别等关键部件</li>
+</ul>
+<p>实验环境也很豪华：<br>Xeon Platinum 8358，128 逻辑核，2TB 内存，Ubuntu 20.04，Docker 重复实验 4 次。</p>
+<hr>
+<h3 id="7-2-RQ1：FirmAgent-与-SOTA-相比到底强多少"><a href="#7-2-RQ1：FirmAgent-与-SOTA-相比到底强多少" class="headerlink" title="7.2 RQ1：FirmAgent 与 SOTA 相比到底强多少"></a>7.2 RQ1：FirmAgent 与 SOTA 相比到底强多少</h3><p><img src="/2026/04/21/Article1/image-20260421203920011.png" alt="image-20260421203920011"></p>
+<h4 id="FirmAgent-的总体结果"><a href="#FirmAgent-的总体结果" class="headerlink" title="FirmAgent 的总体结果"></a>FirmAgent 的总体结果</h4><ul>
+<li><strong>200 个 alerts</strong></li>
+<li>其中确认出 <strong>182 个真实漏洞</strong></li>
+<li><strong>Precision &#x3D; 91%</strong></li>
+<li>漏洞类型包括：<ul>
+<li><strong>45 个命令注入</strong></li>
+<li><strong>137 个缓冲区溢出</strong></li>
+</ul>
+</li>
+<li>其中 <strong>140 个此前未知漏洞</strong><ul>
+<li>27 个未知命令注入</li>
+<li>113 个未知缓冲区溢出</li>
+</ul>
+</li>
+<li><strong>17 个已经分配 CVE</strong></li>
+</ul>
+<h4 id="对比基线"><a href="#对比基线" class="headerlink" title="对比基线"></a>对比基线</h4><ul>
+<li><strong>EmTaint</strong>：27 alerts，10 real vulns，37% precision</li>
+<li><strong>HermeScan</strong>：215 alerts，71 real vulns，33% precision</li>
+<li><strong>Greenhouse</strong>：20 crashes，8 real vulns，40% precision</li>
+<li><strong>Hy-FirmFuzz</strong>：13 crashes，13 real vulns，100% precision</li>
+</ul>
+<p>也就是说：</p>
+<ul>
+<li>比 EmTaint 多发现 <strong>18.2 倍</strong></li>
+<li>比 HermeScan 多发现 <strong>2.6 倍</strong></li>
+<li>比 Greenhouse 多发现 <strong>22.8 倍</strong></li>
+<li>比 Hy-FirmFuzz 多发现 <strong>14 倍</strong></li>
+</ul>
+<p>第 11 页 <strong>图 6</strong> 还画了一个漏洞包含关系图，非常直观：<br><strong>FirmAgent 覆盖了其他工具发现的所有漏洞。</strong></p>
+<p><img src="/2026/04/21/Article1/image-20260421204146621.png" alt="image-20260421204146621"></p>
+<p>这说明它不是“找到另一批不同漏洞”，而是整体发现能力明显更强。</p>
+<hr>
+<h3 id="7-3-为什么别的工具不如它"><a href="#7-3-为什么别的工具不如它" class="headerlink" title="7.3 为什么别的工具不如它"></a>7.3 为什么别的工具不如它</h3><p>论文对每个基线都做了具体误报&#x2F;漏报分析。</p>
+<h4 id="EmTaint"><a href="#EmTaint" class="headerlink" title="EmTaint"></a>EmTaint</h4><ul>
+<li>误报来源：过度 aliasing，把不相关变量也 taint 了</li>
+<li>还不太会识别程序内部 sanitizer</li>
+<li>漏报来源：只支持预定义 source，很多固件自定义 source 没覆盖到；部分固件指令支持也有限</li>
+</ul>
+<h4 id="HermeScan"><a href="#HermeScan" class="headerlink" title="HermeScan"></a>HermeScan</h4><ul>
+<li>误报：source 识别不准、sanitize 处理不好</li>
+<li>漏报：reaching definition 在复杂数据流下会丢 taint</li>
+</ul>
+<h4 id="Greenhouse"><a href="#Greenhouse" class="headerlink" title="Greenhouse"></a>Greenhouse</h4><ul>
+<li>误报：有些 crash 其实是内存限制或 QEMU 模拟不完整，不是真漏洞</li>
+<li>漏报：不知道隐藏 URI、参数字典，也过不去程序特定约束，很多 sink 根本测不到</li>
+</ul>
+<h4 id="Hy-FirmFuzz"><a href="#Hy-FirmFuzz" class="headerlink" title="Hy-FirmFuzz"></a>Hy-FirmFuzz</h4><ul>
+<li>优点：只要报出来，基本都是真的，所以没有误报</li>
+<li>缺点：只测前端暴露的 URL 和参数，而固件里大量功能接口根本没暴露，漏报非常严重</li>
+</ul>
+<h4 id="FirmAgent-自己的误报来自哪里"><a href="#FirmAgent-自己的误报来自哪里" class="headerlink" title="FirmAgent 自己的误报来自哪里"></a>FirmAgent 自己的误报来自哪里</h4><p>作者也没有回避这个问题。<br>FirmAgent 的 <strong>18 个误报全部是缓冲区溢出</strong>，主要因为 LLM 有时推不准：</p>
+<ul>
+<li>输入真实长度</li>
+<li>目标 buffer 大小</li>
+<li>全局变量和当前函数变量之间的关系</li>
+</ul>
+<p>换句话说，<strong>命令注入上它更稳，缓冲区尺寸推理上还不够完美。</strong></p>
+<hr>
+<h3 id="7-4-时间效率"><a href="#7-4-时间效率" class="headerlink" title="7.4 时间效率"></a>7.4 时间效率</h3><p>从时间看：</p>
+<ul>
+<li>EmTaint 平均约 <strong>3 分钟</strong></li>
+<li>HermeScan 平均约 <strong>8 分钟</strong></li>
+<li>FirmAgent 每个固件设定 <strong>1 小时</strong></li>
+<li>Hy-FirmFuzz 约 <strong>78 分钟</strong></li>
+<li>Greenhouse 约 <strong>24 小时</strong></li>
+</ul>
+<p>所以 FirmAgent 确实比静态工具慢，但它换来了三样东西：</p>
+<ol>
+<li>更高 precision</li>
+<li>更低 false negative</li>
+<li>自动 PoC 验证能力</li>
+</ol>
+<p>而且作者强调，<strong>不同固件可以并行分析</strong>，所以总体吞吐还可以接受。</p>
+<hr>
+<h2 id="8-RQ2：用-fuzzing-找-source，真的可靠吗？"><a href="#8-RQ2：用-fuzzing-找-source，真的可靠吗？" class="headerlink" title="8. RQ2：用 fuzzing 找 source，真的可靠吗？"></a>8. RQ2：用 fuzzing 找 source，真的可靠吗？</h2><p><img src="/2026/04/21/Article1/image-20260421203947251.png" alt="image-20260421203947251"></p>
+<p>作者统计了：</p>
+<ul>
+<li><code>Csource</code>：FirmAgent 运行时识别到的 source</li>
+<li><code>Source</code>：这些 Csource 中真实 source 的数量</li>
+<li><code>All-Source</code>：人工验证得到的所有外部输入点总数</li>
+</ul>
+<p>结论非常漂亮：</p>
+<ul>
+<li><strong>Csource 的准确率是 100%</strong></li>
+<li>平均覆盖率是 <strong>94.2%</strong></li>
+</ul>
+<p>为什么准确率能 100%？<br>因为它不是靠字符串匹配猜，而是<strong>只在运行时真的观察到 taint 传播的地方才记 source</strong>。<br>这就从根上消掉了传统静态方法的“候选 source 假阳性”。</p>
+<p>那剩下 5.8% 为什么没看到？</p>
+<p>作者说主要有两类：</p>
+<ol>
+<li><strong>死代码 &#x2F; 旧代码 &#x2F; 实际不可达路径</strong><br>这些本来就不会被执行，不看到反而有助于减少误报。</li>
+<li><strong>跨过程很深的路径</strong><br>某些 source 要满足早期复杂条件才会出现，fuzzing 没走到。</li>
+</ol>
+<p>但论文还说，这并没有导致真正的漏洞漏掉，因为后续 LLM 在分析调用链时，会把这些 source function 补充当成 source 来继续推理。</p>
+<p>这点很重要：<br><strong>FirmAgent 用 fuzzing 确认 source，是为了尽可能降低误报；但它并没有把 LLM 死死限制在“只分析动态看到的那些点”。</strong><br>这让它在 precision 和 recall 之间取得了比较好的平衡。</p>
+<hr>
+<h2 id="9-RQ3：消融实验说明各模块到底有多重要"><a href="#9-RQ3：消融实验说明各模块到底有多重要" class="headerlink" title="9. RQ3：消融实验说明各模块到底有多重要"></a>9. RQ3：消融实验说明各模块到底有多重要</h2><p><img src="/2026/04/21/Article1/image-20260421204013530.png" alt="image-20260421204013530"></p>
+<h3 id="9-1-去掉定向-fuzzing（Firm-Directed）"><a href="#9-1-去掉定向-fuzzing（Firm-Directed）" class="headerlink" title="9.1 去掉定向 fuzzing（Firm-Directed）"></a>9.1 去掉定向 fuzzing（Firm-Directed）</h3><p>结果变成：</p>
+<ul>
+<li>194 alerts</li>
+<li>176 true positives</li>
+<li>少了 <strong>6 个真实漏洞</strong></li>
+</ul>
+<p>说明定向 fuzzing 的价值在于：<br>它能把探索推向更深的 source 点，而不是只在浅层打转。</p>
+<h3 id="9-2-去掉间接调用解析（Firm-Indirect）"><a href="#9-2-去掉间接调用解析（Firm-Indirect）" class="headerlink" title="9.2 去掉间接调用解析（Firm-Indirect）"></a>9.2 去掉间接调用解析（Firm-Indirect）</h3><p>结果变成：</p>
+<ul>
+<li>187 alerts</li>
+<li>169 true positives</li>
+<li>少了 <strong>13 个真实漏洞</strong></li>
+</ul>
+<p>这直接证明：<br><strong>运行时补全函数指针&#x2F;间接调用的控制流边，是发现这类固件漏洞的关键。</strong></p>
+<h3 id="9-3-去掉-LLM-refinement-和-alert-verification（Firm-Cut）"><a href="#9-3-去掉-LLM-refinement-和-alert-verification（Firm-Cut）" class="headerlink" title="9.3 去掉 LLM refinement 和 alert verification（Firm-Cut）"></a>9.3 去掉 LLM refinement 和 alert verification（Firm-Cut）</h3><p>结果变成：</p>
+<ul>
+<li>232 alerts</li>
+<li>172 true positives</li>
+<li>60 false positives</li>
+</ul>
+<p>也就是说：</p>
+<ul>
+<li>真漏洞少了 <strong>10 个</strong></li>
+<li>假阳性多了 <strong>42 个</strong></li>
+</ul>
+<p>这说明前面那两层“看起来像辅助功能”的模块，其实非常重要：</p>
+<ul>
+<li>refinement 负责修复反编译缺陷，减少污点丢失</li>
+<li>verification 负责识别 sanitizer &#x2F; 非传播 taint &#x2F; 系统文件来源，减少误报</li>
+</ul>
+<h3 id="9-4-用传统-taint-引擎替代-LLM-taint-agent"><a href="#9-4-用传统-taint-引擎替代-LLM-taint-agent" class="headerlink" title="9.4 用传统 taint 引擎替代 LLM taint agent"></a>9.4 用传统 taint 引擎替代 LLM taint agent</h3><ul>
+<li><strong>Firm-Emt</strong>：34 alerts，15 TP，19 FP</li>
+<li><strong>Firm-Her</strong>：120 alerts，71 TP，49 FP</li>
+</ul>
+<p>这说明，即便把 source 识别换成 FirmAgent 的动态 Csource，传统 taint 分析依然不够好。<br>所以提升不是只来自“source 找准了”，还来自 <strong>LLM 的语义级污点推理能力</strong>。</p>
+<hr>
+<h2 id="10-RQ4：自动生成的-PoC-到底有没有用"><a href="#10-RQ4：自动生成的-PoC-到底有没有用" class="headerlink" title="10. RQ4：自动生成的 PoC 到底有没有用"></a>10. RQ4：自动生成的 PoC 到底有没有用</h2><p><img src="/2026/04/21/Article1/image-20260421204034701.png" alt="image-20260421204034701"></p>
+<p>作者把 PoC 分成三类：</p>
+<ul>
+<li><strong>E-PoC</strong>：不做任何人工修改，直接就能在真实设备上触发</li>
+<li><strong>H-PoC</strong>：稍微人工调整后能触发</li>
+<li><strong>F-PoC</strong>：根本触发不了，属于误报</li>
+</ul>
+<p>结果是：</p>
+<ul>
+<li>总共 200 个 alerts</li>
+<li>18 个是误报，对应 F-PoC</li>
+<li>剩下 182 个真实漏洞里：<ul>
+<li><strong>167 个 PoC 直接有效</strong></li>
+<li><strong>15 个稍微人工改一下就有效</strong></li>
+</ul>
+</li>
+</ul>
+<p>所以<strong>直接有效率是 91.8%</strong>。</p>
+<p>为什么那 15 个不能一步到位？<br>作者说大多是<strong>命令注入</strong>，原因在于 payload 形式非常依赖上下文。<br>比如某些固件做了黑名单过滤，不让用 <code>;</code>、<code>|</code>、<code>&amp;</code>，但过滤又不完整，需要安全研究人员根据具体命令上下文设计绕过 payload。<br>这类事情 LLM 目前还不够稳定。</p>
+<p>但即便如此，这个结果已经很强了。<br>因为传统静态工具通常<strong>0% 自动 PoC 能力</strong>，而 FirmAgent 已经把绝大部分验证工作省掉了。</p>
+<hr>
+<h2 id="11-这篇论文真正有价值的地方，我认为有四点"><a href="#11-这篇论文真正有价值的地方，我认为有四点" class="headerlink" title="11. 这篇论文真正有价值的地方，我认为有四点"></a>11. 这篇论文真正有价值的地方，我认为有四点</h2><h3 id="第一，它提出了一个很清晰的“职责分离”思想"><a href="#第一，它提出了一个很清晰的“职责分离”思想" class="headerlink" title="第一，它提出了一个很清晰的“职责分离”思想"></a>第一，它提出了一个很清晰的“职责分离”思想</h3><p>不是让 fuzzing 和 LLM 都做所有事，而是让每个组件只做自己最擅长的部分：</p>
+<ul>
+<li>fuzzing：确认真实输入点、补全动态调用事实、提供可达输入骨架</li>
+<li>LLM：做语义级污点传播、识别 sanitizer、推断参数约束、补全 PoC</li>
+</ul>
+<p>这种分工比“全静态”或“全动态”都更现实。</p>
+<h3 id="第二，它重新定义了-fuzzing-在固件分析里的价值"><a href="#第二，它重新定义了-fuzzing-在固件分析里的价值" class="headerlink" title="第二，它重新定义了 fuzzing 在固件分析里的价值"></a>第二，它重新定义了 fuzzing 在固件分析里的价值</h3><p>这里 fuzzing 不再只是“撞漏洞的锤子”，而是变成了：</p>
+<ul>
+<li><strong>真实 source 的判定器</strong></li>
+<li><strong>间接调用的运行时解析器</strong></li>
+<li><strong>PoC 的模板生产器</strong></li>
+</ul>
+<p>这是一种很漂亮的角色转换。</p>
+<h3 id="第三，它把-LLM-用在了更适合它的位置"><a href="#第三，它把-LLM-用在了更适合它的位置" class="headerlink" title="第三，它把 LLM 用在了更适合它的位置"></a>第三，它把 LLM 用在了更适合它的位置</h3><p>LLM 最强的不是算地址，而是理解语义、补全缺失上下文、推断“如果要触发这个条件，输入大概要长什么样”。<br>FirmAgent 让 LLM 去干的正好是这些事，而不是让它在 fuzzing 内环里频繁实时生成变异。</p>
+<h3 id="第四，它非常强调“能验证”"><a href="#第四，它非常强调“能验证”" class="headerlink" title="第四，它非常强调“能验证”"></a>第四，它非常强调“能验证”</h3><p>安全研究里，只报 alert 而不给 PoC，实际价值会打折。<br>FirmAgent 的 PoC 生成模块让这个工作更接近真实漏洞挖掘流程，而不是停留在“静态告警系统”层面。</p>
+<hr>
+<h2 id="12-论文的局限，作者也讲得比较诚实"><a href="#12-论文的局限，作者也讲得比较诚实" class="headerlink" title="12. 论文的局限，作者也讲得比较诚实"></a>12. 论文的局限，作者也讲得比较诚实</h2><h3 id="12-1-依赖重宿主能力"><a href="#12-1-依赖重宿主能力" class="headerlink" title="12.1 依赖重宿主能力"></a>12.1 依赖重宿主能力</h3><p>第 12-13 页讨论部分说得很明确：<br>FirmAgent 的能力高度依赖底层 rehosting 框架，尤其是 Greenhouse。<br>而 Greenhouse 目前的限制包括：</p>
+<ul>
+<li>新固件成功率还不高</li>
+<li>只能做<strong>单服务</strong>重宿主</li>
+<li>所以只能分析那个服务对应的单个 binary</li>
+<li>对跨 binary、多服务协同漏洞无能为力</li>
+</ul>
+<p>这意味着：<br><strong>FirmAgent 很强，但它的适用面，仍然受制于“固件能不能被稳定跑起来”。</strong></p>
+<h3 id="12-2-缓冲区溢出判断仍然会有-LLM-误差"><a href="#12-2-缓冲区溢出判断仍然会有-LLM-误差" class="headerlink" title="12.2 缓冲区溢出判断仍然会有 LLM 误差"></a>12.2 缓冲区溢出判断仍然会有 LLM 误差</h3><p>作者明确指出，目前的大部分误报都来自 buffer overflow。<br>因为 LLM 对：</p>
+<ul>
+<li>精确内存尺寸</li>
+<li>全局变量影响</li>
+<li>输入长度与目标 buffer 的真实关系</li>
+</ul>
+<p>理解还不够稳定。<br>他们提出未来可以用：</p>
+<ul>
+<li>更精确的数据建模</li>
+<li>RAG</li>
+<li>微调</li>
+</ul>
+<p>来增强这部分能力。</p>
+<h3 id="12-3-从我的角度再补一条"><a href="#12-3-从我的角度再补一条" class="headerlink" title="12.3 从我的角度再补一条"></a>12.3 从我的角度再补一条</h3><p>论文虽然结果很好，但实验样本是 <strong>14 个固件</strong>。<br>对于 NDSS 论文来说，这个规模已经不算小了，尤其考虑到需要可模拟、可重宿主、可真实验证，但如果从“通用工业能力”角度看，<strong>仍然离大规模普适部署有距离</strong>。<br>也就是说，这篇论文更像是在证明：</p>
+<blockquote>
+<p>这条技术路线是对的，而且非常有前景。</p>
+</blockquote>
+<p>而不是说“今天起所有 IoT 固件都能自动挖得很好”。</p>
+<hr>
+<h2 id="13-如果把整篇论文压缩成一句话"><a href="#13-如果把整篇论文压缩成一句话" class="headerlink" title="13. 如果把整篇论文压缩成一句话"></a>13. 如果把整篇论文压缩成一句话</h2><p>这篇论文最核心的思想可以概括成：</p>
+<blockquote>
+<p><strong>不要让 LLM 去猜哪个输入是真的用户可控，也不要让 fuzzing 去硬撞所有复杂条件；<br>先用 fuzzing 把“真实输入点”和“真实运行时控制流”找出来，再让 LLM 沿着这些更可信的路径做污点分析和 PoC 补全。</strong></p>
+</blockquote>
+<p>这就是它为什么能同时把：</p>
+<ul>
+<li>静态分析的<strong>误报</strong></li>
+<li>动态分析的<strong>漏报</strong></li>
+<li>手工验证的<strong>成本</strong></li>
+</ul>
+<p>一起压下去。</p>
+
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2026/01/19/NLP/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>自然语言处理基础</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2026 By Ram. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/79e/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        
+        if(Boolean('false')){
+            gitalk.render('gitalk-container')
+        }
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+
