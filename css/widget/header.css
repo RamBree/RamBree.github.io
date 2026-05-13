@@ -10,11 +10,12 @@
 .header .header-top {
   display: flex;
   height: 84px;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   z-index: 99;
   padding: 0 calc((100% - 1160px)/2);
-  border-bottom: 1px solid rgba(229, 231, 235, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
 }
 .header .header-top .h-left {
   display: flex;
@@ -41,6 +42,7 @@
   color: #182033;
   font-size: 16px;
   font-weight: 600;
+  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.72);
 }
 .header .header-top .h-right {
   display: flex;
@@ -62,9 +64,10 @@
   white-space: nowrap;
 }
 .header .header-top .h-right ul li a {
-  color: #6b7280;
+  color: #182033;
   text-decoration: none;
   font-size: 14px;
+  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.72);
 }
 .header .header-top .h-right ul li a:hover {
   color: #12183A;
@@ -94,11 +97,13 @@
 .header .header-move1 {
   height: 64px;
   transition: all 0.35s ease-in-out;
-  box-shadow: 0 10px 32px rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 32px rgba(15, 23, 42, 0.06);
 }
 .header .header-move2 {
   height: 84px;
   transition: all 0.35s ease-in-out;
+  background: rgba(255, 255, 255, 0.22);
 }
 @media screen and (min-width: 600px) {
   .header .header-top .h-right-close {
