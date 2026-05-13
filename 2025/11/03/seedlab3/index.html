@@ -320,6 +320,14 @@
     <div class="post-content" id="content">
   
   <div class="post-content-grid has-toc">
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Buffer-Overflow-Attack-Lab-Server-Version"><span class="toc-text">Buffer Overflow Attack Lab(Server Version)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Get-Familiar-with-the-Shellcode"><span class="toc-text">Task 1: Get Familiar with the Shellcode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Level-1-Attack"><span class="toc-text">Task 2: Level-1 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Level-2-Attack"><span class="toc-text">Task 3: Level-2 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Level-3-Attack"><span class="toc-text">Task 4: Level-3 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Level-4-Attack"><span class="toc-text">Task 5: Level-4 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-Experimenting-with-the-Address-Randomization"><span class="toc-text">Task 6: Experimenting with the Address Randomization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tasks-7-Experimenting-with-Other-Countermeasures"><span class="toc-text">Tasks 7: Experimenting with Other Countermeasures</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
     <article id="article" class="post-content-info">
       <h1 id="Buffer-Overflow-Attack-Lab-Server-Version"><a href="#Buffer-Overflow-Attack-Lab-Server-Version" class="headerlink" title="Buffer Overflow Attack Lab(Server Version)"></a>Buffer Overflow Attack Lab(Server Version)</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>修改server_code中的<code>Makefile</code>,设置L1为122。对应上课日期10.22</p>
 <img src="image-20251022101646517.png" alt="image-20251022101646517" style="zoom: 25%;" />
@@ -501,14 +509,6 @@ content<span class="token punctuation">[</span>offset<span class="token punctuat
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这个实验了解了栈溢出攻击和栈相关的保护。本次栈溢出的利用方式主要是通过shellcode，即ret2shellcode，shellcode的编写也是很重要的一环，要比较熟悉汇编代码，本次实验虽然没有具体让我们自己设计，可以在未来继续学习。栈溢出的原理并不难，算是入门级别的二进制漏洞。</p>
 
     </article>
-    
-      <aside id="post-toc" class="post-toc" aria-label="文章目录">
-        <div class="post-toc-inner">
-          <span class="post-toc-title">文章目录</span>
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Buffer-Overflow-Attack-Lab-Server-Version"><span class="toc-text">Buffer Overflow Attack Lab(Server Version)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Get-Familiar-with-the-Shellcode"><span class="toc-text">Task 1: Get Familiar with the Shellcode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Level-1-Attack"><span class="toc-text">Task 2: Level-1 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Level-2-Attack"><span class="toc-text">Task 3: Level-2 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Level-3-Attack"><span class="toc-text">Task 4: Level-3 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Level-4-Attack"><span class="toc-text">Task 5: Level-4 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-Experimenting-with-the-Address-Randomization"><span class="toc-text">Task 6: Experimenting with the Address Randomization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tasks-7-Experimenting-with-Other-Countermeasures"><span class="toc-text">Tasks 7: Experimenting with Other Countermeasures</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
-        </div>
-      </aside>
-    
   </div>
   
 </div>

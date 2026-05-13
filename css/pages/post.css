@@ -1,5 +1,6 @@
 .post #post-toc {
   width: 220px;
+  order: 1;
   align-self: start;
   position: sticky;
   top: 92px;
@@ -214,7 +215,7 @@
 }
 .post-content-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
+  grid-template-columns: 240px minmax(0, 1fr);
   gap: 24px;
 }
 .post-content-grid.no-toc {
@@ -222,7 +223,8 @@
 }
 .post-content-info {
   min-width: 0;
-  margin: 56px 0 64px 72px;
+  order: 2;
+  margin: 56px 72px 64px 0;
   font-size: 1.05rem;
   transition: all 0.4s ease-in-out;
 }
@@ -313,6 +315,7 @@
     margin: 50px;
   }
   .post #post-toc {
+    order: 1;
     position: static;
     width: auto;
     margin: 32px 50px 0;

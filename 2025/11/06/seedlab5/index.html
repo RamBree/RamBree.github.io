@@ -320,6 +320,14 @@
     <div class="post-content" id="content">
   
   <div class="post-content-grid has-toc">
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Format-String-Attack-Lab"><span class="toc-text">Format String Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Crashing-the-Program"><span class="toc-text">Task 1: Crashing the Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Printing-Out-the-Server-Program%E2%80%99s-Memory"><span class="toc-text">Task 2: Printing Out the Server Program’s Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Modifying-the-Server-Program%E2%80%99s-Memory"><span class="toc-text">Task 3: Modifying the Server Program’s Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Inject-Malicious-Code-into-the-Server-Program"><span class="toc-text">Task 4: Inject Malicious Code into the Server Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Attacking-the-64-bit-Server-Program"><span class="toc-text">Task 5: Attacking the 64-bit Server Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-Fixing-the-Problem"><span class="toc-text">Task 6: Fixing the Problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
     <article id="article" class="post-content-info">
       <h1 id="Format-String-Attack-Lab"><a href="#Format-String-Attack-Lab" class="headerlink" title="Format String Attack Lab"></a>Format String Attack Lab</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>关闭安全策略。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">sysctl</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">kernel.randomize_va_space</span><span class="token operator">=</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -636,14 +644,6 @@ content<span class="token punctuation">[</span><span class="token number">0</spa
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这次实验主要学习了格式字符串。该漏洞的利用方式有：程序崩溃，读取内容，修改内容。熟练掌握每一种利用方式。</p>
 
     </article>
-    
-      <aside id="post-toc" class="post-toc" aria-label="文章目录">
-        <div class="post-toc-inner">
-          <span class="post-toc-title">文章目录</span>
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Format-String-Attack-Lab"><span class="toc-text">Format String Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Crashing-the-Program"><span class="toc-text">Task 1: Crashing the Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Printing-Out-the-Server-Program%E2%80%99s-Memory"><span class="toc-text">Task 2: Printing Out the Server Program’s Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Modifying-the-Server-Program%E2%80%99s-Memory"><span class="toc-text">Task 3: Modifying the Server Program’s Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Inject-Malicious-Code-into-the-Server-Program"><span class="toc-text">Task 4: Inject Malicious Code into the Server Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Attacking-the-64-bit-Server-Program"><span class="toc-text">Task 5: Attacking the 64-bit Server Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-Fixing-the-Problem"><span class="toc-text">Task 6: Fixing the Problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
-        </div>
-      </aside>
-    
   </div>
   
 </div>

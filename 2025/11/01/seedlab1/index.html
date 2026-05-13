@@ -320,6 +320,14 @@
     <div class="post-content" id="content">
   
   <div class="post-content-grid has-toc">
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Environment-Variable-and-Set-UID-Program-Lab"><span class="toc-text">Environment Variable and Set-UID Program Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Manipulating-Environment-Variables"><span class="toc-text">Task 1: Manipulating Environment Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Passing-Environment-Variables-from-Parent-Process-to-Child-Process"><span class="toc-text">Task 2: Passing Environment Variables from Parent Process to Child Process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Environment-Variables-and-execve"><span class="toc-text">Task 3: Environment Variables and execve()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Environment-Variables-and-system"><span class="toc-text">Task 4: Environment Variables and system()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 5: Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-The-PATH-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 6: The PATH Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-7-The-LD-PRELOAD-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 7: The LD PRELOAD Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-8-Invoking-External-Programs-Using-system-versus-execve"><span class="toc-text">Task 8: Invoking External Programs Using system() versus execve()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-9-Capability-Leaking"><span class="toc-text">Task 9: Capability Leaking</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="toc-text">实验总结</span></a></li></ol>
+        </div>
+      </aside>
+    
     <article id="article" class="post-content-info">
       <h1 id="Environment-Variable-and-Set-UID-Program-Lab"><a href="#Environment-Variable-and-Set-UID-Program-Lab" class="headerlink" title="Environment Variable and Set-UID Program Lab"></a>Environment Variable and Set-UID Program Lab</h1><h2 id="Task-1-Manipulating-Environment-Variables"><a href="#Task-1-Manipulating-Environment-Variables" class="headerlink" title="Task 1: Manipulating Environment Variables"></a>Task 1: Manipulating Environment Variables</h2><p>1.打印当前的环境变量，并查找PWD。</p>
 <p><img src="/2025/11/01/seedlab1/3f610e94-16f0-46a3-a65b-d78ce1de7069.png" alt="image.png"></p>
@@ -411,14 +419,6 @@
 <h1 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h1><p>本次的实验集中在setuid程序和环境变量两个部分。通过实验，我更加深入理解了setuid程序是怎么样去执行了，同时理解了环境变量在程序执行的时候扮演着怎么样的角色。整体实验不算难，也相当于是抛砖引玉，未来可以深入学习类似的一些程序。</p>
 
     </article>
-    
-      <aside id="post-toc" class="post-toc" aria-label="文章目录">
-        <div class="post-toc-inner">
-          <span class="post-toc-title">文章目录</span>
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Environment-Variable-and-Set-UID-Program-Lab"><span class="toc-text">Environment Variable and Set-UID Program Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Manipulating-Environment-Variables"><span class="toc-text">Task 1: Manipulating Environment Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Passing-Environment-Variables-from-Parent-Process-to-Child-Process"><span class="toc-text">Task 2: Passing Environment Variables from Parent Process to Child Process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Environment-Variables-and-execve"><span class="toc-text">Task 3: Environment Variables and execve()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Environment-Variables-and-system"><span class="toc-text">Task 4: Environment Variables and system()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 5: Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-The-PATH-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 6: The PATH Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-7-The-LD-PRELOAD-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 7: The LD PRELOAD Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-8-Invoking-External-Programs-Using-system-versus-execve"><span class="toc-text">Task 8: Invoking External Programs Using system() versus execve()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-9-Capability-Leaking"><span class="toc-text">Task 9: Capability Leaking</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="toc-text">实验总结</span></a></li></ol>
-        </div>
-      </aside>
-    
   </div>
   
 </div>

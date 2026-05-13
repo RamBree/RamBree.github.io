@@ -320,6 +320,14 @@
     <div class="post-content" id="content">
   
   <div class="post-content-grid has-toc">
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Return-to-libc-Attack-Lab"><span class="toc-text">Return-to-libc Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Finding-out-the-Addresses-of-libc-Functions"><span class="toc-text">Task 1: Finding out the Addresses of libc Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Putting-the-shell-string-in-the-memory"><span class="toc-text">Task 2: Putting the shell string in the memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Launching-the-Attack"><span class="toc-text">Task 3: Launching the Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Defeat-Shell%E2%80%99s-countermeasure"><span class="toc-text">Task 4: Defeat Shell’s countermeasure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Optional-Return-Oriented-Programming"><span class="toc-text">Task 5 (Optional): Return-Oriented Programming</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
     <article id="article" class="post-content-info">
       <h1 id="Return-to-libc-Attack-Lab"><a href="#Return-to-libc-Attack-Lab" class="headerlink" title="Return-to-libc Attack Lab"></a>Return-to-libc Attack Lab</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>关闭地址随机化，同时将&#x2F;bin&#x2F;sh 链接到zsh，方便我们攻击。</p>
 <p><img src="/2025/11/04/seedlab4/image-20251029095756588.png" alt="image-20251029095756588"></p>
@@ -464,14 +472,6 @@ content<span class="token punctuation">[</span>offset<span class="token operator
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这次实验让我理解了retlib的基本原理，在关闭保护机制之后，整体实验不难。关键理解：如何构造字符串？可以通过环境变量，也可以通过自己输入。</p>
 
     </article>
-    
-      <aside id="post-toc" class="post-toc" aria-label="文章目录">
-        <div class="post-toc-inner">
-          <span class="post-toc-title">文章目录</span>
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Return-to-libc-Attack-Lab"><span class="toc-text">Return-to-libc Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Finding-out-the-Addresses-of-libc-Functions"><span class="toc-text">Task 1: Finding out the Addresses of libc Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Putting-the-shell-string-in-the-memory"><span class="toc-text">Task 2: Putting the shell string in the memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Launching-the-Attack"><span class="toc-text">Task 3: Launching the Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Defeat-Shell%E2%80%99s-countermeasure"><span class="toc-text">Task 4: Defeat Shell’s countermeasure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Optional-Return-Oriented-Programming"><span class="toc-text">Task 5 (Optional): Return-Oriented Programming</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
-        </div>
-      </aside>
-    
   </div>
   
 </div>

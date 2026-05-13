@@ -318,6 +318,14 @@
     <div class="post-content" id="content">
   
   <div class="post-content-grid has-toc">
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Packet-Sniffing-and-Spoofing-Lab"><span class="toc-text">Packet Sniffing and Spoofing Lab</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab-Task-Set-1-Using-Scapy-to-Sniff-and-Spoof-Packets"><span class="toc-text">Lab Task Set 1: Using Scapy to Sniff and Spoof Packets</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-1-Sniffing-Packets"><span class="toc-text">Task 1.1: Sniffing Packets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-2-Spoofing-ICMP-Packets"><span class="toc-text">Task 1.2: Spoofing ICMP Packets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-3-Traceroute"><span class="toc-text">Task 1.3: Traceroute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-4-Sniffing-and-then-Spoofing"><span class="toc-text">Task 1.4: Sniffing and-then Spoofing</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab-Task-Set-2-Writing-Programs-to-Sniff-and-Spoof-Packets"><span class="toc-text">Lab Task Set 2: Writing Programs to Sniff and Spoof Packets</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-1-Writing-Packet-Sniffing-Program"><span class="toc-text">Task 2.1: Writing Packet Sniffing Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-2-Spoofing"><span class="toc-text">Task 2.2: Spoofing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-3-Sniff-and-then-Spoof"><span class="toc-text">Task 2.3: Sniff and then Spoof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
     <article id="article" class="post-content-info">
       <h1 id="Packet-Sniffing-and-Spoofing-Lab"><a href="#Packet-Sniffing-and-Spoofing-Lab" class="headerlink" title="Packet Sniffing and Spoofing Lab"></a>Packet Sniffing and Spoofing Lab</h1><p>这个实验分为了两个大集合，可以选择其中一个完成。第一个是使用python不太需要编程基础，第二个是使用c语言，需要一定的编程基础。</p>
 <p>实验环境如图所示。我们可以在容器内发起攻击，或者直接在虚拟机上发起攻击。</p>
@@ -1076,14 +1084,6 @@ pkt<span class="token operator">=</span>sniff<span class="token punctuation">(</
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个实验用了两种方法。一种是基于python使用scapy库，一种是c使用pcap库，python的方式更简单也更直观，c语言的方式效率更高，但是写代码较为复杂。通过实验我对比较熟悉了scapy库的使用，但是对pcap的使用不太熟悉，上面的c语言代码都是使用大语言模型完成。同时对操作系统的网络管理和网口管理不太熟悉，上面有些实验的结果并不在我的意料之中，例如地址转换。不过在实验中清楚地了解了，这种网络攻击是如何去展开的，以及原理是如何实现的。</p>
 
     </article>
-    
-      <aside id="post-toc" class="post-toc" aria-label="文章目录">
-        <div class="post-toc-inner">
-          <span class="post-toc-title">文章目录</span>
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Packet-Sniffing-and-Spoofing-Lab"><span class="toc-text">Packet Sniffing and Spoofing Lab</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab-Task-Set-1-Using-Scapy-to-Sniff-and-Spoof-Packets"><span class="toc-text">Lab Task Set 1: Using Scapy to Sniff and Spoof Packets</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-1-Sniffing-Packets"><span class="toc-text">Task 1.1: Sniffing Packets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-2-Spoofing-ICMP-Packets"><span class="toc-text">Task 1.2: Spoofing ICMP Packets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-3-Traceroute"><span class="toc-text">Task 1.3: Traceroute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-4-Sniffing-and-then-Spoofing"><span class="toc-text">Task 1.4: Sniffing and-then Spoofing</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab-Task-Set-2-Writing-Programs-to-Sniff-and-Spoof-Packets"><span class="toc-text">Lab Task Set 2: Writing Programs to Sniff and Spoof Packets</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-1-Writing-Packet-Sniffing-Program"><span class="toc-text">Task 2.1: Writing Packet Sniffing Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-2-Spoofing"><span class="toc-text">Task 2.2: Spoofing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-3-Sniff-and-then-Spoof"><span class="toc-text">Task 2.3: Sniff and then Spoof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
-        </div>
-      </aside>
-    
   </div>
   
 </div>
