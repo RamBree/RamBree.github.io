@@ -190,6 +190,33 @@
   border: 1px solid #f1f5fb !important;
   color: #ffffff !important;
 }
+.post-header-img .post-header-background-content {
+  position: relative;
+  z-index: 2;
+}
+.post-header-img .post-header-background-content:before {
+  position: absolute;
+  top: 156px;
+  left: 16px;
+  right: 16px;
+  bottom: 108px;
+  z-index: -1;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.34);
+  box-shadow: 0 20px 70px rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  content: "";
+}
+.post-header-img .post-header-background-content h1 {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.58);
+}
+.post-header-img .post-header-background-content .post-header-tag li {
+  background: rgba(255, 255, 255, 0.88) !important;
+}
+.post-header-img .post-header-background-content .post-header-info-author {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.62);
+}
 .post-header-color {
   background: linear-gradient(0deg, #f1f5fb, #f9fcff) !important;
 }
