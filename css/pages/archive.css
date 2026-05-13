@@ -1,0 +1,17 @@
+.archive-content {
+  display: flex;
+  max-width: 1160px;
+  margin: 0 auto;
+  margin-top: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.06);
+  flex-direction: column;
+}
+.archive-content-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}

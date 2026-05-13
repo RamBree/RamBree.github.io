@@ -4,7 +4,7 @@
 		
 <title>软件安全原理-无限进步</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
 
@@ -40,10 +40,11 @@
 	<body>
 		
 	<div class="header">
-		<div class="header-top" id="header-top">
+		<div class="header-top" id="header-top" style="background-image: linear-gradient(90deg, rgba(255,255,255,.94), rgba(255,255,255,.86)), url(/image/pattern.png);">
 			<div class="h-left">
 				<a href="/">
 					<img src="/image/shengdanwu.png" alt="Quiet">
+					<span>Ram</span>
 				</a>
 			</div>
 			<div class="h-right">
@@ -146,7 +147,7 @@
     </ul>
     <div class="my_foot">
         
-        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+        <a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
             <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
         </a>
         
@@ -183,8 +184,7 @@
     .topo {
         width: 100%;
         height: 200px;
-        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
-        background-size: 100% 100%;
+        background: url(/image/chainsaw-man-3840x2160-24469.jpg) center / cover no-repeat;
         position: relative;
         display: flex;
         align-items: flex-end
@@ -263,7 +263,7 @@
 			$( '.shelter' )
 				.fadeIn( "slow" )
 		} );
-	$( '.shelter' )
+	$( '.shelter, .sidebar a' )
 		.click( function ( e ) {
 			$( '.sidebar' )
 				.animate( {
@@ -276,15 +276,16 @@
 
 </script>
 
+
 <div class="post">
     <div class="post-header-background post-header-img"
-    style="background: url('/image/chainsaw-man-3840x2160-24469.jpg')" 
+    style="background-image: url(/image/SoftwareSecurity.png);" 
 >
     <div class="post-header-background-content">
         <ul class="post-header-tag">
             
             
-            <li><a href="/tags/软件安全">软件安全</a></li>
+            <li><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/">软件安全</a></li>
             
             
         </ul>
@@ -303,7 +304,9 @@
                 <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="/categories/UCAS课程学习" target="_blank" >UCAS课程学习</a>
+                    
+                         <a href="/categories/UCAS%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0/">UCAS课程学习</a>
+                    
                     
                 </div>
                 <p>2026-01-18 13:55:46</p>
@@ -311,12 +314,12 @@
         </div>
     </div>
 </div>
+
     <div class="post-content" id="content">
   
-  <div id="article" class="post-content-info">
-    
-
-    <h1 id="软件安全原理期末复习"><a href="#软件安全原理期末复习" class="headerlink" title="软件安全原理期末复习"></a>软件安全原理期末复习</h1><blockquote>
+  <div class="post-content-grid has-toc">
+    <article id="article" class="post-content-info">
+      <h1 id="软件安全原理期末复习"><a href="#软件安全原理期末复习" class="headerlink" title="软件安全原理期末复习"></a>软件安全原理期末复习</h1><blockquote>
 <p><strong>授课教师</strong>：龚晓锐</p>
 <p><strong>考试信息</strong>：选择（25个2分，来自于课件，不会直白来源课件）、简答题（4个5分，按点给分）、代码分析（5个6分，漏洞模式，说出这是什么漏洞，改对并重构，c语言，有明确的CWE类型）</p>
 </blockquote>
@@ -1229,37 +1232,44 @@ fullname<span class="token punctuation">[</span><span class="token number">0</sp
 <span class="token function">strncat</span><span class="token punctuation">(</span>fullname<span class="token punctuation">,</span> firstname<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>fullname<span class="token punctuation">)</span><span class="token operator">-</span><span class="token function">strlen</span><span class="token punctuation">(</span>fullname<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">strncat</span><span class="token punctuation">(</span>fullname<span class="token punctuation">,</span> lastname<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>fullname<span class="token punctuation">)</span><span class="token operator">-</span><span class="token function">strlen</span><span class="token punctuation">(</span>fullname<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
+    </article>
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0"><span class="toc-text">软件安全原理期末复习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4"><span class="toc-text">第一章 软件与网络空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%A7%82"><span class="toc-text">第二章 网络安全观</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8"><span class="toc-text">第三章 软件安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%8E%9F%E5%88%99"><span class="toc-text">第四章 软件安全原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E5%86%85%E5%AD%98%E4%B8%8E%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8"><span class="toc-text">第五章 内存与类型安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E6%94%BB%E5%87%BB%E6%89%8B%E6%AE%B5"><span class="toc-text">第六章 软件安全攻击手段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E9%98%B2%E5%BE%A1%E7%AD%96%E7%95%A5"><span class="toc-text">第七章 软件安全防御策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0%EF%BC%9A%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80"><span class="toc-text">第八章：软件安全分析基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E7%A7%BB%E5%8A%A8APP%E7%9A%84%E5%AE%89%E5%85%A8"><span class="toc-text">第九章 移动APP的安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0-%E6%99%BA%E8%83%BD%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%84%86%E5%BC%B1%E6%80%A7"><span class="toc-text">第十章 智能软件系统脆弱性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-%E6%99%BA%E8%83%BD%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8"><span class="toc-text">第十一章 智能软件系统后门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E5%AE%89%E5%85%A8"><span class="toc-text">第十二章 软件开发与安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E6%96%B9%E6%B3%95"><span class="toc-text">第十三章 软件安全开发方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E4%BE%9B%E5%BA%94%E9%93%BE%E5%AE%89%E5%85%A8"><span class="toc-text">第十四章 软件供应链安全</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E6%A8%A1%E5%BC%8F"><span class="toc-text">常见漏洞模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-476-NULL-Pointer-Dereference%EF%BC%88%E7%A9%BA%E6%8C%87%E9%92%88%E8%A7%A3%E5%BC%95%E7%94%A8%EF%BC%89"><span class="toc-text">CWE-476 NULL Pointer Dereference（空指针解引用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-416-Use-After-Free%EF%BC%88%E9%87%8A%E6%94%BE%E5%90%8E%E9%87%8D%E7%94%A8%EF%BC%89"><span class="toc-text">CWE-416 Use After Free（释放后重用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-415-Double-Free%EF%BC%88%E5%8F%8C%E9%87%8D%E9%87%8A%E6%94%BE%EF%BC%89"><span class="toc-text">CWE-415 Double Free（双重释放）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-843-Type-Confusion%EF%BC%88%E7%B1%BB%E5%9E%8B%E6%B7%B7%E6%B7%86%EF%BC%89"><span class="toc-text">CWE-843 Type Confusion（类型混淆）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-704-Incorrect-Type-Conversion-or-Cast%EF%BC%88%E4%B8%8D%E6%AD%A3%E7%A1%AE%E7%9A%84%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%89"><span class="toc-text">CWE-704 Incorrect Type Conversion or Cast（不正确的类型转换）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-911-Improper-Update-of-Reference-Count%EF%BC%88%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%9B%B4%E6%96%B0%E4%B8%8D%E5%BD%93%EF%BC%89"><span class="toc-text">CWE-911  Improper Update of Reference Count（引用计数更新不当）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-366-Race-Condition-within-a-Thread%EF%BC%88%E7%BA%BF%E7%A8%8B%E5%86%85%E7%AB%9E%E6%80%81%EF%BC%89"><span class="toc-text">CWE-366 Race Condition within a Thread（线程内竞态）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-367-TOCTOU%EF%BC%88%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%EF%BC%89"><span class="toc-text">CWE-367 TOCTOU（条件竞争）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-125-Out-of-bounds-Read%EF%BC%88%E8%B6%8A%E7%95%8C%E8%AF%BB%EF%BC%89"><span class="toc-text">CWE-125 Out-of-bounds Read（越界读）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-787-Out-of-bounds-Write%EF%BC%88%E8%B6%8A%E7%95%8C%E5%86%99%EF%BC%89"><span class="toc-text">CWE-787 Out-of-bounds Write（越界写）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-190-Integer-Overflow-or-Wraparound%EF%BC%88%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%EF%BC%89"><span class="toc-text">CWE-190 Integer Overflow or Wraparound（整数溢出）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CWE-193-Off-by-one-Error"><span class="toc-text">CWE-193: Off-by-one Error</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
   </div>
-  <div id=""></div>
+  
 </div>
 
 <script>
-  
-Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
-  dragToClose: true,
-  Toolbar: true,
-  closeButton: "top",
-  Image: {
-    zoom: true,
-  },
-  on: {
-    initCarousel: (fancybox) => {
-      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+if (window.Fancybox) {
+  Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+    dragToClose: true,
+    Toolbar: true,
+    closeButton: "top",
+    Image: {
+      zoom: true,
     },
-    "Carousel.change": (fancybox, carousel, to, from) => {
-      const slide = carousel.slides[to];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+    on: {
+      initCarousel: (fancybox) => {
+        const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
+      "Carousel.change": (fancybox, carousel, to) => {
+        const slide = carousel.slides[to];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
     },
-  },
-});
+  });
+}
 </script>
 
 <style>
@@ -1316,7 +1326,7 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 	</div>
 	<div class="contact">
 		
-		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+		<a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
 			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
 		</a>
 		
@@ -1401,23 +1411,8 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </script>
 
 
-    <!-- Gitalk -->
-    <script>
-        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
-        const gitalk = new Gitalk({
-            ...JSON.parse( data),
-            id:location.pathname,
-            distractionFreeMode:false
-        })
-        
-        if(Boolean('false')){
-            gitalk.render('gitalk-container')
-        }
-    </script>
 
-<script>
-	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
-</script>
+
 	</body>
 </html>
 

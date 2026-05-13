@@ -4,7 +4,7 @@
 		
 <title>moectf-2025-pwn-无限进步</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
 
@@ -40,10 +40,11 @@
 	<body>
 		
 	<div class="header">
-		<div class="header-top" id="header-top">
+		<div class="header-top" id="header-top" style="background-image: linear-gradient(90deg, rgba(255,255,255,.94), rgba(255,255,255,.86)), url(/image/pattern.png);">
 			<div class="h-left">
 				<a href="/">
 					<img src="/image/shengdanwu.png" alt="Quiet">
+					<span>Ram</span>
 				</a>
 			</div>
 			<div class="h-right">
@@ -146,7 +147,7 @@
     </ul>
     <div class="my_foot">
         
-        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+        <a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
             <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
         </a>
         
@@ -183,8 +184,7 @@
     .topo {
         width: 100%;
         height: 200px;
-        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
-        background-size: 100% 100%;
+        background: url(/image/chainsaw-man-3840x2160-24469.jpg) center / cover no-repeat;
         position: relative;
         display: flex;
         align-items: flex-end
@@ -263,7 +263,7 @@
 			$( '.shelter' )
 				.fadeIn( "slow" )
 		} );
-	$( '.shelter' )
+	$( '.shelter, .sidebar a' )
 		.click( function ( e ) {
 			$( '.sidebar' )
 				.animate( {
@@ -276,15 +276,16 @@
 
 </script>
 
+
 <div class="post">
     <div class="post-header-background post-header-img"
-    style="background: url('/image/chainsaw-man-3840x2160-24469.jpg')" 
+    style="background-image: url(/image/moectf-2025.png);" 
 >
     <div class="post-header-background-content">
         <ul class="post-header-tag">
             
             
-            <li><a href="/tags/pwn">pwn</a></li>
+            <li><a href="/tags/pwn/">pwn</a></li>
             
             
         </ul>
@@ -303,7 +304,9 @@
                 <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="/categories/CTF练习" target="_blank" >CTF练习</a>
+                    
+                         <a href="/categories/CTF%E7%BB%83%E4%B9%A0/">CTF练习</a>
+                    
                     
                 </div>
                 <p>2025-12-01 09:36:58</p>
@@ -311,17 +314,12 @@
         </div>
     </div>
 </div>
+
     <div class="post-content" id="content">
   
-  <div id="article" class="post-content-info">
-    
-      <div id="post-toc">
-        <span class="post-toc-title">文章目录</span>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#moectf-2025-pwn-wp"><span class="toc-text">moectf 2025 pwn wp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#syslock"><span class="toc-text">syslock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xdulacker"><span class="toc-text">xdulacker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ezlibc"><span class="toc-text">ezlibc</span></a></li></ol></li></ol>
-      </div>
-    
-
-    <h1 id="moectf-2025-pwn-wp"><a href="#moectf-2025-pwn-wp" class="headerlink" title="moectf 2025 pwn wp"></a>moectf 2025 pwn wp</h1><p>文章中主要提供解题思路，详细WP见<a target="_blank" rel="noopener" href="https://github.com/RamBree/moectf-2025">github仓库</a></p>
+  <div class="post-content-grid has-toc">
+    <article id="article" class="post-content-info">
+      <h1 id="moectf-2025-pwn-wp"><a href="#moectf-2025-pwn-wp" class="headerlink" title="moectf 2025 pwn wp"></a>moectf 2025 pwn wp</h1><p>文章中主要提供解题思路，详细WP见<a target="_blank" rel="noopener" href="https://github.com/RamBree/moectf-2025">github仓库</a></p>
 <h2 id="syslock"><a href="#syslock" class="headerlink" title="syslock"></a>syslock</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">Arch<span class="token punctuation">:</span>       amd64<span class="token operator">-</span><span class="token number">64</span><span class="token operator">-</span>little
 RELRO<span class="token punctuation">:</span>      Partial RELRO
 Stack<span class="token punctuation">:</span>      No canary found
@@ -439,36 +437,44 @@ Stripped<span class="token punctuation">:</span>   No<span aria-hidden="true" cl
 <p><img src="/2025/12/01/moectf-2025-pwn/image-20251118172240066.png" alt="image-20251118172240066"></p>
 <p><img src="/2025/12/01/moectf-2025-pwn/image-20251118172347943.png" alt="image-20251118172347943"></p>
 
+    </article>
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#moectf-2025-pwn-wp"><span class="toc-text">moectf 2025 pwn wp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#syslock"><span class="toc-text">syslock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xdulacker"><span class="toc-text">xdulacker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ezlibc"><span class="toc-text">ezlibc</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
   </div>
-  <div id=""></div>
+  
 </div>
 
 <script>
-  
-Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
-  dragToClose: true,
-  Toolbar: true,
-  closeButton: "top",
-  Image: {
-    zoom: true,
-  },
-  on: {
-    initCarousel: (fancybox) => {
-      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+if (window.Fancybox) {
+  Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+    dragToClose: true,
+    Toolbar: true,
+    closeButton: "top",
+    Image: {
+      zoom: true,
     },
-    "Carousel.change": (fancybox, carousel, to, from) => {
-      const slide = carousel.slides[to];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+    on: {
+      initCarousel: (fancybox) => {
+        const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
+      "Carousel.change": (fancybox, carousel, to) => {
+        const slide = carousel.slides[to];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
     },
-  },
-});
+  });
+}
 </script>
 
 <style>
@@ -525,7 +531,7 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 	</div>
 	<div class="contact">
 		
-		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+		<a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
 			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
 		</a>
 		
@@ -610,23 +616,8 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </script>
 
 
-    <!-- Gitalk -->
-    <script>
-        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
-        const gitalk = new Gitalk({
-            ...JSON.parse( data),
-            id:location.pathname,
-            distractionFreeMode:false
-        })
-        
-        if(Boolean('false')){
-            gitalk.render('gitalk-container')
-        }
-    </script>
 
-<script>
-	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
-</script>
+
 	</body>
 </html>
 

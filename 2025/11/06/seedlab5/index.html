@@ -4,7 +4,7 @@
 		
 <title>Format String Attack Lab-无限进步</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
 
@@ -40,10 +40,11 @@
 	<body>
 		
 	<div class="header">
-		<div class="header-top" id="header-top">
+		<div class="header-top" id="header-top" style="background-image: linear-gradient(90deg, rgba(255,255,255,.94), rgba(255,255,255,.86)), url(/image/pattern.png);">
 			<div class="h-left">
 				<a href="/">
 					<img src="/image/shengdanwu.png" alt="Quiet">
+					<span>Ram</span>
 				</a>
 			</div>
 			<div class="h-right">
@@ -146,7 +147,7 @@
     </ul>
     <div class="my_foot">
         
-        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+        <a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
             <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
         </a>
         
@@ -183,8 +184,7 @@
     .topo {
         width: 100%;
         height: 200px;
-        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
-        background-size: 100% 100%;
+        background: url(/image/chainsaw-man-3840x2160-24469.jpg) center / cover no-repeat;
         position: relative;
         display: flex;
         align-items: flex-end
@@ -263,7 +263,7 @@
 			$( '.shelter' )
 				.fadeIn( "slow" )
 		} );
-	$( '.shelter' )
+	$( '.shelter, .sidebar a' )
 		.click( function ( e ) {
 			$( '.sidebar' )
 				.animate( {
@@ -276,17 +276,18 @@
 
 </script>
 
+
 <div class="post">
     <div class="post-header-background post-header-img"
-    style="background: url('/image/chainsaw-man-3840x2160-24469.jpg')" 
+    style="background-image: url(/image/seedlabs.png);" 
 >
     <div class="post-header-background-content">
         <ul class="post-header-tag">
             
             
-            <li><a href="/tags/软件安全">软件安全</a></li>
+            <li><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/">软件安全</a></li>
             
-            <li><a href="/tags/fmt">fmt</a></li>
+            <li><a href="/tags/fmt/">fmt</a></li>
             
             
         </ul>
@@ -305,7 +306,9 @@
                 <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="/categories/SeedLabs2.0" target="_blank" >SeedLabs2.0</a>
+                    
+                         <a href="/categories/SeedLabs2-0/">SeedLabs2.0</a>
+                    
                     
                 </div>
                 <p>2025-11-06 16:04:22</p>
@@ -313,17 +316,12 @@
         </div>
     </div>
 </div>
+
     <div class="post-content" id="content">
   
-  <div id="article" class="post-content-info">
-    
-      <div id="post-toc">
-        <span class="post-toc-title">文章目录</span>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Format-String-Attack-Lab"><span class="toc-text">Format String Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Crashing-the-Program"><span class="toc-text">Task 1: Crashing the Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Printing-Out-the-Server-Program%E2%80%99s-Memory"><span class="toc-text">Task 2: Printing Out the Server Program’s Memory</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1A%EF%BC%9A%E6%A0%88%E6%95%B0%E6%8D%AE"><span class="toc-text">任务A：栈数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1B%EF%BC%9A%E5%A0%86%E6%95%B0%E6%8D%AE"><span class="toc-text">任务B：堆数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Modifying-the-Server-Program%E2%80%99s-Memory"><span class="toc-text">Task 3: Modifying the Server Program’s Memory</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1A%EF%BC%9A%E5%B0%86%E5%80%BC%E6%94%B9%E4%B8%BA%E4%B8%8D%E5%90%8C%E7%9A%84%E5%80%BC"><span class="toc-text">任务A：将值改为不同的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1B%EF%BC%9A%E5%B0%86%E5%80%BC%E6%94%B9%E4%B8%BA0x5000"><span class="toc-text">任务B：将值改为0x5000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1C%EF%BC%9A%E5%B0%86%E5%80%BC%E6%94%B9%E4%B8%BA0xAABBCCDD"><span class="toc-text">任务C：将值改为0xAABBCCDD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Inject-Malicious-Code-into-the-Server-Program"><span class="toc-text">Task 4: Inject Malicious Code into the Server Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Attacking-the-64-bit-Server-Program"><span class="toc-text">Task 5: Attacking the 64-bit Server Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-Fixing-the-Problem"><span class="toc-text">Task 6: Fixing the Problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
-      </div>
-    
-
-    <h1 id="Format-String-Attack-Lab"><a href="#Format-String-Attack-Lab" class="headerlink" title="Format String Attack Lab"></a>Format String Attack Lab</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>关闭安全策略。</p>
+  <div class="post-content-grid has-toc">
+    <article id="article" class="post-content-info">
+      <h1 id="Format-String-Attack-Lab"><a href="#Format-String-Attack-Lab" class="headerlink" title="Format String Attack Lab"></a>Format String Attack Lab</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>关闭安全策略。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">sysctl</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">kernel.randomize_va_space</span><span class="token operator">=</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>根据课上要求，把server_code中的<code>Makefile</code>中的L改成115。</p>
@@ -637,36 +635,44 @@ content<span class="token punctuation">[</span><span class="token number">0</spa
 <p>再次攻击发现不会凑效。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这次实验主要学习了格式字符串。该漏洞的利用方式有：程序崩溃，读取内容，修改内容。熟练掌握每一种利用方式。</p>
 
+    </article>
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Format-String-Attack-Lab"><span class="toc-text">Format String Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Crashing-the-Program"><span class="toc-text">Task 1: Crashing the Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Printing-Out-the-Server-Program%E2%80%99s-Memory"><span class="toc-text">Task 2: Printing Out the Server Program’s Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Modifying-the-Server-Program%E2%80%99s-Memory"><span class="toc-text">Task 3: Modifying the Server Program’s Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Inject-Malicious-Code-into-the-Server-Program"><span class="toc-text">Task 4: Inject Malicious Code into the Server Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Attacking-the-64-bit-Server-Program"><span class="toc-text">Task 5: Attacking the 64-bit Server Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-Fixing-the-Problem"><span class="toc-text">Task 6: Fixing the Problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
   </div>
-  <div id=""></div>
+  
 </div>
 
 <script>
-  
-Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
-  dragToClose: true,
-  Toolbar: true,
-  closeButton: "top",
-  Image: {
-    zoom: true,
-  },
-  on: {
-    initCarousel: (fancybox) => {
-      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+if (window.Fancybox) {
+  Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+    dragToClose: true,
+    Toolbar: true,
+    closeButton: "top",
+    Image: {
+      zoom: true,
     },
-    "Carousel.change": (fancybox, carousel, to, from) => {
-      const slide = carousel.slides[to];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+    on: {
+      initCarousel: (fancybox) => {
+        const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
+      "Carousel.change": (fancybox, carousel, to) => {
+        const slide = carousel.slides[to];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
     },
-  },
-});
+  });
+}
 </script>
 
 <style>
@@ -723,7 +729,7 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 	</div>
 	<div class="contact">
 		
-		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+		<a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
 			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
 		</a>
 		
@@ -808,23 +814,8 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </script>
 
 
-    <!-- Gitalk -->
-    <script>
-        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
-        const gitalk = new Gitalk({
-            ...JSON.parse( data),
-            id:location.pathname,
-            distractionFreeMode:false
-        })
-        
-        if(Boolean('false')){
-            gitalk.render('gitalk-container')
-        }
-    </script>
 
-<script>
-	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
-</script>
+
 	</body>
 </html>
 

@@ -4,7 +4,7 @@
 		
 <title>Environment Variable and Set-UID Program Lab-无限进步</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
 
@@ -40,10 +40,11 @@
 	<body>
 		
 	<div class="header">
-		<div class="header-top" id="header-top">
+		<div class="header-top" id="header-top" style="background-image: linear-gradient(90deg, rgba(255,255,255,.94), rgba(255,255,255,.86)), url(/image/pattern.png);">
 			<div class="h-left">
 				<a href="/">
 					<img src="/image/shengdanwu.png" alt="Quiet">
+					<span>Ram</span>
 				</a>
 			</div>
 			<div class="h-right">
@@ -146,7 +147,7 @@
     </ul>
     <div class="my_foot">
         
-        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+        <a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
             <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
         </a>
         
@@ -183,8 +184,7 @@
     .topo {
         width: 100%;
         height: 200px;
-        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
-        background-size: 100% 100%;
+        background: url(/image/chainsaw-man-3840x2160-24469.jpg) center / cover no-repeat;
         position: relative;
         display: flex;
         align-items: flex-end
@@ -263,7 +263,7 @@
 			$( '.shelter' )
 				.fadeIn( "slow" )
 		} );
-	$( '.shelter' )
+	$( '.shelter, .sidebar a' )
 		.click( function ( e ) {
 			$( '.sidebar' )
 				.animate( {
@@ -276,17 +276,18 @@
 
 </script>
 
+
 <div class="post">
     <div class="post-header-background post-header-img"
-    style="background: url('/image/chainsaw-man-3840x2160-24469.jpg')" 
+    style="background-image: url(/image/seedlabs.png);" 
 >
     <div class="post-header-background-content">
         <ul class="post-header-tag">
             
             
-            <li><a href="/tags/软件安全">软件安全</a></li>
+            <li><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/">软件安全</a></li>
             
-            <li><a href="/tags/环境变量">环境变量</a></li>
+            <li><a href="/tags/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/">环境变量</a></li>
             
             
         </ul>
@@ -305,7 +306,9 @@
                 <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="/categories/SeedLabs2.0" target="_blank" >SeedLabs2.0</a>
+                    
+                         <a href="/categories/SeedLabs2-0/">SeedLabs2.0</a>
+                    
                     
                 </div>
                 <p>2025-11-01 21:51:09</p>
@@ -313,17 +316,12 @@
         </div>
     </div>
 </div>
+
     <div class="post-content" id="content">
   
-  <div id="article" class="post-content-info">
-    
-      <div id="post-toc">
-        <span class="post-toc-title">文章目录</span>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Environment-Variable-and-Set-UID-Program-Lab"><span class="toc-text">Environment Variable and Set-UID Program Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Manipulating-Environment-Variables"><span class="toc-text">Task 1: Manipulating Environment Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Passing-Environment-Variables-from-Parent-Process-to-Child-Process"><span class="toc-text">Task 2: Passing Environment Variables from Parent Process to Child Process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Environment-Variables-and-execve"><span class="toc-text">Task 3: Environment Variables and execve()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Environment-Variables-and-system"><span class="toc-text">Task 4: Environment Variables and system()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 5: Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-The-PATH-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 6: The PATH Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-7-The-LD-PRELOAD-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 7: The LD PRELOAD Environment Variable and Set-UID Programs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-myproc%E4%B8%BA%E6%99%AE%E9%80%9A%E7%A8%8B%E5%BA%8F%EF%BC%8C%E5%B9%B6%E4%BB%A5%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C"><span class="toc-text">1.myproc为普通程序，并以普通用户运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-myprog-%E8%AE%BE%E7%BD%AE%E4%B8%BA-Set-UID-root-%E7%A8%8B%E5%BA%8F%EF%BC%8C%E5%B9%B6%E4%BB%A5%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C"><span class="toc-text">2.myprog 设置为 Set-UID root 程序，并以普通用户运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-myprog-%E8%AE%BE%E7%BD%AE%E4%B8%BA-Set-UID-root-%E7%A8%8B%E5%BA%8F%EF%BC%8C%E5%9C%A8-root-%E8%B4%A6%E6%88%B7%E4%B8%AD%E8%AE%BE%E7%BD%AE-LD-PRELOAD-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%90%8E%E8%BF%90%E8%A1%8C%E8%AF%A5%E7%A8%8B%E5%BA%8F%E3%80%82"><span class="toc-text">3.myprog 设置为 Set-UID root 程序，在 root 账户中设置 LD_PRELOAD 环境变量后运行该程序。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-myprog-%E8%AE%BE%E7%BD%AE%E4%B8%BA-Set-UID-user1-%E7%A8%8B%E5%BA%8F%EF%BC%8C%E5%9C%A8-user2%E4%B8%AD%E8%AE%BE%E7%BD%AE-LD-PRELOAD-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%90%8E%E8%BF%90%E8%A1%8C%E8%AF%A5%E7%A8%8B%E5%BA%8F%E3%80%82"><span class="toc-text">4.myprog 设置为 Set-UID user1 程序，在 user2中设置 LD_PRELOAD 环境变量后运行该程序。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-8-Invoking-External-Programs-Using-system-versus-execve"><span class="toc-text">Task 8: Invoking External Programs Using system() versus execve()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-9-Capability-Leaking"><span class="toc-text">Task 9: Capability Leaking</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="toc-text">实验总结</span></a></li></ol>
-      </div>
-    
-
-    <h1 id="Environment-Variable-and-Set-UID-Program-Lab"><a href="#Environment-Variable-and-Set-UID-Program-Lab" class="headerlink" title="Environment Variable and Set-UID Program Lab"></a>Environment Variable and Set-UID Program Lab</h1><h2 id="Task-1-Manipulating-Environment-Variables"><a href="#Task-1-Manipulating-Environment-Variables" class="headerlink" title="Task 1: Manipulating Environment Variables"></a>Task 1: Manipulating Environment Variables</h2><p>1.打印当前的环境变量，并查找PWD。</p>
+  <div class="post-content-grid has-toc">
+    <article id="article" class="post-content-info">
+      <h1 id="Environment-Variable-and-Set-UID-Program-Lab"><a href="#Environment-Variable-and-Set-UID-Program-Lab" class="headerlink" title="Environment Variable and Set-UID Program Lab"></a>Environment Variable and Set-UID Program Lab</h1><h2 id="Task-1-Manipulating-Environment-Variables"><a href="#Task-1-Manipulating-Environment-Variables" class="headerlink" title="Task 1: Manipulating Environment Variables"></a>Task 1: Manipulating Environment Variables</h2><p>1.打印当前的环境变量，并查找PWD。</p>
 <p><img src="/2025/11/01/seedlab1/3f610e94-16f0-46a3-a65b-d78ce1de7069.png" alt="image.png"></p>
 <p>2.设置一个环境变量rwb&#x3D;111，查看输出。取消这个环境变量。</p>
 <p><img src="/2025/11/01/seedlab1/image.png" alt="image.png"></p>
@@ -412,36 +410,44 @@
 <p>运行Set-UID程序时，进程暂时获得root权限，打开zzz文件时，获得了root权限下的读写文件、向文件中添加内容的权限，当使用setuid()释放root权限时，没有释放进程已经获得的特权功能—读写文件、向文件中添加内容；导致仅仅是将程序的拥有者降为非root用户，然后进程还拥有root权限下的读写文件、向文件中添加内容的功能，所以造成了权限泄露的问题，当执行fork创建子进程后在子进程中返回0，父进程中返回子进程的PID，父进程打开文件etc&#x2F;zzz后，子进程不是直接修改文件&#x2F;etc&#x2F;zzz，而是修改了缓冲区中的文字，即在setuid之前，zzz文件就已经被打开了，只要将语句setuid(getuid())移至调用open函数之前，就可以避免。</p>
 <h1 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h1><p>本次的实验集中在setuid程序和环境变量两个部分。通过实验，我更加深入理解了setuid程序是怎么样去执行了，同时理解了环境变量在程序执行的时候扮演着怎么样的角色。整体实验不算难，也相当于是抛砖引玉，未来可以深入学习类似的一些程序。</p>
 
+    </article>
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Environment-Variable-and-Set-UID-Program-Lab"><span class="toc-text">Environment Variable and Set-UID Program Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Manipulating-Environment-Variables"><span class="toc-text">Task 1: Manipulating Environment Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Passing-Environment-Variables-from-Parent-Process-to-Child-Process"><span class="toc-text">Task 2: Passing Environment Variables from Parent Process to Child Process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Environment-Variables-and-execve"><span class="toc-text">Task 3: Environment Variables and execve()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Environment-Variables-and-system"><span class="toc-text">Task 4: Environment Variables and system()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 5: Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-The-PATH-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 6: The PATH Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-7-The-LD-PRELOAD-Environment-Variable-and-Set-UID-Programs"><span class="toc-text">Task 7: The LD PRELOAD Environment Variable and Set-UID Programs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-8-Invoking-External-Programs-Using-system-versus-execve"><span class="toc-text">Task 8: Invoking External Programs Using system() versus execve()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-9-Capability-Leaking"><span class="toc-text">Task 9: Capability Leaking</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="toc-text">实验总结</span></a></li></ol>
+        </div>
+      </aside>
+    
   </div>
-  <div id=""></div>
+  
 </div>
 
 <script>
-  
-Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
-  dragToClose: true,
-  Toolbar: true,
-  closeButton: "top",
-  Image: {
-    zoom: true,
-  },
-  on: {
-    initCarousel: (fancybox) => {
-      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+if (window.Fancybox) {
+  Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+    dragToClose: true,
+    Toolbar: true,
+    closeButton: "top",
+    Image: {
+      zoom: true,
     },
-    "Carousel.change": (fancybox, carousel, to, from) => {
-      const slide = carousel.slides[to];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+    on: {
+      initCarousel: (fancybox) => {
+        const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
+      "Carousel.change": (fancybox, carousel, to) => {
+        const slide = carousel.slides[to];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
     },
-  },
-});
+  });
+}
 </script>
 
 <style>
@@ -491,7 +497,7 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 	</div>
 	<div class="contact">
 		
-		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+		<a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
 			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
 		</a>
 		
@@ -576,23 +582,8 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </script>
 
 
-    <!-- Gitalk -->
-    <script>
-        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
-        const gitalk = new Gitalk({
-            ...JSON.parse( data),
-            id:location.pathname,
-            distractionFreeMode:false
-        })
-        
-        if(Boolean('false')){
-            gitalk.render('gitalk-container')
-        }
-    </script>
 
-<script>
-	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
-</script>
+
 	</body>
 </html>
 

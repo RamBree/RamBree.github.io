@@ -4,7 +4,7 @@
 		
 <title>Buffer Overflow Attack Lab(Server Version)-无限进步</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
 
@@ -40,10 +40,11 @@
 	<body>
 		
 	<div class="header">
-		<div class="header-top" id="header-top">
+		<div class="header-top" id="header-top" style="background-image: linear-gradient(90deg, rgba(255,255,255,.94), rgba(255,255,255,.86)), url(/image/pattern.png);">
 			<div class="h-left">
 				<a href="/">
 					<img src="/image/shengdanwu.png" alt="Quiet">
+					<span>Ram</span>
 				</a>
 			</div>
 			<div class="h-right">
@@ -146,7 +147,7 @@
     </ul>
     <div class="my_foot">
         
-        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+        <a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
             <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
         </a>
         
@@ -183,8 +184,7 @@
     .topo {
         width: 100%;
         height: 200px;
-        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
-        background-size: 100% 100%;
+        background: url(/image/chainsaw-man-3840x2160-24469.jpg) center / cover no-repeat;
         position: relative;
         display: flex;
         align-items: flex-end
@@ -263,7 +263,7 @@
 			$( '.shelter' )
 				.fadeIn( "slow" )
 		} );
-	$( '.shelter' )
+	$( '.shelter, .sidebar a' )
 		.click( function ( e ) {
 			$( '.sidebar' )
 				.animate( {
@@ -276,17 +276,18 @@
 
 </script>
 
+
 <div class="post">
     <div class="post-header-background post-header-img"
-    style="background: url('/image/chainsaw-man-3840x2160-24469.jpg')" 
+    style="background-image: url(/image/seedlabs.png);" 
 >
     <div class="post-header-background-content">
         <ul class="post-header-tag">
             
             
-            <li><a href="/tags/软件安全">软件安全</a></li>
+            <li><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/">软件安全</a></li>
             
-            <li><a href="/tags/栈溢出">栈溢出</a></li>
+            <li><a href="/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/">栈溢出</a></li>
             
             
         </ul>
@@ -305,7 +306,9 @@
                 <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="/categories/SeedLabs2.0" target="_blank" >SeedLabs2.0</a>
+                    
+                         <a href="/categories/SeedLabs2-0/">SeedLabs2.0</a>
+                    
                     
                 </div>
                 <p>2025-11-03 21:51:09</p>
@@ -313,17 +316,12 @@
         </div>
     </div>
 </div>
+
     <div class="post-content" id="content">
   
-  <div id="article" class="post-content-info">
-    
-      <div id="post-toc">
-        <span class="post-toc-title">文章目录</span>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Buffer-Overflow-Attack-Lab-Server-Version"><span class="toc-text">Buffer Overflow Attack Lab(Server Version)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Get-Familiar-with-the-Shellcode"><span class="toc-text">Task 1: Get Familiar with the Shellcode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Level-1-Attack"><span class="toc-text">Task 2: Level-1 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Level-2-Attack"><span class="toc-text">Task 3: Level-2 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Level-3-Attack"><span class="toc-text">Task 4: Level-3 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Level-4-Attack"><span class="toc-text">Task 5: Level-4 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-Experimenting-with-the-Address-Randomization"><span class="toc-text">Task 6: Experimenting with the Address Randomization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tasks-7-Experimenting-with-Other-Countermeasures"><span class="toc-text">Tasks 7: Experimenting with Other Countermeasures</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E4%BF%9D%E6%8A%A4"><span class="toc-text">栈保护</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%8F%AF%E6%89%A7%E8%A1%8C"><span class="toc-text">栈可执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
-      </div>
-    
-
-    <h1 id="Buffer-Overflow-Attack-Lab-Server-Version"><a href="#Buffer-Overflow-Attack-Lab-Server-Version" class="headerlink" title="Buffer Overflow Attack Lab(Server Version)"></a>Buffer Overflow Attack Lab(Server Version)</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>修改server_code中的<code>Makefile</code>,设置L1为122。对应上课日期10.22</p>
+  <div class="post-content-grid has-toc">
+    <article id="article" class="post-content-info">
+      <h1 id="Buffer-Overflow-Attack-Lab-Server-Version"><a href="#Buffer-Overflow-Attack-Lab-Server-Version" class="headerlink" title="Buffer Overflow Attack Lab(Server Version)"></a>Buffer Overflow Attack Lab(Server Version)</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>修改server_code中的<code>Makefile</code>,设置L1为122。对应上课日期10.22</p>
 <img src="image-20251022101646517.png" alt="image-20251022101646517" style="zoom: 25%;" />
 
 <p>在server-code编译代码。相当于服务器上执行了这些32位或者64位程序。但是作为一个攻击者，应该是不能获取这些信息的。</p>
@@ -502,36 +500,44 @@ content<span class="token punctuation">[</span>offset<span class="token punctuat
 <p><img src="/2025/11/03/seedlab3/image-20251023000830113.png" alt="image-20251023000830113"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这个实验了解了栈溢出攻击和栈相关的保护。本次栈溢出的利用方式主要是通过shellcode，即ret2shellcode，shellcode的编写也是很重要的一环，要比较熟悉汇编代码，本次实验虽然没有具体让我们自己设计，可以在未来继续学习。栈溢出的原理并不难，算是入门级别的二进制漏洞。</p>
 
+    </article>
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Buffer-Overflow-Attack-Lab-Server-Version"><span class="toc-text">Buffer Overflow Attack Lab(Server Version)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Get-Familiar-with-the-Shellcode"><span class="toc-text">Task 1: Get Familiar with the Shellcode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Level-1-Attack"><span class="toc-text">Task 2: Level-1 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Level-2-Attack"><span class="toc-text">Task 3: Level-2 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Level-3-Attack"><span class="toc-text">Task 4: Level-3 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Level-4-Attack"><span class="toc-text">Task 5: Level-4 Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-6-Experimenting-with-the-Address-Randomization"><span class="toc-text">Task 6: Experimenting with the Address Randomization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tasks-7-Experimenting-with-Other-Countermeasures"><span class="toc-text">Tasks 7: Experimenting with Other Countermeasures</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
   </div>
-  <div id=""></div>
+  
 </div>
 
 <script>
-  
-Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
-  dragToClose: true,
-  Toolbar: true,
-  closeButton: "top",
-  Image: {
-    zoom: true,
-  },
-  on: {
-    initCarousel: (fancybox) => {
-      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+if (window.Fancybox) {
+  Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+    dragToClose: true,
+    Toolbar: true,
+    closeButton: "top",
+    Image: {
+      zoom: true,
     },
-    "Carousel.change": (fancybox, carousel, to, from) => {
-      const slide = carousel.slides[to];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+    on: {
+      initCarousel: (fancybox) => {
+        const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
+      "Carousel.change": (fancybox, carousel, to) => {
+        const slide = carousel.slides[to];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
     },
-  },
-});
+  });
+}
 </script>
 
 <style>
@@ -588,7 +594,7 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 	</div>
 	<div class="contact">
 		
-		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+		<a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
 			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
 		</a>
 		
@@ -673,23 +679,8 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </script>
 
 
-    <!-- Gitalk -->
-    <script>
-        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
-        const gitalk = new Gitalk({
-            ...JSON.parse( data),
-            id:location.pathname,
-            distractionFreeMode:false
-        })
-        
-        if(Boolean('false')){
-            gitalk.render('gitalk-container')
-        }
-    </script>
 
-<script>
-	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
-</script>
+
 	</body>
 </html>
 

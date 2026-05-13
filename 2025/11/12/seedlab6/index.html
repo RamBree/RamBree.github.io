@@ -4,7 +4,7 @@
 		
 <title>Packet Sniffing and Spoofing Lab-无限进步</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
 
@@ -40,10 +40,11 @@
 	<body>
 		
 	<div class="header">
-		<div class="header-top" id="header-top">
+		<div class="header-top" id="header-top" style="background-image: linear-gradient(90deg, rgba(255,255,255,.94), rgba(255,255,255,.86)), url(/image/pattern.png);">
 			<div class="h-left">
 				<a href="/">
 					<img src="/image/shengdanwu.png" alt="Quiet">
+					<span>Ram</span>
 				</a>
 			</div>
 			<div class="h-right">
@@ -146,7 +147,7 @@
     </ul>
     <div class="my_foot">
         
-        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+        <a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
             <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
         </a>
         
@@ -183,8 +184,7 @@
     .topo {
         width: 100%;
         height: 200px;
-        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
-        background-size: 100% 100%;
+        background: url(/image/chainsaw-man-3840x2160-24469.jpg) center / cover no-repeat;
         position: relative;
         display: flex;
         align-items: flex-end
@@ -263,7 +263,7 @@
 			$( '.shelter' )
 				.fadeIn( "slow" )
 		} );
-	$( '.shelter' )
+	$( '.shelter, .sidebar a' )
 		.click( function ( e ) {
 			$( '.sidebar' )
 				.animate( {
@@ -276,15 +276,16 @@
 
 </script>
 
+
 <div class="post">
     <div class="post-header-background post-header-img"
-    style="background: url('/image/chainsaw-man-3840x2160-24469.jpg')" 
+    style="background-image: url(/image/seedlabs.png);" 
 >
     <div class="post-header-background-content">
         <ul class="post-header-tag">
             
             
-            <li><a href="/tags/网络安全">网络安全</a></li>
+            <li><a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></li>
             
             
         </ul>
@@ -303,7 +304,9 @@
                 <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="/categories/SeedLabs2.0" target="_blank" >SeedLabs2.0</a>
+                    
+                         <a href="/categories/SeedLabs2-0/">SeedLabs2.0</a>
+                    
                     
                 </div>
                 <p>2025-11-12 10:21:50</p>
@@ -311,17 +314,12 @@
         </div>
     </div>
 </div>
+
     <div class="post-content" id="content">
   
-  <div id="article" class="post-content-info">
-    
-      <div id="post-toc">
-        <span class="post-toc-title">文章目录</span>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Packet-Sniffing-and-Spoofing-Lab"><span class="toc-text">Packet Sniffing and Spoofing Lab</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab-Task-Set-1-Using-Scapy-to-Sniff-and-Spoof-Packets"><span class="toc-text">Lab Task Set 1: Using Scapy to Sniff and Spoof Packets</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-1-Sniffing-Packets"><span class="toc-text">Task 1.1: Sniffing Packets</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Task-1-1A"><span class="toc-text">Task 1.1A</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Task-1-1B"><span class="toc-text">Task 1.1B</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-2-Spoofing-ICMP-Packets"><span class="toc-text">Task 1.2: Spoofing ICMP Packets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-3-Traceroute"><span class="toc-text">Task 1.3: Traceroute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-4-Sniffing-and-then-Spoofing"><span class="toc-text">Task 1.4: Sniffing and-then Spoofing</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab-Task-Set-2-Writing-Programs-to-Sniff-and-Spoof-Packets"><span class="toc-text">Lab Task Set 2: Writing Programs to Sniff and Spoof Packets</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-1-Writing-Packet-Sniffing-Program"><span class="toc-text">Task 2.1: Writing Packet Sniffing Program</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Task-2-1A-Understanding-How-a-Sniffer-Works"><span class="toc-text">Task 2.1A: Understanding How a Sniffer Works</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Task-2-1B-Writing-Filters"><span class="toc-text">Task 2.1B: Writing Filters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Task-2-1C-Sniffing-Passwords"><span class="toc-text">Task 2.1C: Sniffing Passwords.</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-2-Spoofing"><span class="toc-text">Task 2.2: Spoofing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Task-2-2A-Write-a-spoofing-program"><span class="toc-text">Task 2.2A: Write a spoofing program.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Task-2-2B-Spoof-an-ICMP-Echo-Request"><span class="toc-text">Task 2.2B: Spoof an ICMP Echo Request.</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-3-Sniff-and-then-Spoof"><span class="toc-text">Task 2.3: Sniff and then Spoof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
-      </div>
-    
-
-    <h1 id="Packet-Sniffing-and-Spoofing-Lab"><a href="#Packet-Sniffing-and-Spoofing-Lab" class="headerlink" title="Packet Sniffing and Spoofing Lab"></a>Packet Sniffing and Spoofing Lab</h1><p>这个实验分为了两个大集合，可以选择其中一个完成。第一个是使用python不太需要编程基础，第二个是使用c语言，需要一定的编程基础。</p>
+  <div class="post-content-grid has-toc">
+    <article id="article" class="post-content-info">
+      <h1 id="Packet-Sniffing-and-Spoofing-Lab"><a href="#Packet-Sniffing-and-Spoofing-Lab" class="headerlink" title="Packet Sniffing and Spoofing Lab"></a>Packet Sniffing and Spoofing Lab</h1><p>这个实验分为了两个大集合，可以选择其中一个完成。第一个是使用python不太需要编程基础，第二个是使用c语言，需要一定的编程基础。</p>
 <p>实验环境如图所示。我们可以在容器内发起攻击，或者直接在虚拟机上发起攻击。</p>
 <p><img src="/2025/11/12/seedlab6/image-20251113150342461.png" alt="image-20251113150342461"></p>
 <p>虚拟机分配的网口信息。</p>
@@ -1077,36 +1075,44 @@ pkt<span class="token operator">=</span>sniff<span class="token punctuation">(</
 <p><img src="/2025/11/12/seedlab6/image-20251118001850618.png" alt="image-20251118001850618"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个实验用了两种方法。一种是基于python使用scapy库，一种是c使用pcap库，python的方式更简单也更直观，c语言的方式效率更高，但是写代码较为复杂。通过实验我对比较熟悉了scapy库的使用，但是对pcap的使用不太熟悉，上面的c语言代码都是使用大语言模型完成。同时对操作系统的网络管理和网口管理不太熟悉，上面有些实验的结果并不在我的意料之中，例如地址转换。不过在实验中清楚地了解了，这种网络攻击是如何去展开的，以及原理是如何实现的。</p>
 
+    </article>
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Packet-Sniffing-and-Spoofing-Lab"><span class="toc-text">Packet Sniffing and Spoofing Lab</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab-Task-Set-1-Using-Scapy-to-Sniff-and-Spoof-Packets"><span class="toc-text">Lab Task Set 1: Using Scapy to Sniff and Spoof Packets</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-1-Sniffing-Packets"><span class="toc-text">Task 1.1: Sniffing Packets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-2-Spoofing-ICMP-Packets"><span class="toc-text">Task 1.2: Spoofing ICMP Packets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-3-Traceroute"><span class="toc-text">Task 1.3: Traceroute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-4-Sniffing-and-then-Spoofing"><span class="toc-text">Task 1.4: Sniffing and-then Spoofing</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab-Task-Set-2-Writing-Programs-to-Sniff-and-Spoof-Packets"><span class="toc-text">Lab Task Set 2: Writing Programs to Sniff and Spoof Packets</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-1-Writing-Packet-Sniffing-Program"><span class="toc-text">Task 2.1: Writing Packet Sniffing Program</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-2-Spoofing"><span class="toc-text">Task 2.2: Spoofing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-3-Sniff-and-then-Spoof"><span class="toc-text">Task 2.3: Sniff and then Spoof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
   </div>
-  <div id=""></div>
+  
 </div>
 
 <script>
-  
-Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
-  dragToClose: true,
-  Toolbar: true,
-  closeButton: "top",
-  Image: {
-    zoom: true,
-  },
-  on: {
-    initCarousel: (fancybox) => {
-      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+if (window.Fancybox) {
+  Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+    dragToClose: true,
+    Toolbar: true,
+    closeButton: "top",
+    Image: {
+      zoom: true,
     },
-    "Carousel.change": (fancybox, carousel, to, from) => {
-      const slide = carousel.slides[to];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+    on: {
+      initCarousel: (fancybox) => {
+        const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
+      "Carousel.change": (fancybox, carousel, to) => {
+        const slide = carousel.slides[to];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
     },
-  },
-});
+  });
+}
 </script>
 
 <style>
@@ -1163,7 +1169,7 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 	</div>
 	<div class="contact">
 		
-		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+		<a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
 			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
 		</a>
 		
@@ -1248,23 +1254,8 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </script>
 
 
-    <!-- Gitalk -->
-    <script>
-        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
-        const gitalk = new Gitalk({
-            ...JSON.parse( data),
-            id:location.pathname,
-            distractionFreeMode:false
-        })
-        
-        if(Boolean('false')){
-            gitalk.render('gitalk-container')
-        }
-    </script>
 
-<script>
-	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
-</script>
+
 	</body>
 </html>
 

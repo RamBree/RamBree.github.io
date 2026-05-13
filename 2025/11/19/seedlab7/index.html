@@ -4,7 +4,7 @@
 		
 <title>TCP/IP Attack Lab-无限进步</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
 
@@ -40,10 +40,11 @@
 	<body>
 		
 	<div class="header">
-		<div class="header-top" id="header-top">
+		<div class="header-top" id="header-top" style="background-image: linear-gradient(90deg, rgba(255,255,255,.94), rgba(255,255,255,.86)), url(/image/pattern.png);">
 			<div class="h-left">
 				<a href="/">
 					<img src="/image/shengdanwu.png" alt="Quiet">
+					<span>Ram</span>
 				</a>
 			</div>
 			<div class="h-right">
@@ -146,7 +147,7 @@
     </ul>
     <div class="my_foot">
         
-        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+        <a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
             <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
         </a>
         
@@ -183,8 +184,7 @@
     .topo {
         width: 100%;
         height: 200px;
-        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
-        background-size: 100% 100%;
+        background: url(/image/chainsaw-man-3840x2160-24469.jpg) center / cover no-repeat;
         position: relative;
         display: flex;
         align-items: flex-end
@@ -263,7 +263,7 @@
 			$( '.shelter' )
 				.fadeIn( "slow" )
 		} );
-	$( '.shelter' )
+	$( '.shelter, .sidebar a' )
 		.click( function ( e ) {
 			$( '.sidebar' )
 				.animate( {
@@ -276,15 +276,16 @@
 
 </script>
 
+
 <div class="post">
     <div class="post-header-background post-header-img"
-    style="background: url('/image/chainsaw-man-3840x2160-24469.jpg')" 
+    style="background-image: url(/image/seedlabs.png);" 
 >
     <div class="post-header-background-content">
         <ul class="post-header-tag">
             
             
-            <li><a href="/tags/网络安全">网络安全</a></li>
+            <li><a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></li>
             
             
         </ul>
@@ -303,7 +304,9 @@
                 <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="/categories/SeedLabs2.0" target="_blank" >SeedLabs2.0</a>
+                    
+                         <a href="/categories/SeedLabs2-0/">SeedLabs2.0</a>
+                    
                     
                 </div>
                 <p>2025-11-19 14:55:42</p>
@@ -311,17 +314,12 @@
         </div>
     </div>
 </div>
+
     <div class="post-content" id="content">
   
-  <div id="article" class="post-content-info">
-    
-      <div id="post-toc">
-        <span class="post-toc-title">文章目录</span>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-Attack-Lab"><span class="toc-text">TCP&#x2F;IP Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-SYN-Flooding-Attack"><span class="toc-text">Task 1: SYN Flooding Attack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Task-1-1-Launching-the-Attack-Using-Python"><span class="toc-text">Task 1.1: Launching the Attack Using Python</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Task-1-2-Launch-the-Attack-Using-C"><span class="toc-text">Task 1.2: Launch the Attack Using C</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Task-1-3-Enable-the-SYN-Cookie-Countermeasure"><span class="toc-text">Task 1.3: Enable the SYN Cookie Countermeasure</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-TCP-RST-Attacks-on-telnet-Connections"><span class="toc-text">Task 2: TCP RST Attacks on telnet Connections</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-TCP-Session-Hijacking"><span class="toc-text">Task 3: TCP Session Hijacking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Creating-Reverse-Shell-using-TCP-Session-Hijacking"><span class="toc-text">Task 4: Creating Reverse Shell using TCP Session Hijacking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
-      </div>
-    
-
-    <h1 id="TCP-IP-Attack-Lab"><a href="#TCP-IP-Attack-Lab" class="headerlink" title="TCP&#x2F;IP Attack Lab"></a>TCP&#x2F;IP Attack Lab</h1><p>本次实验的环境如图所示。</p>
+  <div class="post-content-grid has-toc">
+    <article id="article" class="post-content-info">
+      <h1 id="TCP-IP-Attack-Lab"><a href="#TCP-IP-Attack-Lab" class="headerlink" title="TCP&#x2F;IP Attack Lab"></a>TCP&#x2F;IP Attack Lab</h1><p>本次实验的环境如图所示。</p>
 <p><img src="/2025/11/19/seedlab7/image-20251119091706714.png" alt="image-20251119091706714"></p>
 <p>记得去删除之前实验创建的container，不然会报错。</p>
 <p><img src="/2025/11/19/seedlab7/image-20251119095804869.png" alt="image-20251119095804869"></p>
@@ -418,36 +416,44 @@ pkt <span class="token operator">=</span> sniff<span class="token punctuation">(
 <p><img src="/2025/11/19/seedlab7/image-20251119173034349.png" alt="image-20251119173034349"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这个实验学习到了TCP SYN Flooding攻击、TCP RST攻击和TCP Session Hijacking。三种攻击方式的原理都比较简单，通过scapy构建报文也不算难。</p>
 
+    </article>
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-Attack-Lab"><span class="toc-text">TCP&#x2F;IP Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-SYN-Flooding-Attack"><span class="toc-text">Task 1: SYN Flooding Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-TCP-RST-Attacks-on-telnet-Connections"><span class="toc-text">Task 2: TCP RST Attacks on telnet Connections</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-TCP-Session-Hijacking"><span class="toc-text">Task 3: TCP Session Hijacking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Creating-Reverse-Shell-using-TCP-Session-Hijacking"><span class="toc-text">Task 4: Creating Reverse Shell using TCP Session Hijacking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
   </div>
-  <div id=""></div>
+  
 </div>
 
 <script>
-  
-Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
-  dragToClose: true,
-  Toolbar: true,
-  closeButton: "top",
-  Image: {
-    zoom: true,
-  },
-  on: {
-    initCarousel: (fancybox) => {
-      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+if (window.Fancybox) {
+  Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+    dragToClose: true,
+    Toolbar: true,
+    closeButton: "top",
+    Image: {
+      zoom: true,
     },
-    "Carousel.change": (fancybox, carousel, to, from) => {
-      const slide = carousel.slides[to];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+    on: {
+      initCarousel: (fancybox) => {
+        const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
+      "Carousel.change": (fancybox, carousel, to) => {
+        const slide = carousel.slides[to];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
     },
-  },
-});
+  });
+}
 </script>
 
 <style>
@@ -504,7 +510,7 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 	</div>
 	<div class="contact">
 		
-		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+		<a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
 			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
 		</a>
 		
@@ -589,23 +595,8 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </script>
 
 
-    <!-- Gitalk -->
-    <script>
-        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
-        const gitalk = new Gitalk({
-            ...JSON.parse( data),
-            id:location.pathname,
-            distractionFreeMode:false
-        })
-        
-        if(Boolean('false')){
-            gitalk.render('gitalk-container')
-        }
-    </script>
 
-<script>
-	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
-</script>
+
 	</body>
 </html>
 

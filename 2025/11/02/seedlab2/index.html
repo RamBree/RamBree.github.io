@@ -4,7 +4,7 @@
 		
 <title>Shellshock Attack Lab-无限进步</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
 
@@ -40,10 +40,11 @@
 	<body>
 		
 	<div class="header">
-		<div class="header-top" id="header-top">
+		<div class="header-top" id="header-top" style="background-image: linear-gradient(90deg, rgba(255,255,255,.94), rgba(255,255,255,.86)), url(/image/pattern.png);">
 			<div class="h-left">
 				<a href="/">
 					<img src="/image/shengdanwu.png" alt="Quiet">
+					<span>Ram</span>
 				</a>
 			</div>
 			<div class="h-right">
@@ -146,7 +147,7 @@
     </ul>
     <div class="my_foot">
         
-        <a target="_blank" rel="noopener" href="https://github.com/RamBree">
+        <a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
             <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
         </a>
         
@@ -183,8 +184,7 @@
     .topo {
         width: 100%;
         height: 200px;
-        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
-        background-size: 100% 100%;
+        background: url(/image/chainsaw-man-3840x2160-24469.jpg) center / cover no-repeat;
         position: relative;
         display: flex;
         align-items: flex-end
@@ -263,7 +263,7 @@
 			$( '.shelter' )
 				.fadeIn( "slow" )
 		} );
-	$( '.shelter' )
+	$( '.shelter, .sidebar a' )
 		.click( function ( e ) {
 			$( '.sidebar' )
 				.animate( {
@@ -276,17 +276,18 @@
 
 </script>
 
+
 <div class="post">
     <div class="post-header-background post-header-img"
-    style="background: url('/image/chainsaw-man-3840x2160-24469.jpg')" 
+    style="background-image: url(/image/seedlabs.png);" 
 >
     <div class="post-header-background-content">
         <ul class="post-header-tag">
             
             
-            <li><a href="/tags/软件安全">软件安全</a></li>
+            <li><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/">软件安全</a></li>
             
-            <li><a href="/tags/环境变量">环境变量</a></li>
+            <li><a href="/tags/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/">环境变量</a></li>
             
             
         </ul>
@@ -305,7 +306,9 @@
                 <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="/categories/SeedLabs2.0" target="_blank" >SeedLabs2.0</a>
+                    
+                         <a href="/categories/SeedLabs2-0/">SeedLabs2.0</a>
+                    
                     
                 </div>
                 <p>2025-11-02 21:51:09</p>
@@ -313,17 +316,12 @@
         </div>
     </div>
 </div>
+
     <div class="post-content" id="content">
   
-  <div id="article" class="post-content-info">
-    
-      <div id="post-toc">
-        <span class="post-toc-title">文章目录</span>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Shellshock-Attack-Lab"><span class="toc-text">Shellshock Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-Setup"><span class="toc-text">Environment Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Experimenting-with-Bash-Function"><span class="toc-text">Task 1: Experimenting with Bash Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Passing-Data-to-Bash-via-Environment-Variable"><span class="toc-text">Task 2: Passing Data to Bash via Environment Variable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Launching-the-Shellshock-Attack"><span class="toc-text">Task 3: Launching the Shellshock Attack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Getting-a-Reverse-Shell-via-Shellshock-Attack"><span class="toc-text">Task 4: Getting a Reverse Shell via Shellshock Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Using-the-Patched-Bash"><span class="toc-text">Task 5: Using the Patched Bash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
-      </div>
-    
-
-    <h1 id="Shellshock-Attack-Lab"><a href="#Shellshock-Attack-Lab" class="headerlink" title="Shellshock Attack Lab"></a>Shellshock Attack Lab</h1><h2 id="Environment-Setup"><a href="#Environment-Setup" class="headerlink" title="Environment Setup"></a><strong>Environment Setup</strong></h2><p>SSH终于配置好了，现在用mac连上寝室的Ubuntu来完成。</p>
+  <div class="post-content-grid has-toc">
+    <article id="article" class="post-content-info">
+      <h1 id="Shellshock-Attack-Lab"><a href="#Shellshock-Attack-Lab" class="headerlink" title="Shellshock Attack Lab"></a>Shellshock Attack Lab</h1><h2 id="Environment-Setup"><a href="#Environment-Setup" class="headerlink" title="Environment Setup"></a><strong>Environment Setup</strong></h2><p>SSH终于配置好了，现在用mac连上寝室的Ubuntu来完成。</p>
 <p>首先配置一下docker,参考下面的链接。</p>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/">Ubuntu</a></p>
 <p>然后需要修改一下docker的配置，添加镜像或者走代理。</p>
@@ -433,36 +431,44 @@ http://www.seed-server2.com/cgi-bin/vul.cgi<span aria-hidden="true" class="line-
 <p><img src="/2025/11/02/seedlab2/image20.png" alt="image.png"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本次实验比较简单。由于国内镜像的原因，docker的环境配置比较麻烦，以及之前配置的网络代理导致我在上网访问docker的时候出了一点问题。过程中，加深对环境变量的理解和熟悉了docker构建的操作，实验中最难最关键点在于反弹Shell的指令。</p>
 
+    </article>
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Shellshock-Attack-Lab"><span class="toc-text">Shellshock Attack Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-Setup"><span class="toc-text">Environment Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-1-Experimenting-with-Bash-Function"><span class="toc-text">Task 1: Experimenting with Bash Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-2-Passing-Data-to-Bash-via-Environment-Variable"><span class="toc-text">Task 2: Passing Data to Bash via Environment Variable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-3-Launching-the-Shellshock-Attack"><span class="toc-text">Task 3: Launching the Shellshock Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-4-Getting-a-Reverse-Shell-via-Shellshock-Attack"><span class="toc-text">Task 4: Getting a Reverse Shell via Shellshock Attack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Task-5-Using-the-Patched-Bash"><span class="toc-text">Task 5: Using the Patched Bash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+        </div>
+      </aside>
+    
   </div>
-  <div id=""></div>
+  
 </div>
 
 <script>
-  
-Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
-  dragToClose: true,
-  Toolbar: true,
-  closeButton: "top",
-  Image: {
-    zoom: true,
-  },
-  on: {
-    initCarousel: (fancybox) => {
-      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+if (window.Fancybox) {
+  Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+    dragToClose: true,
+    Toolbar: true,
+    closeButton: "top",
+    Image: {
+      zoom: true,
     },
-    "Carousel.change": (fancybox, carousel, to, from) => {
-      const slide = carousel.slides[to];
-      fancybox.$container.style.setProperty(
-        "--bg-image",
-        `url("${slide.$thumb.src}")`
-      );
+    on: {
+      initCarousel: (fancybox) => {
+        const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
+      "Carousel.change": (fancybox, carousel, to) => {
+        const slide = carousel.slides[to];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
     },
-  },
-});
+  });
+}
 </script>
 
 <style>
@@ -519,7 +525,7 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 	</div>
 	<div class="contact">
 		
-		<a target="_blank" rel="noopener" href="https://github.com/RamBree">
+		<a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
 			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
 		</a>
 		
@@ -604,23 +610,8 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </script>
 
 
-    <!-- Gitalk -->
-    <script>
-        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
-        const gitalk = new Gitalk({
-            ...JSON.parse( data),
-            id:location.pathname,
-            distractionFreeMode:false
-        })
-        
-        if(Boolean('false')){
-            gitalk.render('gitalk-container')
-        }
-    </script>
 
-<script>
-	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
-</script>
+
 	</body>
 </html>
 
