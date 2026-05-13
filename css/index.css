@@ -677,6 +677,58 @@ hue-6-2: #e6c07b
 .about-content-info a:hover {
   border-bottom-color: #2563eb;
 }
+.about-content-info .about-link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+  margin: 16px 0 28px;
+}
+.about-content-info .about-link-item {
+  position: relative;
+  display: flex;
+  min-height: 108px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #182033;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.about-content-info .about-link-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(37, 99, 235, 0.26);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+}
+.about-content-info .about-link-item img,
+.about-content-info .about-link-item .about-link-fallback {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+}
+.about-content-info .about-link-item img {
+  position: relative;
+  z-index: 2;
+  object-fit: cover;
+}
+.about-content-info .about-link-item .about-link-fallback {
+  position: absolute;
+  top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f8fb;
+  color: #2563eb;
+  font-weight: 700;
+}
+.about-content-info .about-link-item span:last-child {
+  margin-top: 12px;
+  color: #182033;
+  font-size: 14px;
+  font-weight: 650;
+}
 .about-content img {
   display: flex;
   width: 100%;
@@ -1142,82 +1194,73 @@ hue-6-2: #e6c07b
   justify-content: space-between;
   flex-wrap: wrap;
   transition: all 0.4s ease-in-out;
-  flex-direction: column;
 }
-.links-content-data-grid {
-  display: grid;
+.links-content-data img {
+  display: flex;
   width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
-  gap: 16px;
+  height: 100%;
 }
 .links-content-data-item {
   display: flex;
-  min-height: 120px;
-  padding: 18px 12px;
+  padding: 20px;
+  margin-right: 10px;
   border-radius: 8px;
+  margin-bottom: 20px;
   background: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #F8F9FB;
   cursor: pointer;
   position: relative;
   top: 0;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-decoration: none;
-  color: #182033;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: ease-in-out;
+  -moz-transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
 }
 .links-content-data-item:hover {
-  transform: translateY(-4px);
-  border-color: rgba(37, 99, 235, 0.26);
-  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+  background: #F8F9FB;
+  top: -10px;
+  box-shadow: 0 10px 10px 0 rgba(50, 50, 50, 0.1);
 }
-.links-content-data-item .site-icon,
-.links-content-data-item .site-icon-fallback {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-}
-.links-content-data-item .site-icon {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  object-fit: cover;
-  margin-bottom: 12px;
-}
-.links-content-data-item .site-icon-fallback {
-  position: absolute;
-  top: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f6f8fb;
-  color: #2563eb;
-  font-size: 18px;
-  font-weight: 700;
-}
-.links-content-data-item .site-info {
-  display: flex;
+.links-content-data-item a {
   width: 100%;
-  align-items: center;
+  height: 100%;
+  text-decoration: none;
+  color: #333333;
+}
+.links-content-data-item .card {
+  display: flex;
+}
+.links-content-data-item .card .user-link-image {
+  display: flex;
+  width: 48px;
+  height: 48px;
+}
+.links-content-data-item .card .user-link-image img {
+  border-radius: 50%;
+}
+.links-content-data-item .card .user-link-info {
+  display: flex;
   flex-direction: column;
+  min-width: 166px;
+  padding-left: 10px;
+  padding-top: 6px;
 }
-.links-content-data-item .site-title {
-  max-width: 100%;
+.links-content-data-item .card .user-link-info h1 {
+  max-width: 170px;
+  color: #3C4858;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 15px;
-  font-weight: 650;
+  font-weight: 500;
+  font-size: 16px;
 }
-.links-content-data-item .site-intro {
-  max-width: 100%;
-  margin-top: 4px;
+.links-content-data-item .card .user-link-info span {
+  max-width: 170px;
+  color: #718096;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #6b7280;
-  font-size: 12px;
+  font-size: 14px;
 }
 .links-content-data-info {
   width: 100%;
