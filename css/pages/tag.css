@@ -1,3 +1,10 @@
+.tag > .header-body-background {
+  min-height: 460px;
+  height: 56.25vw;
+  max-height: 680px;
+  background-color: #f8f9fb;
+  background-size: contain;
+}
 .tag-content {
   display: flex;
   max-width: 1160px;
@@ -14,4 +21,10 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+@media screen and (max-width: 600px) {
+  .tag > .header-body-background {
+    min-height: 260px;
+    height: 68vw;
+  }
 }
