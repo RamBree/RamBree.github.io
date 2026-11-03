@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>aarch64基础知识-无限进步</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/shengdanwu.png">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="Aarch64,PWN,">
+<meta name="description" content="一篇论文阅读">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 8.1.1"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/shengdanwu.png" alt="Quiet">
+					<span>Ram</span>
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>Ram</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(/image/chainsaw-man-3840x2160-24469.jpg) center / cover no-repeat;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter, .sidebar a' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background-image: url(/image/mikasa-ackerman-8k-3840x2160-22854.jpg);" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/Aarch64/">Aarch64</a></li>
+            
+            <li><a href="/tags/PWN/">PWN</a></li>
+            
+            
+        </ul>
+        
+        <h1>aarch64基础知识</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a href="../../about">Ram</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                </div>
+                <p>2026-11-03 22:05:33</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="post-content" id="content">
+  
+  <div class="post-content-grid has-toc">
+    
+      <aside id="post-toc" class="post-toc" aria-label="文章目录">
+        <div class="post-toc-inner">
+          <span class="post-toc-title">文章目录</span>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Aarch64%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">Aarch64基础知识</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8Registers"><span class="toc-text">寄存器Registers</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4"><span class="toc-text">基本指令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E6%A8%A1%E5%BC%8FIndexing-modes"><span class="toc-text">索引模式Indexing modes</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A0%86%E6%A0%88%E5%92%8C%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A"><span class="toc-text">堆栈和调用约定</span></a></li></ol>
+        </div>
+      </aside>
+    
+    <article id="article" class="post-content-info">
+      <h1 id="Aarch64基础知识"><a href="#Aarch64基础知识" class="headerlink" title="Aarch64基础知识"></a>Aarch64基础知识</h1><h1 id="寄存器Registers"><a href="#寄存器Registers" class="headerlink" title="寄存器Registers"></a>寄存器Registers</h1><h3 id="通用寄存器-X0–X30"><a href="#通用寄存器-X0–X30" class="headerlink" title="通用寄存器 X0–X30"></a>通用寄存器 X0–X30</h3><p>AArch64 有 31 个 64 位通用寄存器，编号 X0 到 X30。它们的低 32 位可以单独用 W0–W30 访问。在函数调用中，它们有明确的分工：</p>
+<ul>
+<li><p>X0–X7：用于传递函数参数，以及存放函数返回值。其中 X0 专门用作返回值寄存器。超过 8 个的参数会通过栈传递。</p>
+</li>
+<li><p>X8：间接结果寄存器。如果函数返回一个较大的结构体，调用者会分配好内存，并把指向该内存的指针放在 X8 里传进去。</p>
+</li>
+<li><p>X9–X15：临时寄存器（Caller-saved）。被调用的函数可以随意使用它们，不需要保存和恢复。</p>
+</li>
+<li><p>X16 (IP0) &#x2F; X17 (IP1)：过程间调用临时寄存器。链接器在生成跳转“胶合代码”时可能会用到它们。</p>
+</li>
+<li><p>X18：平台寄存器。在 Linux 上一般可用，但在 Darwin&#x2F;Windows 平台上被保留，写可移植代码时最好避开。</p>
+</li>
+<li><p>X19–X28：被调用者保存寄存器（Callee-saved）。如果被调用的函数要使用它们，必须先保存到栈上，并在返回前恢复原值。</p>
+</li>
+<li><p>X29 (FP)：帧指针。通常指向当前函数栈帧的基址，方便调试和栈回溯。</p>
+</li>
+<li><p>X30 (LR)：链接寄存器。执行 <code>bl</code> 调用时，硬件会自动把返回地址存到这里。这就是为什么 <code>ret</code> 默认跳回 X30 的原因。</p>
+</li>
+</ul>
+<h3 id="特殊寄存器"><a href="#特殊寄存器" class="headerlink" title="特殊寄存器"></a>特殊寄存器</h3><ul>
+<li><p>SP (Stack Pointer)：栈指针。在 AArch64 中，SP 不再是通用寄存器，而是专用寄存器，并且强制要求 16 字节对齐。</p>
+</li>
+<li><p>PC (Program Counter)：程序计数器。指向当前指令地址，但你不能像访问通用寄存器那样直接用指令读写它。</p>
+</li>
+<li><p>XZR &#x2F; WZR：零寄存器。读它永远得到 0，写它会被忽略。常用来快速清零或丢弃不需要的结果。</p>
+</li>
+<li><p>PSTATE &#x2F; NZCV：处理器状态。AArch64 没有传统的 CPSR，而是把状态拆成了独立的字段。其中 NZCV 四个标志位（负数、零、进位、溢出）在条件分支和比较指令中非常关键，可以通过 <code>MSR</code>&#x2F;<code>MRS</code> 指令访问。</p>
+</li>
+</ul>
+<h3 id="SIMD-浮点寄存器-V0–V31"><a href="#SIMD-浮点寄存器-V0–V31" class="headerlink" title="SIMD &#x2F; 浮点寄存器 V0–V31"></a>SIMD &#x2F; 浮点寄存器 V0–V31</h3><p>这 32 个 128 位寄存器用于浮点和 NEON SIMD 运算。</p>
+<h1 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h1><p>**mov **- 与 x86 指令类似，将一个寄存器的值复制到另一个寄存器。它也可以用于加载立即数。 </p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">mov x0, x1; copies x1 into x0
+mov x1, 0x4141; loads the value 0x4141 in x1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>str&#x2F;ldr</strong> - 存储和加载寄存器。本质上是根据给定的指针存储和加载寄存器中的数据。</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">str x0, [x29]; store x0 at the address in x29
+ldr x0, [x29]; load the value from the address in x29 into x0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>**stp&#x2F;ldp **- 存储和加载一对寄存器。与 str&#x2F;ldr 类似，但对象是一对寄存器。</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">stp x29, x30, [sp]; store x29 at sp and x30 at sp+8<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>**bl&#x2F;blr **- 分支链接（指向寄存器）。x86 架构的等效函数是 call。它本质上是跳转到子程序并将返回地址存储在 x30 寄存器中。</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">blr x0; calls the subroutine at the address stored in x0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>**b&#x2F;br **- 分支（指向寄存器）。x86 等效命令是 jmp。它本质上是跳转到指定的地址。</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">br x0; jump to the address stored in x0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p><code>call</code> 和 <code>jmp</code> 的核心区别在于：<code>call</code> 会保存返回地址，<code>jmp</code> 不会。</p>
+<p>*<em>1. <strong><strong><code>jmp</code></strong></strong>（跳转）</em>*</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">jmp label<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><p>只改 <code>rip</code>（指令指针），直接跳到目标地址继续执行。</p>
+</li>
+<li><p>不保存任何返回地址，所以跳过去之后，CPU 不知道原来是从哪来的，没法自动回来。</p>
+</li>
+<li><p>用途：循环、<code>if/else</code> 分支、<code>goto</code>、尾调用优化等。</p>
+</li>
+</ul>
+<p>*<em>2. <strong><strong><code>call</code></strong></strong>（调用）</em>*</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">call label<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><p>做两件事：</p>
+<ol>
+<li><p>把下一条指令的地址（返回地址）压入栈（x86-64 上是压 <code>rip</code> 的下一条，即 <code>call</code> 指令之后那条指令的地址）。</p>
+</li>
+<li><p>跳到目标地址。</p>
+</li>
+</ol>
+</li>
+<li><p>配合 <code>ret</code> 使用：<code>ret</code> 从栈里弹出返回地址，跳回去，实现“调用—返回”。</p>
+</li>
+</ul>
+</blockquote>
+<p>**ret **- 与从堆栈中弹出返回地址的 x86 等效函数不同，它会在 x30 寄存器中查找返回地址并跳转到那里。</p>
+<blockquote>
+<p><strong>x86：从栈中弹出</strong></p>
+<p>x86 的 <code>ret</code> 是一条隐式使用栈的指令。它的操作逻辑是：</p>
+<ol>
+<li><p>从当前栈顶（<code>[rsp]</code> 或 <code>[esp]</code>）读取返回地址。</p>
+</li>
+<li><p>将栈指针上移（弹出该地址）。</p>
+</li>
+<li><p>跳转到读到的地址继续执行。</p>
+</li>
+</ol>
+<p>这也意味着，在 x86 上如果你能控制栈上的内容，你就能控制 <code>ret</code> 的去向，这是经典栈溢出利用的基础。此外，<code>ret</code> 还可以带一个立即数参数（如 <code>ret 8</code>），在返回后额外释放栈上的参数空间。</p>
+<p><strong>AArch64：从寄存器跳转</strong></p>
+<p>AArch64 的 <code>ret</code> 本质上是一条“带返回提示的寄存器跳转指令”。它的默认操作是：</p>
+<ul>
+<li><p>直接跳转到 X30（LR，链接寄存器） 中保存的地址。</p>
+</li>
+<li><p>它不访问栈来获取返回地址。返回地址是在执行 <code>bl</code>（带链接分支）指令调用函数时，由硬件自动写入 X30 的。</p>
+</li>
+</ul>
+</blockquote>
+<h1 id="索引模式Indexing-modes"><a href="#索引模式Indexing-modes" class="headerlink" title="索引模式Indexing modes"></a>索引模式Indexing modes</h1><p>与 x86 不同，Aarch64 中的加载&#x2F;存储指令有三种不同的索引“模式”来索引偏移量：</p>
+<ol>
+<li>Immediate offset : [base, #offset] - 直接对偏移量进行索引，不要做任何其他操作。</li>
+</ol>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">ldr x0, [sp, 0x10]; load x0 from sp+0x10<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>Pre-indexed : [base, #offset]! - 与上述几乎相同，只是将基址+偏移量写回基址。</li>
+</ol>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">ldr x0, [sp, 0x10]!; load x0 from sp+0x10 and then increase sp by 0x10<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="3">
+<li>Post-indexed : [base], #offset - 直接使用基址，然后将基址+偏移量写回基址</li>
+</ol>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">ldr x0, [sp], 0x10; load x0 from sp and then increase sp by 0x10<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h1 id="堆栈和调用约定"><a href="#堆栈和调用约定" class="headerlink" title="堆栈和调用约定"></a>堆栈和调用约定</h1><p>寄存器 x0 到 x7 用于向子程序传递参数，额外的参数则通过堆栈传递。返回地址存储在 x30 中，但在嵌套子程序调用期间，它会保留在堆栈上。x30 也被称为链接寄存器。x29 寄存器也称为帧指针，其 x86 等效寄存器为 ebp。栈上的所有局部变量都是相对于 x29 访问的，并且它保存着指向前一个栈帧的指针，就像在 x86 中一样。</p>
+<p><strong>这里要澄清一个容易误解的点：AArch64 的栈是向低地址增长的，函数内局部变量在低地址，保存的 <strong><strong><code>x29/x30</code></strong></strong> 和返回地址在更高的地址</strong></p>
+<p>可以看一个例子来说明</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">.text:0000000000400818
+.text:0000000000400818 ; &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; S U B R O U T I N E &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+.text:0000000000400818
+.text:0000000000400818 ; Attributes: bp-based frame
+.text:0000000000400818
+.text:0000000000400818 ; __int64 __fastcall main(__int64, char **, char **)
+.text:0000000000400818 main                                    ; DATA XREF: start+18↑o
+.text:0000000000400818                                         ; .text:off_400640↑o
+.text:0000000000400818
+.text:0000000000400818 var_s0          &#x3D;  0
+.text:0000000000400818
+.text:0000000000400818                 STP             X29, X30, [SP,#-0x10+var_s0]!
+.text:000000000040081C                 MOV             X29, SP
+.text:0000000000400820                 BL              sub_400760
+.text:0000000000400824                 ADRL            X0, aName ; &quot;Name:&quot;
+.text:000000000040082C                 MOV             X2, #5  ; n
+.text:0000000000400830                 MOV             X1, X0  ; buf
+.text:0000000000400834                 MOV             W0, #1  ; fd
+.text:0000000000400838                 BL              .write
+.text:000000000040083C                 ADRL            X0, unk_411068
+.text:0000000000400844                 MOV             X2, #0x200 ; nbytes
+.text:0000000000400848                 MOV             X1, X0  ; buf
+.text:000000000040084C                 MOV             W0, #0  ; fd
+.text:0000000000400850                 BL              .read
+.text:0000000000400854                 BL              sub_4007F0
+.text:0000000000400858                 MOV             W0, #0
+.text:000000000040085C                 LDP             X29, X30, [SP+var_s0],#0x10
+.text:0000000000400860                 RET
+.text:0000000000400860 ; End of function main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这边主要关注1、2、8、9这几个步骤。</p>
+<ol>
+<li>进入 <code>main</code> 时（0x400818 之前）</li>
+</ol>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">SP  &#x3D; S              ; 16 字节对齐
+X29 &#x3D; 旧帧指针
+X30 &#x3D; start 中 BL main 的下一条地址（返回地址）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li><code>STP X29, X30, [SP,#-0x10]!</code>（0x400818）</li>
+</ol>
+<p>前索引写回：先 <code>SP = SP - 0x10</code>，再存。</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">SP  &#x3D; S - 0x10
+[S - 0x10]     &#x3D; 旧 X29
+[S - 0x10 + 8] &#x3D; 旧 X30   ← 返回地址被保存到栈上X29、X30 寄存器本身不变<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>此时栈布局（低地址 → 高地址）：</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">S-0x10 : 旧 X29
+S-0x08 : 旧 X30（返回地址）
+S      : 原栈顶<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li><code>MOV X29, SP</code>（0x40081C）</li>
+</ol>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">X29 &#x3D; S - 0x10        ; 新帧指针指向当前栈帧基址
+SP  &#x3D; S - 0x10        ; 不变X30 &#x3D; 旧 
+X30          ; 不变<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="4">
+<li><code>BL sub_400760</code>（0x400820）</li>
+</ol>
+<p><code>BL</code> 做两件事：把下一条指令地址（0x400824）写入 X30，然后跳到 <code>sub_400760</code>。</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">X30 &#x3D; 0x400824        ; 返回地址变成 BL 的下一条
+SP  &#x3D; S - 0x10        ; BL 本身不改 SP
+X29 &#x3D; S - 0x10        ; 不变<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>进入 <code>sub_400760</code> 后，它自己会开栈帧、改 SP，但返回时 SP 会恢复成 <code>S - 0x10</code>，X30 会恢复成它进入时的值（即 0x400824）。所以 <code>BL</code> 返回后：</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">SP  &#x3D; S - 0x10
+X29 &#x3D; S - 0x10
+X30 &#x3D; 0x400824        ; 被调函数返回后，X30 恢复为 BL 写入的返回地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>（严格说，被调函数返回后 X30 是它恢复的“进入时值”，也就是 0x400824。）</p>
+<ol start="5">
+<li>中间 <code>write</code> &#x2F; <code>read</code> 的 <code>BL</code>（0x400838、0x400850）</li>
+</ol>
+<p>每次 <code>BL</code> 都会把下一条地址写入 X30，被调函数返回后 X30 恢复成该地址。SP、X29 不受影响，仍是：</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">SP  &#x3D; S - 0x10
+X29 &#x3D; S - 0x10
+X30 &#x3D; 对应 BL 的下一条（如 0x40083C、0x400854）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="6">
+<li><code>BL sub_4007F0</code>（0x400854）</li>
+</ol>
+<p>类似</p>
+<ol start="7">
+<li><code>MOV W0, #0</code>（0x400858）</li>
+</ol>
+<p>只改 W0（X0 低 32 位），SP&#x2F;X29&#x2F;X30 不变。</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">SP  &#x3D; S - 0x10
+X29 &#x3D; S - 0x10
+X30 &#x3D; 0x400858<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="8">
+<li><code>LDP X29, X30, [SP+var_s0], #0x10</code>（0x40085C）</li>
+</ol>
+<p><code>var_s0 = 0</code>，所以是 <code>LDP X29, X30, [SP], #0x10</code>：后索引写回——先从 <code>[SP]</code> 读 X29、<code>[SP+8]</code> 读 X30，然后 <code>SP = SP + 0x10</code>。</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">X29 &#x3D; [S-0x10]        ; 恢复旧 X29
+X30 &#x3D; [S-0x08]        ; 恢复旧 X30（&#x3D; start 里 BL main 的返回地址）
+SP  &#x3D; (S-0x10) + 0x10 &#x3D; S<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="9">
+<li><code>RET</code>（0x400860）</li>
+</ol>
+<p>AArch64 的 <code>RET</code> 默认跳转到 X30：</p>
+<pre class="line-numbers language-Assembly" data-language="Assembly"><div class="caption"><span>language</span></div><code class="language-Assembly">PC &#x3D; X30 &#x3D; 旧 X30     ; 回到 start
+SP &#x3D; S                ; 已恢复
+X29 &#x3D; 旧 X29          ; 已恢复<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+    </article>
+  </div>
+  
+    <div id="gitalk-container"></div>
+  
+</div>
+
+<script>
+if (window.Fancybox) {
+  Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+    dragToClose: true,
+    Toolbar: true,
+    closeButton: "top",
+    Image: {
+      zoom: true,
+    },
+    on: {
+      initCarousel: (fancybox) => {
+        const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
+      "Carousel.change": (fancybox, carousel, to) => {
+        const slide = carousel.slides[to];
+        if (slide && slide.$thumb) {
+          fancybox.$container.style.setProperty("--bg-image", `url("${slide.$thumb.src}")`);
+        }
+      },
+    },
+  });
+}
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2026/10/10/CVE-2022-42475/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>Fortigate sslvpn堆溢出 CVE-2022-42475</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2026 By Ram.
+	</div>
+	<div class="contact">
+		
+		<a href="https://github.com/RamBree" target="_blank" rel="noopener noreferrer">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = {"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":["duneng"]}
+        const gitalk = new Gitalk({
+            ...data,
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+
+
+	</body>
+</html>
+
