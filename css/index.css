@@ -595,6 +595,75 @@ hue-6-2: #e6c07b
 .hljs-link {
   text-decoration: underline;
 }
+/*
+
+Prism token colors for Hexo prismjs renderer (preprocess mode).
+Same Atom One Dark palette as ./atom-one-dark.less, mapped from
+.hljs-* classes to the .token-* classes Prism actually emits.
+
+*/
+#article pre[class*="language-"] {
+  background: #292d3e;
+}
+#article pre code {
+  color: #abb2bf;
+  font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+}
+#article .token.comment,
+#article .token.prolog,
+#article .token.doctype,
+#article .token.cdata {
+  color: #5c6370;
+  font-style: italic;
+}
+#article .token.punctuation {
+  color: #abb2bf;
+}
+#article .token.property,
+#article .token.tag,
+#article .token.constant,
+#article .token.symbol,
+#article .token.deleted {
+  color: #e06c75;
+}
+#article .token.boolean,
+#article .token.number {
+  color: #56b6c2;
+}
+#article .token.selector,
+#article .token.attr-name,
+#article .token.string,
+#article .token.char,
+#article .token.builtin,
+#article .token.inserted {
+  color: #98c379;
+}
+#article .token.operator,
+#article .token.entity,
+#article .token.url {
+  color: #56b6c2;
+}
+#article .token.atrule,
+#article .token.attr-value,
+#article .token.keyword {
+  color: #c678dd;
+}
+#article .token.function,
+#article .token.class-name {
+  color: #61aeee;
+}
+#article .token.regex,
+#article .token.important,
+#article .token.variable {
+  color: #d19a66;
+}
+#article .token.important,
+#article .token.bold {
+  font-weight: bold;
+}
+#article .token.italic {
+  font-style: italic;
+}
 .about-header-background {
   display: flex;
   flex-shrink: 0;
